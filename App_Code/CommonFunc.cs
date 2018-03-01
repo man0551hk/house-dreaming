@@ -13,6 +13,18 @@ public static class CommonFunc
         return GetLanguage();
     }
 
+    public static int GetLanguageID()
+    {
+        int langID = 2;
+        switch (GetLanguage().ToLower())
+        {
+            case "en": langID = 1; break;
+            case "tc": langID = 2; break;
+            case "sc": langID = 3; break;
+        }
+        return langID;
+    }
+
     public static string GetLanguage()
     {
         try

@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lbAny.Text" xml:space="preserve">
+    <value>任何</value>
+  </data>
   <data name="lbDistrict.Text" xml:space="preserve">
     <value>地區</value>
+  </data>
+  <data name="lbKeyword.Text" xml:space="preserve">
+    <value>关键字</value>
   </data>
   <data name="lbListingType.Text" xml:space="preserve">
     <value>樓盤類型</value>

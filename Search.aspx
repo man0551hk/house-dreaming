@@ -1,7 +1,23 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Search.aspx.cs" Inherits="Search" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-
+<style>
+    .box {
+        width:100%;
+        -webkit-box-shadow: 6px 6px 18px -2px rgba(138,134,138,0.81);
+        -moz-box-shadow: 6px 6px 18px -2px rgba(138,134,138,0.81);
+        box-shadow: 6px 6px 18px -2px rgba(138,134,138,0.81);    
+    }
+    .onlyShadow {
+        margin:0px;!important
+        -webkit-box-shadow: 6px 6px 18px -2px rgba(138,134,138,0.81);
+        -moz-box-shadow: 6px 6px 18px -2px rgba(138,134,138,0.81);
+        box-shadow: 6px 6px 18px -2px rgba(138,134,138,0.81);    
+    }
+    .noPadding {
+        padding:0px;
+    }
+</style>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -106,6 +122,37 @@
 
                 <div class="row">
                     <div class="col-md-12">
+                        <div class ="box" style ="width:100%">
+                            <div style ="width:100%; padding:5px 5px 5px 5px;">
+                                <b>Company Name / Logo</b>
+                            </div>
+                           <div style ="width:100%;">
+                                <img src= "/images/5.jpg" style ="width:100%">
+                            </div>
+                            <div style ="width:100%; padding:5px 5px 5px 5px;"">
+                                Listing Title
+                                <br />
+                                Price
+                                <br />
+                                Information
+                            </div>
+                        </div>
+                        <br />
+                        <div class ="row onlyShadow">
+                            <div class="col-md-5 noPadding">
+                                 <img src= "/images/8.jpg" style ="width:100%">
+                            </div>
+                            <div class="col-md-7">
+                                <b>Company Name / Logo</b>
+                                <br />
+                                Listing Title
+                                <br />
+                                Price
+                                <br />
+                                Information
+                            </div>
+              
+                        </div>
                         <asp:UpdatePanel runat="server" ID="searchResultPanel" UpdateMode="Conditional">
                             <ContentTemplate>
                                 <asp:UpdateProgress runat="server" ID ="searchResultUpdateProgress">
@@ -113,10 +160,14 @@
                                         Loading...
                                     </ProgressTemplate>
                                 </asp:UpdateProgress>
-                                <asp:TextBox runat="server" ID="testMsg"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="testMsg" Visible="false"></asp:TextBox>
                                 <asp:Repeater runat ="server" ID ="listingRepeater">
                                     <ItemTemplate>
-                                       
+                                       <div style ="width:100%">
+                                           <div style ="width:100%; height:50px;">
+                                               Logo + Title
+                                           </div>
+                                       </div>
                                     </ItemTemplate>
                                 </asp:Repeater>                            
                             </ContentTemplate>

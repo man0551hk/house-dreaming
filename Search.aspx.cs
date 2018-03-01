@@ -52,7 +52,7 @@ public partial class Search : Page_Control
         string keyword = keywordText.Text;
         string districtID = districtDDL.SelectedValue == "0" ? "" : districtDDL.SelectedValue;
         string room = roomDDL.SelectedValue == "0" ? "" : roomDDL.SelectedValue;
-        string netsize = "between 0 and 999999999";
+        string netsize = "";
         switch (netsizeDDL.SelectedValue)
         {
             case "1": netsize = "between 0 and 200";
@@ -97,16 +97,19 @@ public partial class Search : Page_Control
             case "4": rentprice = ">= 30000";
                 break;
         }
-        SearchListing(keyword, districtID, room, netsize, listingType, saleprice, rentprice);
+        SearchListing(keyword, districtID, room, netsize, listingType, saleprice, rentprice, 1);
     }
 
-    private void SearchListing(string keyword, string districtID, string room, string netsize, string listingType, string saleprice, string rentprice)
+    private void SearchListing(string keyword, string districtID, string room, string netsize, string listingType, string saleprice, string rentprice, int page)
     {
         testMsg.Text = keyword + " " + districtID + " " + room + " " + netsize + " " + listingType + " " + saleprice + " " + rentprice;
         try
         {
             cn.Open();
-            string sql = "";
+            string sql = @"select case @lang when 1 then titleEn when 2 then titleTc when 3 then titleSc end as title, 
+                     case @lang when 1 then districtEn when 2 then districtTc when 3 then districtSc end as district, 
+                     case @lang when 1 then areaEn when 2 then areaTc when 3 then areaSc end as area, 
+                            ";
         }
         catch (Exception ex)
         { }

@@ -29,13 +29,16 @@
     
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
-            <img src = "../images/logo.png" />
+            <a href ="/"><img src = "../images/logo.png" /></a>
             
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">
                      <asp:Literal ID="Literal7" runat = "server" meta:resourceKey="heading"></asp:Literal>
 				</div>
 				<div class="panel-body">
+                    <div runat="server" id ="thanks">
+                        <b><asp:Literal ID="Literal1" runat = "server" meta:resourceKey="thanks"></asp:Literal></b>
+                    </div>
 					<form id="form1" runat="server" role="form">
 						<fieldset>
 							<div class="form-group">

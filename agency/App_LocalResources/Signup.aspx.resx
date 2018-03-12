@@ -192,4 +192,7 @@
   <data name="signUp.Text" xml:space="preserve">
     <value>Sign Up Now</value>
   </data>
+  <data name="thanks.Text" xml:space="preserve">
+    <value>Thanks your sign up! We will verify your application as soon as possible!</value>
+  </data>
 </root>

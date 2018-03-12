@@ -192,4 +192,7 @@
   <data name="signUp.Text" xml:space="preserve">
     <value>立即登記</value>
   </data>
+  <data name="thanks.Text" xml:space="preserve">
+    <value>感謝你的登記，我們會盡快核實你的登記資料!</value>
+  </data>
 </root>

@@ -77,7 +77,7 @@
                                 </asp:DropDownList>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate ="gender" Display="Dynamic" meta:resourceKey="genderError" ForeColor="Red"></asp:RequiredFieldValidator>
 							</div>
-                            <asp:Button runat="server" ID="signupBtn" CssClass ="btn btn-block btn-primary"  meta:resourceKey="login" />
+                            <asp:Button runat="server" ID="signupBtn" CssClass ="btn btn-block btn-primary"  meta:resourceKey="login" OnClick="signupBtn_Click" />
 						</fieldset>
 					</form>
 				</div>

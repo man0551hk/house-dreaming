@@ -119,7 +119,7 @@ input[type="submit"],input[type="reset"],.w3ls_footer_grid_leftl,.w3ls_footer_gr
 .navbar-nav > li > a {
     font-size: 14px;
     text-transform: uppercase;
-    color: #fff!important;
+    color: #000!important;
 }
 .header-bottom {
     position: relative;
@@ -399,7 +399,7 @@ ul.top-links li a i.fa:hover {
    color: #7ab800;
 }
 .w3_navigation {
-      background: #0085c3;
+      background: #f9fafb;
     padding: 0.5em 0;
 }
 .slider-info h3 {
@@ -423,7 +423,7 @@ ul.top-links li a i.fa:hover {
 .w3ls-agile-left h4 {
      font-size: 1.6em;
     margin: 0;
-    color: #0085c3;
+    color: #f9fafb;
     text-transform: uppercase;
     letter-spacing: 2px;
 	margin-bottom: 1em;
@@ -601,7 +601,7 @@ figure.effect-moses:hover img {
     margin-top: 2em;
 }
 .w3l_team_grid p{
-    color: #0085c3;
+    color: #f9fafb;
     text-transform: uppercase;
     font-size: 0.9em;
 }
@@ -937,7 +937,7 @@ figure.effect-moses:hover img {
 }
 .serve-agile-wthree-text h4{
 
-    color: #0085c3;
+    color: #f9fafb;
     font-size: 2.5em;
     letter-spacing: 2px;
 	margin-bottom: 0.5em;
@@ -952,7 +952,7 @@ figure.effect-moses:hover img {
 }
 .agile_banner_bottom_grid h3{
 	font-size:1.8em;
-	color: #0085c3;
+	color: #f9fafb;
 	margin: 0.5em 0 0;
 }
 /* Rectangle Out */
@@ -1287,7 +1287,7 @@ h4.b-from-left{
 }
 .w3_contact_grids input[type="submit"]:hover{
     color: #fff;
-    background: #0085c3;
+    background: #f9fafb;
 }
 .input {
 	position: relative;
@@ -1489,7 +1489,7 @@ h4.b-from-left{
 	text-decoration:none;
 }
 .w3agile_footer_grid ul li a:hover{
-	    color: #0085c3;
+	    color: #f9fafb;
 }
 .w3agile_footer_grid ul li{
     margin-bottom: 1.5em;
@@ -1501,7 +1501,7 @@ h4.b-from-left{
     float: right;
 }
 .copy-right p{
-	    color: #fff;
+	    color: #000;
     line-height: 2em;
     margin: 0;
 }
@@ -1510,7 +1510,7 @@ h4.b-from-left{
 	color:#000;
 }
 .copy-right p a:hover{
-	color:#fff;
+	color:#000;
 }
 .w3agile_footer_grid1 ul li span {
     display: inline-block;
@@ -1520,7 +1520,7 @@ h4.b-from-left{
 .copy-right-social{
     padding: 2em 0 1em;
     position: relative;
-    background: #0085c3;
+    background: #f9fafb;
 }
 .bottom-socila-icons {
     float: right;
@@ -1552,7 +1552,7 @@ a.read:hover{
 .modal-content h5 {
     font-size: 2em;
     margin-top: 0.5em;
-    color: #0085c3;
+    color: #f9fafb;
     letter-spacing: 1px;
 }
 /*-- //footer --*/
@@ -1785,7 +1785,7 @@ a.read:hover{
 	.w3ls-agile-left h4 {
 		font-size: 1.6em;
 		margin: 0;
-		color: #0085c3;
+		color: #f9fafb;
 		text-transform: uppercase;
 		letter-spacing: 2px;
 		margin-bottom: 0.4em;

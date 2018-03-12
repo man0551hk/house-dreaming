@@ -14,6 +14,16 @@
 	<script src="js/html5shiv.js"></script>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+
+    <script type="text/javascript" language="javascript">
+        function validatenumerics(key) {
+            var keycode = (key.which) ? key.which : key.keyCode;
+            if (keycode > 31 && (keycode < 48 || keycode > 57)) {
+                return false;
+            }
+            else return true;
+        }
+    </script>
 </head>
 <body>
     
@@ -30,27 +40,34 @@
 						<fieldset>
 							<div class="form-group">
                                 <asp:TextBox runat="server" ID="companyName" cssClass="form-control" />
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate ="companyName" Display="Dynamic" meta:resourceKey="companyNameError" ForeColor="Red"></asp:RequiredFieldValidator>
 							</div>
                            <div class="form-group">
                                 <asp:TextBox runat="server" ID="companyLicense" cssClass="form-control" />
+                               <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate ="companyLicense" Display="Dynamic" meta:resourceKey="companyLicenseError" ForeColor="Red"></asp:RequiredFieldValidator>
 							</div>
                             <div class="form-group">
                                 <asp:TextBox runat="server" ID="agentName" cssClass="form-control" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate ="agentName" Display="Dynamic" meta:resourceKey="agentNameError" ForeColor="Red"></asp:RequiredFieldValidator>
 							</div>
                             <div class="form-group">
                                 <asp:TextBox runat="server" ID="agentLicense" cssClass="form-control" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate ="agentLicense" Display="Dynamic" meta:resourceKey="agentLicenseError" ForeColor="Red"></asp:RequiredFieldValidator>
 							</div>
 							<div class="form-group">
                                 <asp:TextBox runat="server" ID="email" type="email" cssClass="form-control" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate ="email" Display="Dynamic" meta:resourceKey="emailEmpty" ForeColor="Red"></asp:RequiredFieldValidator>
+                               
 							</div>
 							<div class="form-group">
-                                <asp:TextBox runat="server" ID="mobile" cssClass="form-control" />
+                                <asp:TextBox runat="server" ID="mobile" cssClass="form-control" onkeypress="return validatenumerics(event);"  />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate ="mobile" Display="Dynamic" meta:resourceKey="mobileError" ForeColor="Red"></asp:RequiredFieldValidator>
 							</div>
 							<div class="form-group">
-                                <asp:TextBox runat="server" ID="officePhone" cssClass="form-control" />
+                                <asp:TextBox runat="server" ID="officePhone" cssClass="form-control" onkeypress="return validatenumerics(event);"  />
 							</div>
 							<div class="form-group">
-                                <asp:TextBox runat="server" ID="fax" cssClass="form-control" />
+                                <asp:TextBox runat="server" ID="fax" cssClass="form-control" onkeypress="return validatenumerics(event);"  />
 							</div>
                             <div class="form-group">
                                 <asp:DropDownList runat ="server" ID ="gender" CssClass="form-control">
@@ -58,6 +75,7 @@
                                     <asp:ListItem value = "M" meta:resourceKey="male"></asp:ListItem>
                                     <asp:ListItem value = "F" meta:resourceKey="female"></asp:ListItem>
                                 </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate ="gender" Display="Dynamic" meta:resourceKey="genderError" ForeColor="Red"></asp:RequiredFieldValidator>
 							</div>
                             <asp:Button runat="server" ID="signupBtn" CssClass ="btn btn-block btn-primary"  meta:resourceKey="login" />
 						</fieldset>

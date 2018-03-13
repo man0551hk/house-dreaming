@@ -50,8 +50,12 @@
                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate ="companyLicense" Display="Dynamic" meta:resourceKey="companyLicenseError" ForeColor="Red"></asp:RequiredFieldValidator>
 							</div>
                             <div class="form-group">
-                                <asp:TextBox runat="server" ID="agentName" cssClass="form-control" />
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate ="agentName" Display="Dynamic" meta:resourceKey="agentNameError" ForeColor="Red"></asp:RequiredFieldValidator>
+                                <asp:TextBox runat="server" ID="agentNameEn" cssClass="form-control" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate ="agentNameEn" Display="Dynamic" meta:resourceKey="agentNameEnError" ForeColor="Red"></asp:RequiredFieldValidator>
+							</div>
+                            <div class="form-group">
+                                <asp:TextBox runat="server" ID="agentNameTc" cssClass="form-control" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate ="agentNameTc" Display="Dynamic" meta:resourceKey="agentNameEnError" ForeColor="Red"></asp:RequiredFieldValidator>
 							</div>
                             <div class="form-group">
                                 <asp:TextBox runat="server" ID="agentLicense" cssClass="form-control" />

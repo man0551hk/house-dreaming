@@ -123,11 +123,17 @@
   <data name="agentLicenseError.Text" xml:space="preserve">
     <value>请输入经纪牌照</value>
   </data>
-  <data name="agentName.Text" xml:space="preserve">
-    <value>经纪名称</value>
+  <data name="agentNameEn.Text" xml:space="preserve">
+    <value>经纪名称 (English)</value>
   </data>
   <data name="agentNameError.Text" xml:space="preserve">
     <value>请输经纪名称</value>
+  </data>
+  <data name="agentNameSc.Text" xml:space="preserve">
+    <value>经纪名称 (简)</value>
+  </data>
+  <data name="agentNameTc.Text" xml:space="preserve">
+    <value>经纪名称 (繁)</value>
   </data>
   <data name="companyLicense.Text" xml:space="preserve">
     <value>地产公司牌照</value>

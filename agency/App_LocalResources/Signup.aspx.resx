@@ -123,11 +123,17 @@
   <data name="agentLicenseError.Text" xml:space="preserve">
     <value>Please Input Agent License</value>
   </data>
-  <data name="agentName.Text" xml:space="preserve">
-    <value>Agent Name</value>
+  <data name="agentNameEn.Text" xml:space="preserve">
+    <value>Agent Name (English)</value>
   </data>
   <data name="agentNameError.Text" xml:space="preserve">
     <value>Please Input Agent Name</value>
+  </data>
+  <data name="agentNameSc.Text" xml:space="preserve">
+    <value>Agent Name (简)</value>
+  </data>
+  <data name="agentNameTc.Text" xml:space="preserve">
+    <value>Agent Name (繁)</value>
   </data>
   <data name="companyLicense.Text" xml:space="preserve">
     <value>Agency Company License</value>

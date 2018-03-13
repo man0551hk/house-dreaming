@@ -16,7 +16,8 @@ public partial class agency_signup : Agency_Page_Control
         {
             companyName.Attributes.Add("placeholder", (string)GetLocalResourceObject("companyName.Text"));
             companyLicense.Attributes.Add("placeholder", (string)GetLocalResourceObject("companyLicense.Text"));
-            agentName.Attributes.Add("placeholder", (string)GetLocalResourceObject("agentName.Text"));
+            agentNameEn.Attributes.Add("placeholder", (string)GetLocalResourceObject("agentNameEn.Text"));
+            agentNameTc.Attributes.Add("placeholder", (string)GetLocalResourceObject("agentNameTc.Text"));
             agentLicense.Attributes.Add("placeholder", (string)GetLocalResourceObject("agentLicense.Text"));
             email.Attributes.Add("placeholder", (string)GetLocalResourceObject("email.Text"));
             mobile.Attributes.Add("placeholder", (string)GetLocalResourceObject("mobile.Text"));
@@ -31,13 +32,13 @@ public partial class agency_signup : Agency_Page_Control
         try
         {
             cn.Open();
-            MySqlCommand cmd = new MySqlCommand(@"insert into agency (companyName, companyLicense, agentName, agentLicense, email, mobile, officePhone, fax, gender, createDate)
+            MySqlCommand cmd = new MySqlCommand(@"insert into agency (companyName, companyLicense, agentNameEn, agentLicense, email, mobile, officePhone, fax, gender, createDate)
                                                     values 
-                                                   (@companyName, @companyLicense, @agentName, @agentLicense, @email, @mobile, @officePhone, @fax, @gender, NOW())", cn);
+                                                   (@companyName, @companyLicense, @agentNameEn, @agentLicense, @email, @mobile, @officePhone, @fax, @gender, NOW())", cn);
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.Add("@companyName", MySqlDbType.VarChar).Value = companyName.Text;
             cmd.Parameters.Add("@companyLicense", MySqlDbType.VarChar).Value = companyLicense.Text;
-            cmd.Parameters.Add("@agentName", MySqlDbType.VarChar).Value = agentName.Text;
+            cmd.Parameters.Add("@agentNameEn", MySqlDbType.VarChar).Value = agentNameEn.Text;
             cmd.Parameters.Add("@agentLicense", MySqlDbType.VarChar).Value = agentLicense.Text;
             cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = email.Text;
             cmd.Parameters.Add("@mobile", MySqlDbType.Int32).Value = Convert.ToInt32(mobile.Text);

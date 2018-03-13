@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/admin/MasterPage.master" AutoEventWireup="true" CodeFile="Agency.aspx.cs" Inherits="admin_Agency" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/admin/MasterPage.master" AutoEventWireup="true" CodeFile="Agency.aspx.cs" Inherits="admin_Agency" ClientIDMode="AutoID" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -21,7 +21,7 @@
     <div class="col-md-12">
         <div class="panel panel-primary">
 	        <div class="panel-heading">New Sign Up Agencies
-		        <%--<span class="pull-right clickable panel-toggle"><em class="fa fa-toggle-up"></em></span>--%>
+		        <span class="pull-right clickable panel-toggle"><em class="fa fa-toggle-up"></em></span>
 	        </div>
 	        <div class="panel-body">
                 <asp:UpdatePanel runat="server" ID="agencyPanel" UpdateMode="Conditional" ChildrenAsTriggers="true">
@@ -31,6 +31,7 @@
                                 Loading...
                             </ProgressTemplate>
                         </asp:UpdateProgress>
+                        <asp:TextBox runat="server" ID="testMsg"></asp:TextBox>
                         <asp:Repeater runat ="server" ID ="agencyRepeater">
                             <ItemTemplate>
                                 <asp:HiddenField runat="server" ID ="hiddenAgencyID" Value = '<%# DataBinder.Eval(Container, "DataItem.agencyID")%>' />
@@ -56,7 +57,7 @@
                                         <td><b>Fax:</b>: </td><td><%# DataBinder.Eval(Container, "DataItem.fax").ToString() == "0" ? "" : DataBinder.Eval(Container, "DataItem.fax").ToString()%></td>
                                     </tr>
                                     <tr>
-                                        <td><asp:Button runat="server" ID ="approveBtn" Text="Approve" CssClass="btn btn-block" /></td>
+                                        <td><asp:Button runat="server" ID ="approveBtn" Text="Approve" CssClass="btn btn-block" OnClick="approveBtn_Click" /></td>
                                     </tr>
                                 </table>
                                 <hr />

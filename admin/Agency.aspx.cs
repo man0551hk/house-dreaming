@@ -41,12 +41,23 @@ public partial class admin_Agency : System.Web.UI.Page
             cn.Close();
         }
 
-        //for (int i = 0; i < agencyRepeater.Items.Count; i++)
-        //{
-        //    Button approveBtn = agencyRepeater.Items[i].FindControl("approveBtn") as Button;
-        //    AsyncPostBackTrigger trigger = new AsyncPostBackTrigger();
-        //    trigger.ControlID = approveBtn.ClientID;
-        //    agencyPanel.Triggers.Add(trigger);
-        //}
+        for (int i = 0; i < agencyRepeater.Items.Count; i++)
+        {
+            Button approveBtn = agencyRepeater.Items[i].FindControl("approveBtn") as Button;
+            AsyncPostBackTrigger trigger = new AsyncPostBackTrigger();
+            trigger.ControlID = approveBtn.UniqueID;
+            trigger.EventName = "Click";
+            agencyPanel.Triggers.Add(trigger);
+        }
+    }
+
+    protected void approveBtn_Click(object sender, EventArgs e)
+    {
+        Button approveBtn = sender as Button;
+        RepeaterItem ri = (RepeaterItem)approveBtn.NamingContainer;
+        HiddenField hfAgencyID = ri.FindControl("hiddenAgencyID") as HiddenField;
+        string agencyID = hfAgencyID.Value;
+
+
     }
 }

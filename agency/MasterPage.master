@@ -22,7 +22,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" role="form">
 	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -90,19 +90,21 @@
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<div class="profile-sidebar">
 			<div class="profile-userpic">
-				<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
+                <asp:Image runat="server" ID ="profileUrl" CssClass="img-responsive" alt="" />
 			</div>
 			<div class="profile-usertitle">
-				<div class="profile-usertitle-name">Username</div>
-				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
+				<div class="profile-usertitle-name"><asp:Literal runat="server" id ="username"></asp:Literal></div>
+				<%--<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>--%>
 			</div>
 			<div class="clear"></div>
 		</div>
 		<div class="divider"></div>
 
 		<ul class="nav menu">
-			<li class="active"><a href="index.html"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-           
+			<li><a href="Default.aspx"><em class="fa fa-dashboard">&nbsp;</em> <asp:Literal ID="Literal2" runat = "server" meta:resourceKey="menuDashboard"></asp:Literal></a></li>
+            <li><a href ="Listing.aspx"><em class="fa fa-th-list">&nbsp;</em> <asp:Literal ID="Literal1" runat = "server" meta:resourceKey="menuListing"></asp:Literal></a></li>
+
+            <li><a href ="ChangeLang.aspx?lang=en">En</a><a href ="ChangeLang.aspx?lang=tc">繁</a><a href ="ChangeLang.aspx?lang=sc">简</a></li>
 			<li><a href="widgets.html"><em class="fa fa-calendar">&nbsp;</em> Widgets</a></li>
 			<li><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Charts</a></li>
 			<li><a href="elements.html"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>

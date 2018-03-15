@@ -14,6 +14,7 @@ public partial class admin_Agency : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+
             LoadAgency();
         }
     }
@@ -31,8 +32,6 @@ public partial class admin_Agency : System.Web.UI.Page
 
             agencyRepeater.DataSource = ds;
             agencyRepeater.DataBind();
-
-
         }
         catch (Exception ex)
         { }
@@ -58,6 +57,32 @@ public partial class admin_Agency : System.Web.UI.Page
         HiddenField hfAgencyID = ri.FindControl("hiddenAgencyID") as HiddenField;
         string agencyID = hfAgencyID.Value;
 
+        try
+        { 
+            //generate password
+            string password = CommonFunc.GeneratePassword();
+            string encryptPassword = Crypto.EncryptMD5(password);
+            
+            cn.Open();
+            MySqlCommand cmd = new MySqlCommand("update agency set password = @password, verifyDate = NOW() where agencyID = @agencyID", cn);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@password", MySqlDbType.VarChar).Value = encryptPassword;
+            cmd.Parameters.Add("@agencyID", MySqlDbType.Int32).Value = agencyID;
+            cmd.ExecuteNonQuery();
 
+
+            //send email
+        }
+        catch (Exception ex)
+        {
+        
+        }
+        finally
+        {
+            cn.Close();
+        }
+        LoadAgency();
     }
 }
+
+//EAAAAPHfH14eEdp54RLf2j2zyCjj3R8q8HB1+Rl2+Yzhd83l

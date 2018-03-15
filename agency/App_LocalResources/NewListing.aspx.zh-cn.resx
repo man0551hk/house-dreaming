@@ -117,103 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="accept.Text" xml:space="preserve">
-    <value>同意 House Dreaming的使用细则、条款及私隐政策</value>
+  <data name="breadcrumb.Text" xml:space="preserve">
+    <value>新增楼盘</value>
   </data>
-  <data name="acceptError.Text" xml:space="preserve">
-    <value>请同意 House Dreaming的使用细则、条款及私隐政策</value>
+  <data name="buildingNameEn.Text" xml:space="preserve">
+    <value>大厦名称 (English)</value>
   </data>
-  <data name="agentLicense.Text" xml:space="preserve">
-    <value>经纪牌照</value>
+  <data name="buildingNameTc.Text" xml:space="preserve">
+    <value>大厦名称 (繁)</value>
   </data>
-  <data name="agentLicenseError.Text" xml:space="preserve">
-    <value>请输入经纪牌照</value>
+  <data name="openRoom.Text" xml:space="preserve">
+    <value>开房式</value>
   </data>
-  <data name="agentNameEn.Text" xml:space="preserve">
-    <value>经纪名称 (English)</value>
+  <data name="roomNum.Text" xml:space="preserve">
+    <value>房间数目</value>
   </data>
-  <data name="agentNameError.Text" xml:space="preserve">
-    <value>请输经纪名称</value>
+  <data name="selectArea.Text" xml:space="preserve">
+    <value>请选择区域</value>
   </data>
-  <data name="agentNameSc.Text" xml:space="preserve">
-    <value>经纪名称 (简)</value>
-  </data>
-  <data name="agentNameTc.Text" xml:space="preserve">
-    <value>经纪名称 (繁)</value>
-  </data>
-  <data name="companyLicense.Text" xml:space="preserve">
-    <value>地产公司牌照</value>
-  </data>
-  <data name="companyLicenseError.Text" xml:space="preserve">
-    <value>请输入地产公司牌照</value>
-  </data>
-  <data name="companyNameEn.Text" xml:space="preserve">
-    <value>地产公司名称 (English)</value>
-  </data>
-  <data name="companyNameEnError.Text" xml:space="preserve">
-    <value>请输入地产公司名称</value>
-  </data>
-  <data name="companyNameSc.Text" xml:space="preserve">
-    <value>地产公司名称 (简)</value>
-  </data>
-  <data name="companyNameTc.Text" xml:space="preserve">
-    <value>地产公司名称 (繁)</value>
-  </data>
-  <data name="email.Text" xml:space="preserve">
-    <value>电邮</value>
-  </data>
-  <data name="emailEmpty.Text" xml:space="preserve">
-    <value>请输入电邮</value>
-  </data>
-  <data name="emailError.Text" xml:space="preserve">
-    <value>请输入正确电邮</value>
-  </data>
-  <data name="errorDiv.Text" xml:space="preserve">
-    <value>电邮或手提电话已登记</value>
-  </data>
-  <data name="fax.Text" xml:space="preserve">
-    <value>传真号码</value>
-  </data>
-  <data name="female.Text" xml:space="preserve">
-    <value>女</value>
-  </data>
-  <data name="forgetPassword.Text" xml:space="preserve">
-    <value>忘记密码</value>
-  </data>
-  <data name="gender.Text" xml:space="preserve">
-    <value>性別</value>
-  </data>
-  <data name="genderError.Text" xml:space="preserve">
-    <value>请选择性別</value>
-  </data>
-  <data name="heading.Text" xml:space="preserve">
-    <value>经纪系统登记</value>
-  </data>
-  <data name="login.Text" xml:space="preserve">
-    <value>登记</value>
-  </data>
-  <data name="male.Text" xml:space="preserve">
-    <value>男</value>
-  </data>
-  <data name="mobile.Text" xml:space="preserve">
-    <value>手提电话</value>
-  </data>
-  <data name="mobileError.Text" xml:space="preserve">
-    <value>请输入手提电话</value>
-  </data>
-  <data name="officePhone.Text" xml:space="preserve">
-    <value>公司电话</value>
-  </data>
-  <data name="password.Text" xml:space="preserve">
-    <value>密码</value>
-  </data>
-  <data name="rememberMe.Text" xml:space="preserve">
-    <value>保持登入</value>
-  </data>
-  <data name="signUp.Text" xml:space="preserve">
-    <value>立即登记</value>
-  </data>
-  <data name="thanks.Text" xml:space="preserve">
-    <value>感谢你的登记，我们会尽快核实你的登记资料!</value>
+  <data name="selectDistrict.Text" xml:space="preserve">
+    <value>请选择地区</value>
   </data>
 </root>

@@ -120,6 +120,12 @@
   <data name="email.Text" xml:space="preserve">
     <value>電郵</value>
   </data>
+  <data name="emailError.Text" xml:space="preserve">
+    <value>請輸入電郵</value>
+  </data>
+  <data name="errorDiv.Text" xml:space="preserve">
+    <value>登入失敗</value>
+  </data>
   <data name="forgetPassword.Text" xml:space="preserve">
     <value>忘記密碼</value>
   </data>
@@ -131,6 +137,9 @@
   </data>
   <data name="password.Text" xml:space="preserve">
     <value>密碼</value>
+  </data>
+  <data name="passwordError.Text" xml:space="preserve">
+    <value>請輸入密碼</value>
   </data>
   <data name="rememberMe.Text" xml:space="preserve">
     <value>保持登入</value>

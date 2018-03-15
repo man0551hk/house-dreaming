@@ -120,6 +120,12 @@
   <data name="email.Text" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="emailError.Text" xml:space="preserve">
+    <value>Please Input Email</value>
+  </data>
+  <data name="errorDiv.Text" xml:space="preserve">
+    <value>Login Failed.</value>
+  </data>
   <data name="forgetPassword.Text" xml:space="preserve">
     <value>Forget Password</value>
   </data>
@@ -131,6 +137,9 @@
   </data>
   <data name="password.Text" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="passwordError.Text" xml:space="preserve">
+    <value>Please Input Password</value>
   </data>
   <data name="rememberMe.Text" xml:space="preserve">
     <value>Remeber Me</value>

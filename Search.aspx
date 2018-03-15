@@ -35,7 +35,8 @@
             <div class ="col-md-3">
                 <b><asp:Literal ID="Literal2" runat = "server" meta:resourceKey="lbRoom"></asp:Literal></b>
                 <asp:DropDownList ID="roomDDL" runat="server"  CssClass="form-control">
-                    <asp:ListItem Value="0" meta:resourceKey="lbAny"></asp:ListItem>
+                    <asp:ListItem Value="" meta:resourceKey="lbAny"></asp:ListItem>
+                    <asp:ListItem Value="0" Text ="9+"></asp:ListItem>
                     <asp:ListItem Value="1" Text ="1"></asp:ListItem>
                     <asp:ListItem Value="2" Text ="2"></asp:ListItem>
                     <asp:ListItem Value="3" Text ="3"></asp:ListItem>
@@ -45,13 +46,13 @@
                     <asp:ListItem Value="7" Text ="7"></asp:ListItem>
                     <asp:ListItem Value="8" Text ="8"></asp:ListItem>
                     <asp:ListItem Value="9" Text ="9"></asp:ListItem>
-                    <asp:ListItem Value="0" Text ="9+"></asp:ListItem>
+                    <asp:ListItem Value="10" Text ="9+"></asp:ListItem>
                 </asp:DropDownList>
             </div>
             <div class ="col-md-3">
                 <b><asp:Literal ID="Literal3" runat = "server" meta:resourceKey="lbNetSize"></asp:Literal></b>
                 <asp:DropDownList ID="netsizeDDL" runat="server"  CssClass="form-control">
-                    <asp:ListItem Value="0" meta:resourceKey="lbAny"></asp:ListItem>
+                    <asp:ListItem Value="" meta:resourceKey="lbAny"></asp:ListItem>
                     <asp:ListItem Value = "1" meta:resourceKey="size1"></asp:ListItem>
                     <asp:ListItem Value = "2" meta:resourceKey="size2"></asp:ListItem>
                     <asp:ListItem Value = "3" meta:resourceKey="size3"></asp:ListItem>

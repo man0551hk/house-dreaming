@@ -152,8 +152,6 @@ namespace HouseDreaming
         protected override void OnPreInit(EventArgs e)
         {
         }
-
-
     }
 
     public class Agency_Kernel
@@ -256,6 +254,29 @@ namespace HouseDreaming
                 catch (Exception ex) { }
             }
         }
+
+        public static void SaveAgencyIDCookie(int agencyID)
+        {
+            HttpCookie cookie1 = HttpContext.Current.Request.Cookies["House_Dreaming_Agency_ID"];
+            if (cookie1 == null)
+            {
+                HttpCookie objCookie = new HttpCookie("House_Dreaming_Agency_ID");
+                objCookie.Value = agencyID.ToString();
+                objCookie.Expires = DateTime.Now.AddDays(30);
+                objCookie.Domain = ConfigurationSettings.AppSettings["HomeDomain"].ToString();
+                HttpContext.Current.Response.Cookies.Add(objCookie);
+            }
+            else
+            {
+                try
+                {
+                    cookie1.Value = agencyID.ToString();
+                    cookie1.Domain = ConfigurationSettings.AppSettings["HomeDomain"].ToString();
+                    HttpContext.Current.Response.Cookies.Add(cookie1);
+                }
+                catch (Exception ex) { }
+            }
+        }
     }
 
     public class Agency_Page_Control : Page
@@ -263,10 +284,18 @@ namespace HouseDreaming
         public Agency_Page_Control()
         {
             string langcode = string.Empty;
-            if (!string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["lang"]))
+            if (!string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["House_Dreaming_Agency_Lang"]))
             {
-                langcode = HttpContext.Current.Request.QueryString["lang"].ToString();
+                langcode = HttpContext.Current.Request.QueryString["House_Dreaming_Agency_Lang"].ToString();
                 Agency_Kernel.SaveLanguage(langcode);
+                //HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl.ToString().Replace("?lang=" + langcode, string.Empty));
+            }
+
+            if (!string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["House_Dreaming_Agency_ID"]))
+            {
+                string agencyID = HttpContext.Current.Request.QueryString["House_Dreaming_Agency_ID"].ToString();
+                Agency_Kernel.SaveAgencyIDCookie(Convert.ToInt32(agencyID));
+                Session["agencyID"] = agencyID;
                 //HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl.ToString().Replace("?lang=" + langcode, string.Empty));
             }
         }
@@ -279,7 +308,7 @@ namespace HouseDreaming
         {
             string language = "zh-hk";
 
-            switch (Kernel.GetLanguageCode().ToLower())
+            switch (Agency_Kernel.GetLanguageCode().ToLower())
             {
                 case "en":
                     language = "en-us";
@@ -299,8 +328,29 @@ namespace HouseDreaming
         protected override void OnPreInit(EventArgs e)
         {
         }
-
-
     }
 
+    public class Agency_Master_Menu_Control : UserControl
+    {
+        protected override void FrameworkInitialize()
+        {
+            string language = "zh-hk";
+
+            switch (Agency_Kernel.GetLanguageCode().ToLower())
+            {
+                case "en":
+                    language = "en-us";
+                    break;
+                case "tc":
+                    language = "zh-hk";
+                    break;
+                case "sc":
+                    language = "zh-cn";
+                    break;
+            }
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
+            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+            base.FrameworkInitialize();
+        }
+    }
 }

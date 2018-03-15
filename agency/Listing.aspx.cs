@@ -7,10 +7,13 @@ using System.Web.UI.WebControls;
 using HouseDreaming;
 using MySql.Data.MySqlClient;
 
-public partial class agency_Default : Agency_Page_Control
+public partial class agency_Listing : Agency_Page_Control
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!IsPostBack)
+        { 
+        
+        }
     }
 }

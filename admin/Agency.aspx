@@ -31,13 +31,13 @@
                                 Loading...
                             </ProgressTemplate>
                         </asp:UpdateProgress>
-                        <asp:TextBox runat="server" ID="testMsg"></asp:TextBox>
+                        
                         <asp:Repeater runat ="server" ID ="agencyRepeater">
                             <ItemTemplate>
                                 <asp:HiddenField runat="server" ID ="hiddenAgencyID" Value = '<%# DataBinder.Eval(Container, "DataItem.agencyID")%>' />
                                 <table>
                                     <tr>
-                                        <td><b>Company Name:</b>&nbsp;</td><td><%# DataBinder.Eval(Container, "DataItem.companyName")%>&nbsp;</td>
+                                        <td><b>Company Name:</b>&nbsp;</td><td><%# DataBinder.Eval(Container, "DataItem.companyNameEn")%>&nbsp;<%# DataBinder.Eval(Container, "DataItem.companyNameTc")%></td>
                                         <td><b>License:</b>&nbsp;<td><%# DataBinder.Eval(Container, "DataItem.companyLicense")%></td></td>
                                     </tr>
                                     <tr>

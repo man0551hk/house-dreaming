@@ -120,22 +120,43 @@
   <data name="breadcrumb.Text" xml:space="preserve">
     <value>New Listing</value>
   </data>
+  <data name="descEn.Text" xml:space="preserve">
+    <value>Description (English)</value>
+  </data>
+  <data name="descTc.Text" xml:space="preserve">
+    <value>Description (繁)</value>
+  </data>
   <data name="listingTitleEn.Text" xml:space="preserve">
     <value>Building Name (English)</value>
   </data>
   <data name="listingTitleTc.Text" xml:space="preserve">
     <value>Building Name (繁)</value>
   </data>
+  <data name="netSize.Text" xml:space="preserve">
+    <value>Saleable Size</value>
+  </data>
   <data name="openRoom.Text" xml:space="preserve">
     <value>Open Room</value>
   </data>
+  <data name="rentPrice.Text" xml:space="preserve">
+    <value>Rent Price</value>
+  </data>
   <data name="roomNum.Text" xml:space="preserve">
     <value>Room No.</value>
+  </data>
+  <data name="salePrice.Text" xml:space="preserve">
+    <value>Sale Price</value>
+  </data>
+  <data name="saveBtn.Text" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="selectArea.Text" xml:space="preserve">
     <value>Please Select Area</value>
   </data>
   <data name="selectDistrict.Text" xml:space="preserve">
     <value>Please Select District</value>
+  </data>
+  <data name="size.Text" xml:space="preserve">
+    <value>Built up Size</value>
   </data>
 </root>

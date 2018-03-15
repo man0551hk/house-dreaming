@@ -16,6 +16,14 @@ public partial class agency_NewListing : Agency_Page_Control
     {
         titleEn.Attributes.Add("placeholder", (string)GetLocalResourceObject("buildingNameEn.Text"));
         titleTc.Attributes.Add("placeholder", (string)GetLocalResourceObject("buildingNameTc.Text"));
+        size.Attributes.Add("placeholder", (string)GetLocalResourceObject("size.Text"));
+        netSize.Attributes.Add("placeholder", (string)GetLocalResourceObject("netSize.Text"));
+        salePrice.Attributes.Add("placeholder", (string)GetLocalResourceObject("salePrice.Text"));
+        rentPrice.Attributes.Add("placeholder", (string)GetLocalResourceObject("rentPrice.Text"));
+        youtubeID.Attributes.Add("placeholder", "Youtube ID");
+        descEn.Attributes.Add("placeholder", (string)GetLocalResourceObject("descEn.Text"));
+        descTc.Attributes.Add("placeholder", (string)GetLocalResourceObject("descTc.Text"));
+
         if (!IsPostBack)
         {
             LoadArea();
@@ -78,5 +86,10 @@ public partial class agency_NewListing : Agency_Page_Control
         {
             cn.Close();
         }
+    }
+
+    protected void saveBtn_Click(object sender, EventArgs e)
+    {
+
     }
 }

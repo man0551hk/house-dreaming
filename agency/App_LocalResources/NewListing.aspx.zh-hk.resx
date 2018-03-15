@@ -126,16 +126,37 @@
   <data name="buildingNameTc.Text" xml:space="preserve">
     <value>大廈名稱 (繁)</value>
   </data>
+  <data name="descEn.Text" xml:space="preserve">
+    <value>樓盤介紹 (English)</value>
+  </data>
+  <data name="descTc.Text" xml:space="preserve">
+    <value>樓盤介紹 (繁)</value>
+  </data>
+  <data name="netSize.Text" xml:space="preserve">
+    <value>實用面積</value>
+  </data>
   <data name="openRoom.Text" xml:space="preserve">
     <value>開房式</value>
   </data>
+  <data name="rentPrice.Text" xml:space="preserve">
+    <value>租價</value>
+  </data>
   <data name="roomNum.Text" xml:space="preserve">
     <value>房間數目</value>
+  </data>
+  <data name="salePrice.Text" xml:space="preserve">
+    <value>賣價</value>
+  </data>
+  <data name="saveBtn.Text" xml:space="preserve">
+    <value>儲存</value>
   </data>
   <data name="selectArea.Text" xml:space="preserve">
     <value>請選擇區域</value>
   </data>
   <data name="selectDistrict.Text" xml:space="preserve">
     <value>請選擇地區</value>
+  </data>
+  <data name="size.Text" xml:space="preserve">
+    <value>建築面積</value>
   </data>
 </root>

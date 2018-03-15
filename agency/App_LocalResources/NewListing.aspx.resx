@@ -120,17 +120,17 @@
   <data name="breadcrumb.Text" xml:space="preserve">
     <value>New Listing</value>
   </data>
+  <data name="buildingNameEn.Text" xml:space="preserve">
+    <value>Building Name (English)</value>
+  </data>
+  <data name="buildingNameTc.Text" xml:space="preserve">
+    <value>Building Name (繁)</value>
+  </data>
   <data name="descEn.Text" xml:space="preserve">
     <value>Description (English)</value>
   </data>
   <data name="descTc.Text" xml:space="preserve">
     <value>Description (繁)</value>
-  </data>
-  <data name="listingTitleEn.Text" xml:space="preserve">
-    <value>Building Name (English)</value>
-  </data>
-  <data name="listingTitleTc.Text" xml:space="preserve">
-    <value>Building Name (繁)</value>
   </data>
   <data name="netSize.Text" xml:space="preserve">
     <value>Saleable Size</value>
@@ -158,5 +158,11 @@
   </data>
   <data name="size.Text" xml:space="preserve">
     <value>Built up Size</value>
+  </data>
+  <data name="subTitleEn.Text" xml:space="preserve">
+    <value>Sub Title (English)</value>
+  </data>
+  <data name="subTitleTc.Text" xml:space="preserve">
+    <value>Sub Title (繁)</value>
   </data>
 </root>

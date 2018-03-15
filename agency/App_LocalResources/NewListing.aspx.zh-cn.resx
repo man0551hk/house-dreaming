@@ -159,4 +159,10 @@
   <data name="size.Text" xml:space="preserve">
     <value>建筑面积</value>
   </data>
+  <data name="subTitleEn.Text" xml:space="preserve">
+    <value>Sub Title (English)</value>
+  </data>
+  <data name="subTitleTc.Text" xml:space="preserve">
+    <value>Sub Title (繁)</value>
+  </data>
 </root>

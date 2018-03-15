@@ -20,6 +20,10 @@ public partial class agency_MasterPage : System.Web.UI.MasterPage
         {
             LoadAgencyProfile();
         }
+        else
+        {
+            Response.Redirect("Login.aspx");
+        }
         
     }
 

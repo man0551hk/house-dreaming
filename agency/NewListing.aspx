@@ -62,6 +62,12 @@
 			            <asp:TextBox runat="server" ID="titleTc" CssClass="form-control"></asp:TextBox>
 		            </div>
 		            <div class="form-group">
+			            <asp:TextBox runat="server" ID="subTitleEn" CssClass="form-control"></asp:TextBox>
+		            </div>
+		            <div class="form-group">
+			            <asp:TextBox runat="server" ID="subTitleTc" CssClass="form-control"></asp:TextBox>
+		            </div>
+		            <div class="form-group">
 			            <asp:DropDownList runat="server" ID ="roomDDL" CssClass="form-control">
                             <asp:ListItem Value="0" meta:resourceKey ="roomNum" selected disabled hidden></asp:ListItem>
                             <asp:ListItem Value="-" meta:resourceKey ="openRoom"></asp:ListItem>

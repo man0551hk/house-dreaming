@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Amazon.S3;
+using Amazon.S3.Model;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -91,5 +95,96 @@ public static class CommonFunc
             successful = false;
         }
         return successful;
+    }
+
+    public static string GetAreaName(int areaID)
+    {
+        string area = "";
+        MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+        try
+        {
+            cn.Open();
+            MySqlCommand cmd = new MySqlCommand("select areaEn, areaTc, areaSc from area where areaID = @areaID", cn);
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.Parameters.Add("@areaID", MySqlDbType.Int32).Value = areaID;
+            MySqlDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                area = dr["areaEn"].ToString() + " " + dr["areaTc"].ToString() + " " + dr["areaSc"].ToString();
+            }
+            dr.Close();
+        }
+        catch (Exception ex)
+        { }
+        finally
+        {
+            cn.Close();
+        }
+        return area;
+    }
+
+    public static string GetDistictName(int districtID)
+    {
+        string district = "";
+        MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+        try
+        {
+            cn.Open();
+            MySqlCommand cmd = new MySqlCommand("select districtEn, districtTc, districtSc from district where districtID = @districtID", cn);
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.Parameters.Add("@districtID", MySqlDbType.Int32).Value = districtID;
+            MySqlDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                district = dr["districtEn"].ToString() + " " + dr["districtTc"].ToString() + " " + dr["districtSc"].ToString();
+            }
+            dr.Close();
+        }
+        catch (Exception ex)
+        { }
+        finally
+        {
+            cn.Close();
+        }
+        return district;
+    }
+
+    public static void UploadImageS3(string fileName, MemoryStream fileStream)
+    {
+        string accessKey = "";
+        string secretKey = "";
+        try
+        {
+            AmazonS3 client;
+            AmazonS3Config config = new AmazonS3Config().WithCommunicationProtocol(Protocol.HTTP);
+            using (client = Amazon.AWSClientFactory.CreateAmazonS3Client(accessKey, secretKey, config))
+            {
+                PutObjectRequest request = new PutObjectRequest();
+                request.WithBucketName("traffiti");
+                request.WithCannedACL(S3CannedACL.PublicRead);
+                request.WithKey(fileName).InputStream = fileStream;
+                request.AddHeaders(Amazon.S3.Util.AmazonS3Util.CreateHeaderEntry("Cache-Control", "max-age=31536000"));
+
+                S3Response response = client.PutObject(request);
+            }
+
+        }
+        catch (AmazonS3Exception amazonS3Exception)
+        {
+            if (amazonS3Exception.ErrorCode != null &&
+                (amazonS3Exception.ErrorCode.Equals("InvalidAccessKeyId")
+                ||
+                amazonS3Exception.ErrorCode.Equals("InvalidSecurity")))
+            {
+                Console.WriteLine("Check the provided AWS Credentials.");
+                Console.WriteLine("For service sign up go to http://aws.amazon.com/s3");
+            }
+            else
+            {
+                Console.WriteLine(
+                    "Error occurred. Message:'{0}' when writing an object"
+                    , amazonS3Exception.Message);
+            }
+        }
     }
 }

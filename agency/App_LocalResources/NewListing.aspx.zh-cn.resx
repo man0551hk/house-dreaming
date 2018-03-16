@@ -117,14 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="bathroomNum.Text" xml:space="preserve">
+    <value>浴室/洗手间数目</value>
+  </data>
+  <data name="bathroomNumError.Text" xml:space="preserve">
+    <value>请选择浴室/洗手间数目</value>
+  </data>
   <data name="breadcrumb.Text" xml:space="preserve">
     <value>新增楼盘</value>
   </data>
   <data name="buildingNameEn.Text" xml:space="preserve">
     <value>大厦名称 (English)</value>
   </data>
+  <data name="buildingNameEnError.Text" xml:space="preserve">
+    <value>请输入大厦名称 (English)</value>
+  </data>
   <data name="buildingNameTc.Text" xml:space="preserve">
     <value>大厦名称 (繁)</value>
+  </data>
+  <data name="buildingNameTcError.Text" xml:space="preserve">
+    <value>请输入大厦名称 (繁)</value>
   </data>
   <data name="descEn.Text" xml:space="preserve">
     <value>楼盘介绍 (English)</value>
@@ -132,20 +144,41 @@
   <data name="descTc.Text" xml:space="preserve">
     <value>楼盘介绍 (繁)</value>
   </data>
+  <data name="listingTypeError.Text" xml:space="preserve">
+    <value>请选择卖盘/租盘</value>
+  </data>
   <data name="netSize.Text" xml:space="preserve">
     <value>实用面积</value>
+  </data>
+  <data name="netSizeError.Text" xml:space="preserve">
+    <value>请输入实用面积</value>
   </data>
   <data name="openRoom.Text" xml:space="preserve">
     <value>开房式</value>
   </data>
+  <data name="rent.Text" xml:space="preserve">
+    <value>租盘</value>
+  </data>
   <data name="rentPrice.Text" xml:space="preserve">
     <value>租价</value>
+  </data>
+  <data name="rentPriceError.Text" xml:space="preserve">
+    <value>请输入租价</value>
   </data>
   <data name="roomNum.Text" xml:space="preserve">
     <value>房间数目</value>
   </data>
+  <data name="roomNumError.Text" xml:space="preserve">
+    <value>请选择房间数目</value>
+  </data>
+  <data name="sale.Text" xml:space="preserve">
+    <value>卖盘</value>
+  </data>
   <data name="salePrice.Text" xml:space="preserve">
     <value>卖价</value>
+  </data>
+  <data name="salePriceError.Text" xml:space="preserve">
+    <value>请输入卖价</value>
   </data>
   <data name="saveBtn.Text" xml:space="preserve">
     <value>储存</value>
@@ -159,10 +192,16 @@
   <data name="size.Text" xml:space="preserve">
     <value>建筑面积</value>
   </data>
+  <data name="sizeError.Text" xml:space="preserve">
+    <value>请输入建筑面积</value>
+  </data>
+  <data name="sizeLarge.Text" xml:space="preserve">
+    <value>实用面积不能大于建筑面积</value>
+  </data>
   <data name="subTitleEn.Text" xml:space="preserve">
-    <value>Sub Title (English)</value>
+    <value>副标题 (English)</value>
   </data>
   <data name="subTitleTc.Text" xml:space="preserve">
-    <value>Sub Title (繁)</value>
+    <value>副标题 (繁)</value>
   </data>
 </root>

@@ -57,8 +57,7 @@
 				</div>
 				<div class="form-group">
                     <asp:TextBox runat="server" ID="email" type="email" cssClass="form-control" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate ="email" Display="Dynamic" meta:resourceKey="emailEmpty" ForeColor="Red"></asp:RequiredFieldValidator>
-                               
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate ="email" Display="Dynamic" meta:resourceKey="emailEmpty" ForeColor="Red"></asp:RequiredFieldValidator>       
 				</div>
 				<div class="form-group">
                     <asp:TextBox runat="server" ID="mobile" cssClass="form-control" onkeypress="return validatenumerics(event);"  />

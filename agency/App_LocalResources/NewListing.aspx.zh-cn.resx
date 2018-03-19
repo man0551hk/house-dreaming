@@ -144,6 +144,9 @@
   <data name="descTc.Text" xml:space="preserve">
     <value>楼盘介绍 (繁)</value>
   </data>
+  <data name="listingBreadcrumb.Text" xml:space="preserve">
+    <value>楼盘管理</value>
+  </data>
   <data name="listingTypeError.Text" xml:space="preserve">
     <value>请选择卖盘/租盘</value>
   </data>

@@ -9,13 +9,24 @@ public partial class agency_test : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!IsPostBack)
+        { 
+        
+        }
     }
     protected void btn_Click(object sender, EventArgs e)
     {
-        if (fileUpload.HasFile)
+        string fileName = "";
+        if (fileUploadImage.HasFile)
         {
-            string name = fileUpload.FileName;
+            fileName = fileUploadImage.FileName;
+            fileUploadImage.SaveAs("~/Images/" + fileName);
+            img.ImageUrl = "~/Images/" + fileName;
         }
+    }
+    protected void btnProcessData_Click(object sender, EventArgs e)
+    {
+        System.Threading.Thread.Sleep(5000);
+        lblMessage.Visible = true;
     }
 }

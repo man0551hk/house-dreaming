@@ -3,6 +3,7 @@ using Amazon.S3.Model;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,10 @@ using System.Web;
 /// </summary>
 public static class CommonFunc
 {
+    public static string s3_buckey = ConfigurationManager.AppSettings["s3_bucket"];
+    public static string s3_accesskey = ConfigurationManager.AppSettings["s3_accesskey"];
+    public static string s3_secretkey = ConfigurationManager.AppSettings["s3_secrect_key"];
+
     public static string GetLanguageCode()
     {
         return GetLanguage();
@@ -151,16 +156,14 @@ public static class CommonFunc
 
     public static void UploadImageS3(string fileName, MemoryStream fileStream)
     {
-        string accessKey = "";
-        string secretKey = "";
         try
         {
             AmazonS3 client;
             AmazonS3Config config = new AmazonS3Config().WithCommunicationProtocol(Protocol.HTTP);
-            using (client = Amazon.AWSClientFactory.CreateAmazonS3Client(accessKey, secretKey, config))
+            using (client = Amazon.AWSClientFactory.CreateAmazonS3Client(s3_accesskey, s3_secretkey, config))
             {
                 PutObjectRequest request = new PutObjectRequest();
-                request.WithBucketName("traffiti");
+                request.WithBucketName(s3_buckey);
                 request.WithCannedACL(S3CannedACL.PublicRead);
                 request.WithKey(fileName).InputStream = fileStream;
                 request.AddHeaders(Amazon.S3.Util.AmazonS3Util.CreateHeaderEntry("Cache-Control", "max-age=31536000"));
@@ -186,5 +189,68 @@ public static class CommonFunc
                     , amazonS3Exception.Message);
             }
         }
+    }
+
+    public static void MoveImageS3(string originFile, string newFile)
+    {
+        try
+        {
+            AmazonS3 client;
+            AmazonS3Config config = new AmazonS3Config().WithCommunicationProtocol(Protocol.HTTP);
+            using (client = Amazon.AWSClientFactory.CreateAmazonS3Client(s3_accesskey, s3_secretkey, config))
+            {
+                CopyObjectRequest request = new CopyObjectRequest
+                {
+                    SourceBucket = s3_buckey,
+                    SourceKey = originFile,
+                    DestinationBucket = s3_buckey,
+                    DestinationKey = newFile
+                };
+                CopyObjectResponse response = client.CopyObject(request);
+            }
+        }
+        catch (AmazonS3Exception s3Exception)
+        {
+            Console.WriteLine(s3Exception.Message,
+                              s3Exception.InnerException);
+        }
+    }
+
+    public static void DeleteImageS3(string originFile)
+    {
+        try
+        {
+            AmazonS3 client;
+            AmazonS3Config config = new AmazonS3Config().WithCommunicationProtocol(Protocol.HTTP);
+            using (client = Amazon.AWSClientFactory.CreateAmazonS3Client(s3_accesskey, s3_secretkey, config))
+            {
+                DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest
+                {
+                    BucketName = s3_buckey,
+                    Key = originFile
+                };
+                try
+                {
+                    client.DeleteObject(deleteObjectRequest);
+                    Console.WriteLine("Deleting an object");
+                }
+                catch (AmazonS3Exception s3Exception)
+                {
+                    Console.WriteLine(s3Exception.Message,
+                                      s3Exception.InnerException);
+                }
+            }
+        }
+        catch (AmazonS3Exception s3Exception)
+        {
+            Console.WriteLine(s3Exception.Message,
+                              s3Exception.InnerException);
+        }
+    }
+
+
+    public static string ImageUrl()
+    {
+        return ConfigurationManager.AppSettings["image_url"];
     }
 }

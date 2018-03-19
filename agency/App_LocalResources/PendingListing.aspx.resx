@@ -117,94 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="bathroomNum.Text" xml:space="preserve">
-    <value>浴室/洗手間</value>
+  <data name="15days.Text" xml:space="preserve">
+    <value>15 Days</value>
   </data>
-  <data name="bathroomNumError.Text" xml:space="preserve">
-    <value>請選擇浴室/洗手間數目</value>
+  <data name="30days.Text" xml:space="preserve">
+    <value>30 Days</value>
+  </data>
+  <data name="45days.Text" xml:space="preserve">
+    <value>45 Days</value>
+  </data>
+  <data name="60days.Text" xml:space="preserve">
+    <value>60 Days</value>
   </data>
   <data name="breadcrumb.Text" xml:space="preserve">
-    <value>新增樓盤</value>
-  </data>
-  <data name="buildingNameEn.Text" xml:space="preserve">
-    <value>大廈名稱 (English)</value>
-  </data>
-  <data name="buildingNameEnError.Text" xml:space="preserve">
-    <value>請輸入大廈名稱 (English)</value>
-  </data>
-  <data name="buildingNameTc.Text" xml:space="preserve">
-    <value>大廈名稱 (繁)</value>
-  </data>
-  <data name="buildingNameTcError.Text" xml:space="preserve">
-    <value>請輸入大廈名稱 (繁)</value>
-  </data>
-  <data name="descEn.Text" xml:space="preserve">
-    <value>樓盤介紹 (English)</value>
-  </data>
-  <data name="descTc.Text" xml:space="preserve">
-    <value>樓盤介紹 (繁)</value>
+    <value>New Listing</value>
   </data>
   <data name="listingBreadcrumb.Text" xml:space="preserve">
-    <value>樓盤管理</value>
+    <value>Listing Maintenance</value>
   </data>
-  <data name="listingTypeError.Text" xml:space="preserve">
-    <value>請選擇賣盤/租盤</value>
-  </data>
-  <data name="netSize.Text" xml:space="preserve">
-    <value>實用面積</value>
-  </data>
-  <data name="netSizeError.Text" xml:space="preserve">
-    <value>請輸入實用面積</value>
-  </data>
-  <data name="openRoom.Text" xml:space="preserve">
-    <value>開房式</value>
-  </data>
-  <data name="rent.Text" xml:space="preserve">
-    <value>租盤</value>
-  </data>
-  <data name="rentPrice.Text" xml:space="preserve">
-    <value>租價</value>
-  </data>
-  <data name="rentPriceError.Text" xml:space="preserve">
-    <value>請輸入租價</value>
-  </data>
-  <data name="roomNum.Text" xml:space="preserve">
-    <value>房間數目</value>
-  </data>
-  <data name="roomNumError.Text" xml:space="preserve">
-    <value>請選擇房間數目</value>
-  </data>
-  <data name="sale.Text" xml:space="preserve">
-    <value>賣盤</value>
-  </data>
-  <data name="salePrice.Text" xml:space="preserve">
-    <value>賣價</value>
-  </data>
-  <data name="salePriceError.Text" xml:space="preserve">
-    <value>請輸入賣價</value>
-  </data>
-  <data name="saveBtn.Text" xml:space="preserve">
-    <value>儲存</value>
-  </data>
-  <data name="selectArea.Text" xml:space="preserve">
-    <value>請選擇區域</value>
-  </data>
-  <data name="selectDistrict.Text" xml:space="preserve">
-    <value>請選擇地區</value>
-  </data>
-  <data name="size.Text" xml:space="preserve">
-    <value>建築面積</value>
-  </data>
-  <data name="sizeError.Text" xml:space="preserve">
-    <value>請輸入建築面積</value>
-  </data>
-  <data name="sizeLarge.Text" xml:space="preserve">
-    <value>實用面積不能大於建築面積</value>
-  </data>
-  <data name="subTitleEn.Text" xml:space="preserve">
-    <value>副標題 (English)</value>
-  </data>
-  <data name="subTitleTc.Text" xml:space="preserve">
-    <value>副標題 (繁)</value>
+  <data name="notPublish.Text" xml:space="preserve">
+    <value>Not publish now</value>
   </data>
 </root>

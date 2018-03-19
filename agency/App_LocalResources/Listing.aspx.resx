@@ -124,6 +124,9 @@
     <value>New Listing</value>
   </data>
   <data name="ViewAllListing.Text" xml:space="preserve">
-    <value>View All Listing</value>
+    <value>View All Listings</value>
+  </data>
+  <data name="PendingListing.Text" xml:space="preserve">
+    <value>Pending Listings</value>
   </data>
 </root>

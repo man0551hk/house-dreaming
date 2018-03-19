@@ -7,19 +7,21 @@
         var fileCount = document.getElementById('<%=imagesUploader.ClientID %>').files.length;
         if (fileCount > 7) 
         {
-            alert("Please select only 10 images..!!!");
+            alert("Please select only 6 images..!!!");
             return false;
         }
         else if (fileCount <= 0) 
         {
             totalFile += fileCount;
-            alert("Please select atleat 1 image..!!!");
+            alert("Please select at least 1 image..!!!");
             return false;
         }
         if (totalFile <= 7)
         {
+            document.getElementById('form1').submit();
             //console.log(document.getElementById('<%=imagesUploader.ClientID %>').files);
         }
+        
         return true; 
     }
 
@@ -93,6 +95,9 @@
 		<li><a href="Default.aspx">
 			<em class="fa fa-home"></em>
 		</a></li>
+		<li>
+            <a href="Listing.aspx"><asp:Literal ID="Literal6" runat = "server" meta:resourceKey="listingBreadcrumb"></asp:Literal></a>
+		</li>
 		<li class="active"><asp:Literal ID="Literal3" runat = "server" meta:resourceKey="breadcrumb"></asp:Literal></li>
 	</ol>
 </div>
@@ -204,7 +209,12 @@
 			            <asp:TextBox runat="server" ID="descTc" CssClass="form-control" TextMode="MultiLine" Height="180"></asp:TextBox>
 		            </div>
                     <div class="form-group">
-                        <asp:FileUpload runat ="server" ID="imagesUploader" CssClass="form-control" Multiple="Multiple" onChange ="ValidateFile()" />
+                        <asp:FileUpload runat ="server" ID="imagesUploader" CssClass="form-control" Multiple="Multiple" onchange="ValidateFile()" />
+                        <asp:Repeater runat="server" ID="tempPhotoRepeater">
+                            <ItemTemplate>
+                                <asp:Image ID="Image1" runat="server" height="60" ImageUrl ='<%# CommonFunc.ImageUrl() + Container.DataItem.ToString() %>'/>
+                            </ItemTemplate>
+                        </asp:Repeater>
                     </div>
                     <asp:Button runat="server" ID="saveBtn" meta:resourceKey="saveBtn" OnClick="saveBtn_Click" CssClass="btn btn-block btn-primary"/>
                 </ContentTemplate>

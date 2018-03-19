@@ -126,4 +126,7 @@
   <data name="ViewAllListing.Text" xml:space="preserve">
     <value>检视所有楼盘</value>
   </data>
+  <data name="PendingListing.Text" xml:space="preserve">
+    <value>暂存楼盘</value>
+  </data>
 </root>

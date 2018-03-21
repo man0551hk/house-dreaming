@@ -117,25 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="15days.Text" xml:space="preserve">
-    <value>15 Days</value>
-  </data>
-  <data name="30days.Text" xml:space="preserve">
-    <value>30 Days</value>
-  </data>
-  <data name="45days.Text" xml:space="preserve">
-    <value>45 Days</value>
-  </data>
-  <data name="60days.Text" xml:space="preserve">
-    <value>60 Days</value>
-  </data>
   <data name="breadcrumb.Text" xml:space="preserve">
     <value>New Listing</value>
+  </data>
+  <data name="days15.Text" xml:space="preserve">
+    <value>15 Days</value>
+  </data>
+  <data name="days30.Text" xml:space="preserve">
+    <value>30 Days</value>
+  </data>
+  <data name="days45.Text" xml:space="preserve">
+    <value>45 Days</value>
+  </data>
+  <data name="days60.Text" xml:space="preserve">
+    <value>60 Days</value>
+  </data>
+  <data name="distict.Text" xml:space="preserve">
+    <value>District</value>
+  </data>
+  <data name="duation.Text" xml:space="preserve">
+    <value>Duration</value>
   </data>
   <data name="listingBreadcrumb.Text" xml:space="preserve">
     <value>Listing Maintenance</value>
   </data>
   <data name="notPublish.Text" xml:space="preserve">
     <value>Not publish now</value>
+  </data>
+  <data name="price.Text" xml:space="preserve">
+    <value>Sale Price/Rent Price</value>
+  </data>
+  <data name="size.Text" xml:space="preserve">
+    <value>Builtup Size/Saleable Size (sq.ft.)</value>
+  </data>
+  <data name="title.Text" xml:space="preserve">
+    <value>Building Name</value>
   </data>
 </root>

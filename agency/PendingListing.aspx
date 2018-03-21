@@ -32,6 +32,7 @@
                                     <tr>
                                         <th scope="col"></th>
                                         <th scope="col"><asp:Literal ID="Literal7" runat = "server" meta:resourceKey="title"></asp:Literal></th>
+                                        <th scope="col"><asp:Literal ID="Literal8" runat = "server" meta:resourceKey="distict"></asp:Literal></th>
                                         <th scope="col"><asp:Literal ID="Literal2" runat = "server" meta:resourceKey="size"></asp:Literal></th>
                                         <th scope="col"><asp:Literal ID="Literal4" runat = "server" meta:resourceKey="price"></asp:Literal></th>
                                         <th scope="col"><asp:Literal ID="Literal5" runat = "server" meta:resourceKey="duation"></asp:Literal></th>
@@ -41,16 +42,29 @@
                         </HeaderTemplate>
                         <ItemTemplate>
                             <tr>
-                              <th scope="row"></th>
-                              <td>Mark</td>
-                              <td>Otto</td>
+                              <th scope="row">
+
+                              </th>
                               <td>
-                                  <asp:DropDownList runat="server" ID="durationDDL">
+                                  <%# DataBinder.Eval(Container, "DataItem.titleEn")%><br />
+                                  <%# DataBinder.Eval(Container, "DataItem.titleTc")%>
+                              </td>
+                              <td>
+                                  <%# DataBinder.Eval(Container, "DataItem.district")%>
+                              </td>
+                              <td>
+                                  <%# DataBinder.Eval(Container, "DataItem.size")%> / <%# DataBinder.Eval(Container, "DataItem.netSize")%>
+                              </td>
+                              <td>
+                                  $<%# DataBinder.Eval(Container, "DataItem.salePrice")%> / $<%# DataBinder.Eval(Container, "DataItem.rentPrice")%>
+                              </td>
+                              <td>
+                                  <asp:DropDownList runat="server" ID="durationDDL" CssClass="form-control">
                                       <asp:ListItem Value ="0" meta:resourceKey="notPublish"></asp:ListItem>
-                                      <asp:ListItem Value ="15" meta:resourceKey="15days"></asp:ListItem>
-                                      <asp:ListItem Value ="30" meta:resourceKey="30days"></asp:ListItem>
-                                      <asp:ListItem Value ="45" meta:resourceKey="45days"></asp:ListItem>
-                                      <asp:ListItem Value ="60" meta:resourceKey="60days"></asp:ListItem>
+                                      <asp:ListItem Value ="15" meta:resourceKey="days15"></asp:ListItem>
+                                      <asp:ListItem Value ="30" meta:resourceKey="days30"></asp:ListItem>
+                                      <asp:ListItem Value ="45" meta:resourceKey="days45"></asp:ListItem>
+                                      <asp:ListItem Value ="60" meta:resourceKey="days60"></asp:ListItem>
                                   </asp:DropDownList>
                               </td>
                             </tr>

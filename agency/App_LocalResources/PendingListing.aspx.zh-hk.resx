@@ -117,25 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="15days.Text" xml:space="preserve">
-    <value>15 日</value>
-  </data>
-  <data name="30days.Text" xml:space="preserve">
-    <value>30 日</value>
-  </data>
-  <data name="45days.Text" xml:space="preserve">
-    <value>45 日</value>
-  </data>
-  <data name="60days.Text" xml:space="preserve">
-    <value>60 日</value>
-  </data>
   <data name="breadcrumb.Text" xml:space="preserve">
     <value>暫存樓盤</value>
+  </data>
+  <data name="days15.Text" xml:space="preserve">
+    <value>15 日</value>
+  </data>
+  <data name="days30.Text" xml:space="preserve">
+    <value>30 日</value>
+  </data>
+  <data name="days45.Text" xml:space="preserve">
+    <value>45 日</value>
+  </data>
+  <data name="days60.Text" xml:space="preserve">
+    <value>60 日</value>
+  </data>
+  <data name="distict.Text" xml:space="preserve">
+    <value>地區</value>
+  </data>
+  <data name="duation.Text" xml:space="preserve">
+    <value>刊登期限</value>
   </data>
   <data name="listingBreadcrumb.Text" xml:space="preserve">
     <value>樓盤管理</value>
   </data>
   <data name="notPublish.Text" xml:space="preserve">
     <value>暫不發佈</value>
+  </data>
+  <data name="price.Text" xml:space="preserve">
+    <value>售價/租金</value>
+  </data>
+  <data name="size.Text" xml:space="preserve">
+    <value>建築面積/實用面積 (平方呎)</value>
+  </data>
+  <data name="title.Text" xml:space="preserve">
+    <value>大廈名稱</value>
   </data>
 </root>

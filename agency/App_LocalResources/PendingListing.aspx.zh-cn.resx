@@ -120,22 +120,37 @@
   <data name="15days.Text" xml:space="preserve">
     <value>15 日</value>
   </data>
-  <data name="30days.Text" xml:space="preserve">
-    <value>30 日</value>
-  </data>
-  <data name="45days.Text" xml:space="preserve">
-    <value>45 日</value>
-  </data>
-  <data name="60days.Text" xml:space="preserve">
-    <value>60 日</value>
-  </data>
   <data name="breadcrumb.Text" xml:space="preserve">
     <value>暂存楼盘</value>
+  </data>
+  <data name="days30.Text" xml:space="preserve">
+    <value>30 日</value>
+  </data>
+  <data name="days45.Text" xml:space="preserve">
+    <value>45 日</value>
+  </data>
+  <data name="days60.Text" xml:space="preserve">
+    <value>60 日</value>
+  </data>
+  <data name="distict.Text" xml:space="preserve">
+    <value>地区</value>
+  </data>
+  <data name="duation.Text" xml:space="preserve">
+    <value>刊登期限</value>
   </data>
   <data name="listingBreadcrumb.Text" xml:space="preserve">
     <value>楼盘管理</value>
   </data>
   <data name="notPublish.Text" xml:space="preserve">
     <value>暂不发布</value>
+  </data>
+  <data name="price.Text" xml:space="preserve">
+    <value>售价/租金</value>
+  </data>
+  <data name="size.Text" xml:space="preserve">
+    <value>建筑面积/实用面积 (平方呎)</value>
+  </data>
+  <data name="title.Text" xml:space="preserve">
+    <value>大厦名称</value>
   </data>
 </root>

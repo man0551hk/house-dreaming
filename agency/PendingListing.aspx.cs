@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using HouseDreaming;
 using MySql.Data.MySqlClient;
+using System.Data;
 
 public partial class agency_PendingListing : Agency_Page_Control
 {
@@ -37,7 +38,14 @@ public partial class agency_PendingListing : Agency_Page_Control
                                                 from listing L
                                                 inner join district D on L.districtID = D.districtID
                                                 where agencyID = @agencyID", cn);
-            
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.Parameters.Add("@lang", MySqlDbType.Int32).Value = Agency_Kernel.GetLanguageID();
+            cmd.Parameters.Add("@agencyID", MySqlDbType.Int32).Value = Convert.ToInt32(Session["agencyID"]);
+            DataSet ds = new DataSet();
+            MySqlDataAdapter ad = new MySqlDataAdapter(cmd);
+            ad.Fill(ds);
+            pendingListRepeater.DataSource = ds;
+            pendingListRepeater.DataBind();
         }
         catch (Exception ex)
         { }

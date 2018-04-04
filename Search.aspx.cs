@@ -7,10 +7,11 @@ using System.Web.UI.WebControls;
 using HouseDreaming;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Data.Odbc;
 
 public partial class Search : Page_Control
 {
-    MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+    OdbcConnection cn = new OdbcConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -24,11 +25,11 @@ public partial class Search : Page_Control
         try
         {
             cn.Open();
-            MySqlCommand cmd = new MySqlCommand("select case @lang when 1 then districtEn when 2 then districtTc when 3 then districtSc end as district, districtID from district", cn);
+            OdbcCommand cmd = new OdbcCommand("select case @lang when 1 then districtEn when 2 then districtTc when 3 then districtSc end as district, districtID from district", cn);
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.Add("@lang", MySqlDbType.Int32).Value = CommonFunc.GetLanguageID();
+            cmd.Parameters.Add("@lang", OdbcType.Int).Value = CommonFunc.GetLanguageID();
             DataSet ds = new DataSet();
-            MySqlDataAdapter ad = new MySqlDataAdapter(cmd);
+            OdbcDataAdapter ad = new OdbcDataAdapter(cmd);
             ad.Fill(ds);
             districtDDL.DataSource = ds;
             districtDDL.DataBind();

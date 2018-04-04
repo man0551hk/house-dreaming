@@ -1,6 +1,6 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
-using MySql.Data.MySqlClient;
+using System.Data.Odbc;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -105,14 +105,14 @@ public static class CommonFunc
     public static string GetAreaName(int areaID)
     {
         string area = "";
-        MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+        OdbcConnection cn = new OdbcConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
         try
         {
             cn.Open();
-            MySqlCommand cmd = new MySqlCommand("select areaEn, areaTc, areaSc from area where areaID = @areaID", cn);
+            OdbcCommand cmd = new OdbcCommand("select areaEn, areaTc, areaSc from area where areaID = @areaID", cn);
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.Add("@areaID", MySqlDbType.Int32).Value = areaID;
-            MySqlDataReader dr = cmd.ExecuteReader();
+            cmd.Parameters.Add("@areaID", OdbcType.Int).Value = areaID;
+            OdbcDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
                 area = dr["areaEn"].ToString() + " " + dr["areaTc"].ToString() + " " + dr["areaSc"].ToString();
@@ -131,14 +131,14 @@ public static class CommonFunc
     public static string GetDistictName(int districtID)
     {
         string district = "";
-        MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+        OdbcConnection cn = new OdbcConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
         try
         {
             cn.Open();
-            MySqlCommand cmd = new MySqlCommand("select districtEn, districtTc, districtSc from district where districtID = @districtID", cn);
+            OdbcCommand cmd = new OdbcCommand("select districtEn, districtTc, districtSc from district where districtID = @districtID", cn);
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.Add("@districtID", MySqlDbType.Int32).Value = districtID;
-            MySqlDataReader dr = cmd.ExecuteReader();
+            cmd.Parameters.Add("@districtID", OdbcType.Int).Value = districtID;
+            OdbcDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
                 district = dr["districtEn"].ToString() + " " + dr["districtTc"].ToString() + " " + dr["districtSc"].ToString();

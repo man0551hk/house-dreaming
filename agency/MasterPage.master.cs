@@ -12,7 +12,7 @@ using System.Data;
 
 public partial class agency_MasterPage : System.Web.UI.MasterPage
 {
-    MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+    OdbcConnection cn = new OdbcConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -32,11 +32,11 @@ public partial class agency_MasterPage : System.Web.UI.MasterPage
         try
         {
             cn.Open();
-            MySqlCommand cmd = new MySqlCommand(@"select agencyProfilePhoto, agentNameEn, agentNameTc 
+            OdbcCommand cmd = new OdbcCommand(@"select agencyProfilePhoto, agentNameEn, agentNameTc 
                                                 from agency where agencyID = @agencyID", cn);
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.Add("@agencyID", MySqlDbType.Int32).Value = Convert.ToInt32(Session["agencyID"]);
-            MySqlDataReader dr = cmd.ExecuteReader();
+            cmd.Parameters.Add("@agencyID", OdbcType.Int).Value = Convert.ToInt32(Session["agencyID"]);
+            OdbcDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
                 string agencyProfilePhoto = dr["agencyProfilePhoto"] == DBNull.Value ? "images/unknown.png" : dr["agencyProfilePhoto"].ToString();

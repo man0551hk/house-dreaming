@@ -36,37 +36,44 @@
                                         <th scope="col"><asp:Literal ID="Literal2" runat = "server" meta:resourceKey="size"></asp:Literal></th>
                                         <th scope="col"><asp:Literal ID="Literal4" runat = "server" meta:resourceKey="price"></asp:Literal></th>
                                         <th scope="col"><asp:Literal ID="Literal5" runat = "server" meta:resourceKey="duation"></asp:Literal></th>
+                                        <th scope="col"><asp:Literal ID="Literal9" runat = "server" meta:resourceKey="classType"></asp:Literal></th>
                                     </tr>
                                 </thead>
                             <tbody>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <tr>
-                              <th scope="row">
+                                <th scope="row">
 
-                              </th>
-                              <td>
-                                  <%# DataBinder.Eval(Container, "DataItem.titleEn")%><br />
-                                  <%# DataBinder.Eval(Container, "DataItem.titleTc")%>
-                              </td>
-                              <td>
-                                  <%# DataBinder.Eval(Container, "DataItem.district")%>
-                              </td>
-                              <td>
-                                  <%# DataBinder.Eval(Container, "DataItem.size")%> / <%# DataBinder.Eval(Container, "DataItem.netSize")%>
-                              </td>
-                              <td>
-                                  $<%# DataBinder.Eval(Container, "DataItem.salePrice")%> / $<%# DataBinder.Eval(Container, "DataItem.rentPrice")%>
-                              </td>
-                              <td>
-                                  <asp:DropDownList runat="server" ID="durationDDL" CssClass="form-control">
-                                      <asp:ListItem Value ="0" meta:resourceKey="notPublish"></asp:ListItem>
-                                      <asp:ListItem Value ="15" meta:resourceKey="days15"></asp:ListItem>
-                                      <asp:ListItem Value ="30" meta:resourceKey="days30"></asp:ListItem>
-                                      <asp:ListItem Value ="45" meta:resourceKey="days45"></asp:ListItem>
-                                      <asp:ListItem Value ="60" meta:resourceKey="days60"></asp:ListItem>
-                                  </asp:DropDownList>
-                              </td>
+                                </th>
+                                <td>
+                                    <%# DataBinder.Eval(Container, "DataItem.titleEn")%><br />
+                                    <%# DataBinder.Eval(Container, "DataItem.titleTc")%>
+                                </td>
+                                <td>
+                                    <%# DataBinder.Eval(Container, "DataItem.district")%>
+                                </td>
+                                <td>
+                                    <%# DataBinder.Eval(Container, "DataItem.size")%> / <%# DataBinder.Eval(Container, "DataItem.netSize")%>
+                                </td>
+                                <td>
+                                    $<%# DataBinder.Eval(Container, "DataItem.salePrice")%> / $<%# DataBinder.Eval(Container, "DataItem.rentPrice")%>
+                                </td>
+                                <td>
+                                    <asp:DropDownList runat="server" ID="durationDDL" CssClass="form-control" OnSelectedIndexChanged="durationDDL_SelectedIndexChanged">
+                                        <asp:ListItem Value ="0" meta:resourceKey="notPublish"></asp:ListItem>
+                                        <asp:ListItem Value ="15" meta:resourceKey="days15"></asp:ListItem>
+                                        <asp:ListItem Value ="30" meta:resourceKey="days30"></asp:ListItem>
+                                        <asp:ListItem Value ="45" meta:resourceKey="days45"></asp:ListItem>
+                                        <asp:ListItem Value ="60" meta:resourceKey="days60"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                                <td>
+                                    <asp:DropDownList runat="server" ID="classDDL" CssClass="form-control" OnSelectedIndexChanged ="classDDL_SelectedIndexChanged">
+                                        <asp:ListItem Value ="1" meta:resourceKey="regularClass"></asp:ListItem>
+                                        <asp:ListItem Value ="2" meta:resourceKey="advanceClass"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
                             </tr>
                         </ItemTemplate>
                         <FooterTemplate>
@@ -74,6 +81,14 @@
                             </table>
                         </FooterTemplate>
                     </asp:Repeater>
+
+                    <table class="table table table-striped">
+                        <tr>
+                            <td align="right">
+                                $<asp:Literal runat="server" ID="totalPriceLabel"></asp:Literal>
+                            </td>
+                        </tr>
+                    </table>
                 </ContentTemplate>
                 <Triggers>
 

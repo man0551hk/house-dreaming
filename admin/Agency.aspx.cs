@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 public partial class admin_Agency : System.Web.UI.Page
 {
-    OdbcConnection cn = new OdbcConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+    MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -25,9 +25,9 @@ public partial class admin_Agency : System.Web.UI.Page
         try
         {
             cn.Open();
-            OdbcCommand cmd = new OdbcCommand("select * from agency where verifyDate is null", cn);
+            MySqlCommand cmd = new MySqlCommand("select * from agency where verifyDate is null", cn);
             cmd.CommandType = System.Data.CommandType.Text;
-            OdbcDataAdapter ad = new OdbcDataAdapter(cmd);
+            MySqlDataAdapter ad = new MySqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             ad.Fill(ds);
 
@@ -65,10 +65,10 @@ public partial class admin_Agency : System.Web.UI.Page
             string encryptPassword = Crypto.EncryptMD5(password);
             
             cn.Open();
-            OdbcCommand cmd = new OdbcCommand("update agency set password = @password, verifyDate = NOW() where agencyID = @agencyID", cn);
+            MySqlCommand cmd = new MySqlCommand("update agency set password = @password, verifyDate = NOW() where agencyID = @agencyID", cn);
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("@password", OdbcType.VarChar).Value = encryptPassword;
-            cmd.Parameters.Add("@agencyID", OdbcType.Int).Value = agencyID;
+            cmd.Parameters.Add("@password", MySqlDbType.VarChar).Value = encryptPassword;
+            cmd.Parameters.Add("@agencyID", MySqlDbType.Int32).Value = agencyID;
             cmd.ExecuteNonQuery();
 
 

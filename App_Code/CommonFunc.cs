@@ -7,6 +7,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
+using MySql.Data.MySqlClient;
 
 /// <summary>
 /// Summary description for CommonFunc
@@ -105,52 +106,52 @@ public static class CommonFunc
     public static string GetAreaName(int areaID)
     {
         string area = "";
-        OdbcConnection cn = new OdbcConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
-        try
-        {
-            cn.Open();
-            OdbcCommand cmd = new OdbcCommand("select areaEn, areaTc, areaSc from area where areaID = @areaID", cn);
-            cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.Add("@areaID", OdbcType.Int).Value = areaID;
-            OdbcDataReader dr = cmd.ExecuteReader();
-            if (dr.Read())
-            {
-                area = dr["areaEn"].ToString() + " " + dr["areaTc"].ToString() + " " + dr["areaSc"].ToString();
-            }
-            dr.Close();
-        }
-        catch (Exception ex)
-        { }
-        finally
-        {
-            cn.Close();
-        }
+        //MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+        //try
+        //{
+        //    cn.Open();
+        //    MySqlCommand cmd = new MySqlCommand("select areaEn, areaTc, areaSc from area where areaID = @areaID", cn);
+        //    cmd.CommandType = System.Data.CommandType.Text;
+        //    cmd.Parameters.Add("@areaID", MySqlDbType.Int32).Value = areaID;
+        //    MySqlDataReader dr = cmd.ExecuteReader();
+        //    if (dr.Read())
+        //    {
+        //        area = dr["areaEn"].ToString() + " " + dr["areaTc"].ToString() + " " + dr["areaSc"].ToString();
+        //    }
+        //    dr.Close();
+        //}
+        //catch (Exception ex)
+        //{ }
+        //finally
+        //{
+        //    cn.Close();
+        //}
         return area;
     }
 
     public static string GetDistictName(int districtID)
     {
         string district = "";
-        OdbcConnection cn = new OdbcConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
-        try
-        {
-            cn.Open();
-            OdbcCommand cmd = new OdbcCommand("select districtEn, districtTc, districtSc from district where districtID = @districtID", cn);
-            cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.Add("@districtID", OdbcType.Int).Value = districtID;
-            OdbcDataReader dr = cmd.ExecuteReader();
-            if (dr.Read())
-            {
-                district = dr["districtEn"].ToString() + " " + dr["districtTc"].ToString() + " " + dr["districtSc"].ToString();
-            }
-            dr.Close();
-        }
-        catch (Exception ex)
-        { }
-        finally
-        {
-            cn.Close();
-        }
+        //MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+        //try
+        //{
+        //    cn.Open();
+        //    MySqlCommand cmd = new MySqlCommand("select districtEn, districtTc, districtSc from district where districtID = @districtID", cn);
+        //    cmd.CommandType = System.Data.CommandType.Text;
+        //    cmd.Parameters.Add("@districtID", MySqlDbType.Int32).Value = districtID;
+        //    MySqlDataReader dr = cmd.ExecuteReader();
+        //    if (dr.Read())
+        //    {
+        //        district = dr["districtEn"].ToString() + " " + dr["districtTc"].ToString() + " " + dr["districtSc"].ToString();
+        //    }
+        //    dr.Close();
+        //}
+        //catch (Exception ex)
+        //{ }
+        //finally
+        //{
+        //    cn.Close();
+        //}
         return district;
     }
 

@@ -10,8 +10,8 @@ using System.Data;
 
 public partial class agency_PendingListing : Agency_Page_Control
 {
-    OdbcConnection cn = new OdbcConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
-
+    MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+    int totalPrice = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -30,7 +30,7 @@ public partial class agency_PendingListing : Agency_Page_Control
         try
         {
             cn.Open();
-            OdbcCommand cmd = new OdbcCommand(@"select listingID, titleEn, titleTc, subTitleEn, subTitleTc, room, 
+            MySqlCommand cmd = new MySqlCommand(@"select listingID, titleEn, titleTc, subTitleEn, subTitleTc, room, 
                                                 bathroom, size, netSize, 
                                                  listingType,
                                                 salePrice, rentPrice,
@@ -39,10 +39,10 @@ public partial class agency_PendingListing : Agency_Page_Control
                                                 inner join district D on L.districtID = D.districtID
                                                 where agencyID = @agencyID", cn);
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.Add("@lang", OdbcType.Int).Value = Agency_Kernel.GetLanguageID();
-            cmd.Parameters.Add("@agencyID", OdbcType.Int).Value = Convert.ToInt32(Session["agencyID"]);
+            cmd.Parameters.Add("@lang", MySqlDbType.Int32).Value = Agency_Kernel.GetLanguageID();
+            cmd.Parameters.Add("@agencyID", MySqlDbType.Int32).Value = Convert.ToInt32(Session["agencyID"]);
             DataSet ds = new DataSet();
-            OdbcDataAdapter ad = new OdbcDataAdapter(cmd);
+            MySqlDataAdapter ad = new MySqlDataAdapter(cmd);
             ad.Fill(ds);
             pendingListRepeater.DataSource = ds;
             pendingListRepeater.DataBind();
@@ -53,5 +53,27 @@ public partial class agency_PendingListing : Agency_Page_Control
         {
             cn.Close();
         }
+    }
+
+
+    protected void durationDDL_SelectedIndexChanged(object sender, EventArgs e)
+    {
+       
+        foreach (RepeaterItem ri in pendingListRepeater.Items)
+        {
+            DropDownList durationDDL = ri.FindControl("durationDDL") as DropDownList;
+            int days = Convert.ToInt32(durationDDL.SelectedValue);
+
+            DropDownList classDDL = ri.FindControl("classDDL") as DropDownList;
+            int classType = Convert.ToInt32(classDDL.SelectedValue);
+
+            totalPrice += (days * classType);
+        }
+        totalPriceLabel.Text = totalPrice.ToString();
+    }
+
+    protected void classDDL_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
     }
 }

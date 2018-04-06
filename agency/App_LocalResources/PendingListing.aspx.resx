@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="advanceClass.Text" xml:space="preserve">
+    <value>Advance</value>
+  </data>
   <data name="breadcrumb.Text" xml:space="preserve">
     <value>New Listing</value>
+  </data>
+  <data name="classType.Text" xml:space="preserve">
+    <value>Publish Class</value>
   </data>
   <data name="days15.Text" xml:space="preserve">
     <value>15 Days</value>
@@ -146,6 +152,9 @@
   </data>
   <data name="price.Text" xml:space="preserve">
     <value>Sale Price/Rent Price</value>
+  </data>
+  <data name="regularClass.Text" xml:space="preserve">
+    <value>Regular</value>
   </data>
   <data name="size.Text" xml:space="preserve">
     <value>Builtup Size/Saleable Size (sq.ft.)</value>

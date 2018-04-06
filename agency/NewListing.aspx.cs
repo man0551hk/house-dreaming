@@ -14,7 +14,7 @@ using Amazon.S3.Model;
 
 public partial class agency_NewListing : Agency_Page_Control
 {
-    OdbcConnection cn = new OdbcConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+    MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -49,11 +49,11 @@ public partial class agency_NewListing : Agency_Page_Control
         try
         {
             cn.Open();
-            OdbcCommand cmd = new OdbcCommand("select case @lang when 1 then areaEn when 2 then areaTc when 3 then areaSc end as area, areaID from area", cn);
+            MySqlCommand cmd = new MySqlCommand("select case @lang when 1 then areaEn when 2 then areaTc when 3 then areaSc end as area, areaID from area", cn);
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("@lang", OdbcType.Int).Value = Agency_Kernel.GetLanguageID();
+            cmd.Parameters.Add("@lang", MySqlDbType.Int32).Value = Agency_Kernel.GetLanguageID();
             DataSet ds = new DataSet();
-            OdbcDataAdapter ad = new OdbcDataAdapter(cmd);
+            MySqlDataAdapter ad = new MySqlDataAdapter(cmd);
             ad.Fill(ds);
             areaDDL.DataSource = ds;
             areaDDL.DataBind();
@@ -74,13 +74,13 @@ public partial class agency_NewListing : Agency_Page_Control
         try
         {
             cn.Open();
-            OdbcCommand cmd = new OdbcCommand(@"select case @lang when 1 then districtEn when 2 then districtTc when 3 then districtSc end as district, districtID 
+            MySqlCommand cmd = new MySqlCommand(@"select case @lang when 1 then districtEn when 2 then districtTc when 3 then districtSc end as district, districtID 
                                             from district where areaID = @areaID", cn);
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("@areaID", OdbcType.Int).Value = Convert.ToInt32(ddl.SelectedValue);
-            cmd.Parameters.Add("@lang", OdbcType.Int).Value = Agency_Kernel.GetLanguageID();
+            cmd.Parameters.Add("@areaID", MySqlDbType.Int32).Value = Convert.ToInt32(ddl.SelectedValue);
+            cmd.Parameters.Add("@lang", MySqlDbType.Int32).Value = Agency_Kernel.GetLanguageID();
             DataSet ds = new DataSet();
-            OdbcDataAdapter ad = new OdbcDataAdapter(cmd);
+            MySqlDataAdapter ad = new MySqlDataAdapter(cmd);
             ad.Fill(ds);
             districtDDL.DataSource = ds;
             districtDDL.DataBind();
@@ -107,7 +107,7 @@ public partial class agency_NewListing : Agency_Page_Control
         try
         {
             cn.Open();
-            OdbcCommand cmd = new OdbcCommand(@"insert into listing (districtID, areaID, buildingID, titleEn, titleTc, titleSc,
+            MySqlCommand cmd = new MySqlCommand(@"insert into listing (districtID, areaID, buildingID, titleEn, titleTc, titleSc,
                                                 subTitleEn, subTitleTc, subTitleSc,
                                                 modifiedDate, publishedDate, createdDate, expiryDate, 
                                                 room, bathroom, netSize, size, listingType,
@@ -118,40 +118,40 @@ public partial class agency_NewListing : Agency_Page_Control
                                                  NOW(), null, NOW(), null, @room, @bathroom, @netSize, @size, @listingType, @salePrice, @rentPrice,
                                                 @descEn, @descTc, @descSc, @agencyID, @agencyCompanyID, @youTubeID, @keyword)", cn);
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("@districtID", OdbcType.Int).Value = Convert.ToInt32(districtDDL.SelectedValue);
-            cmd.Parameters.Add("@areaID", OdbcType.Int).Value = Convert.ToInt32(areaDDL.SelectedValue);
-            cmd.Parameters.Add("@buildingID", OdbcType.Int).Value = 0;
-            cmd.Parameters.Add("@titleEn", OdbcType.VarChar).Value = titleEn.Text;
-            cmd.Parameters.Add("@titleTc", OdbcType.VarChar).Value = titleTc.Text;
-            cmd.Parameters.Add("@titleSc", OdbcType.VarChar).Value = Microsoft.VisualBasic.Strings.StrConv(titleTc.Text, VbStrConv.SimplifiedChinese, 2052);
-            cmd.Parameters.Add("@subTitleEn", OdbcType.VarChar).Value = subTitleEn.Text;
-            cmd.Parameters.Add("@subTitleTc", OdbcType.VarChar).Value = subTitleTc.Text;
-            cmd.Parameters.Add("@subTitleSc", OdbcType.VarChar).Value = Microsoft.VisualBasic.Strings.StrConv(subTitleTc.Text, VbStrConv.SimplifiedChinese, 2052);
-            cmd.Parameters.Add("@room", OdbcType.Int).Value = Convert.ToInt32(roomDDL.SelectedValue);
-            cmd.Parameters.Add("@bathroom", OdbcType.Int).Value = Convert.ToInt32(bathroomDDL.SelectedValue);
-            cmd.Parameters.Add("@netSize", OdbcType.Int).Value = Convert.ToInt32(netSize.Text);
-            cmd.Parameters.Add("@size", OdbcType.Int).Value = Convert.ToInt32(size.Text);
+            cmd.Parameters.Add("@districtID", MySqlDbType.Int32).Value = Convert.ToInt32(districtDDL.SelectedValue);
+            cmd.Parameters.Add("@areaID", MySqlDbType.Int32).Value = Convert.ToInt32(areaDDL.SelectedValue);
+            cmd.Parameters.Add("@buildingID", MySqlDbType.Int32).Value = 0;
+            cmd.Parameters.Add("@titleEn", MySqlDbType.VarChar).Value = titleEn.Text;
+            cmd.Parameters.Add("@titleTc", MySqlDbType.VarChar).Value = titleTc.Text;
+            cmd.Parameters.Add("@titleSc", MySqlDbType.VarChar).Value = Microsoft.VisualBasic.Strings.StrConv(titleTc.Text, VbStrConv.SimplifiedChinese, 2052);
+            cmd.Parameters.Add("@subTitleEn", MySqlDbType.VarChar).Value = subTitleEn.Text;
+            cmd.Parameters.Add("@subTitleTc", MySqlDbType.VarChar).Value = subTitleTc.Text;
+            cmd.Parameters.Add("@subTitleSc", MySqlDbType.VarChar).Value = Microsoft.VisualBasic.Strings.StrConv(subTitleTc.Text, VbStrConv.SimplifiedChinese, 2052);
+            cmd.Parameters.Add("@room", MySqlDbType.Int32).Value = Convert.ToInt32(roomDDL.SelectedValue);
+            cmd.Parameters.Add("@bathroom", MySqlDbType.Int32).Value = Convert.ToInt32(bathroomDDL.SelectedValue);
+            cmd.Parameters.Add("@netSize", MySqlDbType.Int32).Value = Convert.ToInt32(netSize.Text);
+            cmd.Parameters.Add("@size", MySqlDbType.Int32).Value = Convert.ToInt32(size.Text);
             if (listingTypeCb.Items[0].Selected && listingTypeCb.Items[1].Selected)
             {
-                cmd.Parameters.Add("@listingType", OdbcType.Int).Value = 1;
+                cmd.Parameters.Add("@listingType", MySqlDbType.Int32).Value = 1;
             }
             else if (listingTypeCb.Items[0].Selected && !listingTypeCb.Items[1].Selected)
             {
-                cmd.Parameters.Add("@listingType", OdbcType.Int).Value = 1;
+                cmd.Parameters.Add("@listingType", MySqlDbType.Int32).Value = 1;
             }
             else if (!listingTypeCb.Items[0].Selected && listingTypeCb.Items[1].Selected)
             {
-                cmd.Parameters.Add("@listingType", OdbcType.Int).Value = 2;
+                cmd.Parameters.Add("@listingType", MySqlDbType.Int32).Value = 2;
             }
-            cmd.Parameters.Add("@salePrice", OdbcType.Int).Value = salePrice.Text != "" ? Convert.ToInt32(salePrice.Text) : 0;
-            cmd.Parameters.Add("@rentPrice", OdbcType.Int).Value = rentPrice.Text != "" ? Convert.ToInt32(rentPrice.Text) : 0;
-            cmd.Parameters.Add("@descEn", OdbcType.VarChar).Value = descEn.Text;
-            cmd.Parameters.Add("@descTc", OdbcType.VarChar).Value = descTc.Text;
-            cmd.Parameters.Add("@descSc", OdbcType.VarChar).Value = Microsoft.VisualBasic.Strings.StrConv(descTc.Text, VbStrConv.SimplifiedChinese, 2052);
-            cmd.Parameters.Add("@agencyID", OdbcType.Int).Value = Convert.ToInt32(Session["agencyID"]);
-            cmd.Parameters.Add("@agencyCompanyID", OdbcType.Int).Value = 0;
-            cmd.Parameters.Add("@youTubeID", OdbcType.VarChar).Value = youtubeID.Text;
-            cmd.Parameters.Add("@keyword", OdbcType.VarChar).Value = keyword + titleEn.Text + " " + titleTc.Text + " " + Microsoft.VisualBasic.Strings.StrConv(titleTc.Text, VbStrConv.SimplifiedChinese, 2052);
+            cmd.Parameters.Add("@salePrice", MySqlDbType.Int32).Value = salePrice.Text != "" ? Convert.ToInt32(salePrice.Text) : 0;
+            cmd.Parameters.Add("@rentPrice", MySqlDbType.Int32).Value = rentPrice.Text != "" ? Convert.ToInt32(rentPrice.Text) : 0;
+            cmd.Parameters.Add("@descEn", MySqlDbType.VarChar).Value = descEn.Text;
+            cmd.Parameters.Add("@descTc", MySqlDbType.VarChar).Value = descTc.Text;
+            cmd.Parameters.Add("@descSc", MySqlDbType.VarChar).Value = Microsoft.VisualBasic.Strings.StrConv(descTc.Text, VbStrConv.SimplifiedChinese, 2052);
+            cmd.Parameters.Add("@agencyID", MySqlDbType.Int32).Value = Convert.ToInt32(Session["agencyID"]);
+            cmd.Parameters.Add("@agencyCompanyID", MySqlDbType.Int32).Value = 0;
+            cmd.Parameters.Add("@youTubeID", MySqlDbType.VarChar).Value = youtubeID.Text;
+            cmd.Parameters.Add("@keyword", MySqlDbType.VarChar).Value = keyword + titleEn.Text + " " + titleTc.Text + " " + Microsoft.VisualBasic.Strings.StrConv(titleTc.Text, VbStrConv.SimplifiedChinese, 2052);
             cmd.ExecuteNonQuery();
             int listingID = Convert.ToInt32(cmd.LastInsertedId);
 
@@ -186,26 +186,26 @@ public partial class agency_NewListing : Agency_Page_Control
         }
     }
 
-    private int GetPhoto(int listingID, int displayOrder, OdbcConnection cn)
+    private int GetPhoto(int listingID, int displayOrder, MySqlConnection cn)
     {
         int photoID = 0;
-        OdbcCommand cmd = new OdbcCommand(@"insert into listingPhoto (listingID, photoPath, displayOrder)
+        MySqlCommand cmd = new MySqlCommand(@"insert into listingPhoto (listingID, photoPath, displayOrder)
                                             values 
                                             (@listingID, '', @displayOrder)", cn);
         cmd.CommandType = CommandType.Text;
-        cmd.Parameters.Add("@listingID", OdbcType.Int).Value = listingID;
-        cmd.Parameters.Add("@displayOrder", OdbcType.Int).Value = displayOrder;
+        cmd.Parameters.Add("@listingID", MySqlDbType.Int32).Value = listingID;
+        cmd.Parameters.Add("@displayOrder", MySqlDbType.Int32).Value = displayOrder;
         cmd.ExecuteNonQuery();
         photoID = Convert.ToInt32(cmd.LastInsertedId);
         return photoID;
     }
 
-    private void UpdatePhotoPath(int photoID, string path, OdbcConnection cn)
+    private void UpdatePhotoPath(int photoID, string path, MySqlConnection cn)
     {
-        OdbcCommand cmd = new OdbcCommand("update listingPhoto set photoPath = @photoPath where photoID= @photoID", cn);
+        MySqlCommand cmd = new MySqlCommand("update listingPhoto set photoPath = @photoPath where photoID= @photoID", cn);
         cmd.CommandType = CommandType.Text;
-        cmd.Parameters.Add("@photoPath", OdbcType.VarChar).Value = path;
-        cmd.Parameters.Add("@photoID", OdbcType.Int).Value = photoID;
+        cmd.Parameters.Add("@photoPath", MySqlDbType.VarChar).Value = path;
+        cmd.Parameters.Add("@photoID", MySqlDbType.Int32).Value = photoID;
         cmd.ExecuteNonQuery();
     }
 

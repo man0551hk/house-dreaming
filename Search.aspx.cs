@@ -11,7 +11,7 @@ using System.Data.Odbc;
 
 public partial class Search : Page_Control
 {
-    OdbcConnection cn = new OdbcConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+    MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -25,11 +25,11 @@ public partial class Search : Page_Control
         try
         {
             cn.Open();
-            OdbcCommand cmd = new OdbcCommand("select case @lang when 1 then districtEn when 2 then districtTc when 3 then districtSc end as district, districtID from district", cn);
+            MySqlCommand cmd = new MySqlCommand("select case @lang when 1 then districtEn when 2 then districtTc when 3 then districtSc end as district, districtID from district", cn);
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.Add("@lang", OdbcType.Int).Value = CommonFunc.GetLanguageID();
+            cmd.Parameters.Add("@lang", MySqlDbType.Int32).Value = CommonFunc.GetLanguageID();
             DataSet ds = new DataSet();
-            OdbcDataAdapter ad = new OdbcDataAdapter(cmd);
+            MySqlDataAdapter ad = new MySqlDataAdapter(cmd);
             ad.Fill(ds);
             districtDDL.DataSource = ds;
             districtDDL.DataBind();

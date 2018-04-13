@@ -127,7 +127,7 @@
     <value>Calculating...</value>
   </data>
   <data name="checkout.Text" xml:space="preserve">
-    <value>Checkout &amp; Publish</value>
+    <value>*We use PayPal for Checkout and after paid the listings will be published on House-Dreaming.com</value>
   </data>
   <data name="classType.Text" xml:space="preserve">
     <value>Publish Class</value>

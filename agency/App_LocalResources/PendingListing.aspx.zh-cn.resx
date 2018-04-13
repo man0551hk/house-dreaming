@@ -130,7 +130,7 @@
     <value>计算中...</value>
   </data>
   <data name="checkout.Text" xml:space="preserve">
-    <value>结帐及发布</value>
+    <value>*我们使用PayPayl作为付款工具，完成付款后，你所选择的楼盘将会自动发布到House-Dreaming.com上</value>
   </data>
   <data name="classType.Text" xml:space="preserve">
     <value>發布級別</value>

@@ -20,6 +20,13 @@
      <%--<script src="//code.jquery.com/jquery-3.2.1.slim.min.js" />--%>
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-2206707061614156",
+            enable_page_level_ads: true
+        });
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">

@@ -127,7 +127,7 @@
     <value>計算中...</value>
   </data>
   <data name="checkout.Text" xml:space="preserve">
-    <value>結帳及發佈</value>
+    <value>*我們使用PayPayl作為付款工具，完成付款後，你所選擇的樓盤將會自動發佈到House-Dreaming.com上</value>
   </data>
   <data name="classType.Text" xml:space="preserve">
     <value>發佈級別</value>

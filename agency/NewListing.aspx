@@ -109,7 +109,8 @@
 <div class="panel panel-default">
 	<div class="panel-body">
         <div class="col-md-12">
-            <asp:UpdatePanel runat="server" ID ="wallPanel" UpdateMode ="Conditional" ChildrenAsTriggers="true">
+            <asp:UpdatePanel runat="server" ID ="wallPanel" UpdateMode ="Conditional" ChildrenAs
+                s="true">
                 <ContentTemplate>
                    <%-- <asp:TextBox runat="server" ID="testMsg"></asp:TextBox>--%>
 		            <div class="form-group">

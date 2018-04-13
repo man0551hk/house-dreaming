@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/agency/MasterPage.master" AutoEventWireup="true" CodeFile="PendingListing.aspx.cs" Inherits="agency_PendingListing" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <asp:ScriptManager runat="server" ID="smanager"  EnablePageMethods="true" EnableViewState="true"/>
@@ -23,8 +24,10 @@
 <div class="panel panel-default">
 	<div class="panel-body">
         <div class="col-md-12">
-            <asp:UpdatePanel runat="server" ID="pendingPanel" UpdateMode="Conditional">
+            <asp:UpdatePanel runat="server" ID="pendingPanel" UpdateMode="Conditional" ChildrenAsTriggers="true">
+               
                 <ContentTemplate>
+
                     <asp:Repeater runat="server" ID ="pendingListRepeater">
                         <HeaderTemplate>
                             <table class="table table table-striped">
@@ -60,7 +63,7 @@
                                     $<%# DataBinder.Eval(Container, "DataItem.salePrice")%> / $<%# DataBinder.Eval(Container, "DataItem.rentPrice")%>
                                 </td>
                                 <td>
-                                    <asp:DropDownList runat="server" ID="durationDDL" CssClass="form-control" OnSelectedIndexChanged="durationDDL_SelectedIndexChanged">
+                                    <asp:DropDownList runat="server" ID="durationDDL" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="durationDDL_SelectedIndexChanged">
                                         <asp:ListItem Value ="0" meta:resourceKey="notPublish"></asp:ListItem>
                                         <asp:ListItem Value ="15" meta:resourceKey="days15"></asp:ListItem>
                                         <asp:ListItem Value ="30" meta:resourceKey="days30"></asp:ListItem>
@@ -69,7 +72,7 @@
                                     </asp:DropDownList>
                                 </td>
                                 <td>
-                                    <asp:DropDownList runat="server" ID="classDDL" CssClass="form-control" OnSelectedIndexChanged ="classDDL_SelectedIndexChanged">
+                                    <asp:DropDownList runat="server" ID="classDDL" CssClass="form-control" AutoPostBack="true"  OnSelectedIndexChanged ="classDDL_SelectedIndexChanged">
                                         <asp:ListItem Value ="1" meta:resourceKey="regularClass"></asp:ListItem>
                                         <asp:ListItem Value ="2" meta:resourceKey="advanceClass"></asp:ListItem>
                                     </asp:DropDownList>
@@ -85,7 +88,17 @@
                     <table class="table table table-striped">
                         <tr>
                             <td align="right">
-                                $<asp:Literal runat="server" ID="totalPriceLabel"></asp:Literal>
+                                <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID ="pendingPanel">
+                                    <ProgressTemplate>
+                                        <asp:Literal ID="Literal10" runat = "server" meta:resourceKey="calculate"></asp:Literal>
+                                    </ProgressTemplate>
+                                </asp:UpdateProgress>
+                                $ <asp:Label runat="server" ID="totalPriceLabel" Text="0"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align ="right">
+                                <asp:Button runat="server" ID="checkoutBtn" meta:resourceKey="checkout" CssClass="btn btn-primary" />
                             </td>
                         </tr>
                     </table>
@@ -94,7 +107,7 @@
 
                 </Triggers>
             </asp:UpdatePanel>
-            
+
         </div>
     </div>
 </div>

@@ -123,6 +123,12 @@
   <data name="breadcrumb.Text" xml:space="preserve">
     <value>New Listing</value>
   </data>
+  <data name="calculate.Text" xml:space="preserve">
+    <value>Calculating...</value>
+  </data>
+  <data name="checkout.Text" xml:space="preserve">
+    <value>Checkout &amp; Publish</value>
+  </data>
   <data name="classType.Text" xml:space="preserve">
     <value>Publish Class</value>
   </data>

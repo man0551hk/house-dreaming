@@ -126,6 +126,12 @@
   <data name="breadcrumb.Text" xml:space="preserve">
     <value>暂存楼盘</value>
   </data>
+  <data name="calculate.Text" xml:space="preserve">
+    <value>计算中...</value>
+  </data>
+  <data name="checkout.Text" xml:space="preserve">
+    <value>结帐及发布</value>
+  </data>
   <data name="classType.Text" xml:space="preserve">
     <value>發布級別</value>
   </data>

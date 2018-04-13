@@ -123,6 +123,12 @@
   <data name="breadcrumb.Text" xml:space="preserve">
     <value>暫存樓盤</value>
   </data>
+  <data name="calculate.Text" xml:space="preserve">
+    <value>計算中...</value>
+  </data>
+  <data name="checkout.Text" xml:space="preserve">
+    <value>結帳及發佈</value>
+  </data>
   <data name="classType.Text" xml:space="preserve">
     <value>發佈級別</value>
   </data>

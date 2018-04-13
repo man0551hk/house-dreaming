@@ -53,12 +53,44 @@ public partial class agency_PendingListing : Agency_Page_Control
         {
             cn.Close();
         }
+
+
+        foreach (RepeaterItem ri in pendingListRepeater.Items)
+        {
+            DropDownList durationDDL = ri.FindControl("durationDDL") as DropDownList;
+            DropDownList classDDL = ri.FindControl("classDDL") as DropDownList;
+            if (durationDDL != null)
+            {
+                AsyncPostBackTrigger trigger1 = new AsyncPostBackTrigger();
+                trigger1.ControlID = durationDDL.UniqueID;
+                trigger1.EventName = "SelectedIndexChanged";
+                pendingPanel.Triggers.Add(trigger1);
+            }
+            if (classDDL != null)
+            {
+                AsyncPostBackTrigger trigger2 = new AsyncPostBackTrigger();
+                trigger2.ControlID = durationDDL.UniqueID;
+                trigger2.EventName = "SelectedIndexChanged";
+                pendingPanel.Triggers.Add(trigger2);
+            }
+        }
     }
 
 
     protected void durationDDL_SelectedIndexChanged(object sender, EventArgs e)
     {
-       
+        CalculatePrice();
+        pendingPanel.Update();
+    }
+
+    protected void classDDL_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        CalculatePrice();
+        pendingPanel.Update();
+    }
+
+    public void CalculatePrice()
+    {
         foreach (RepeaterItem ri in pendingListRepeater.Items)
         {
             DropDownList durationDDL = ri.FindControl("durationDDL") as DropDownList;
@@ -69,11 +101,8 @@ public partial class agency_PendingListing : Agency_Page_Control
 
             totalPrice += (days * classType);
         }
+        //testMsg.Text = DateTime.Now.ToString();
         totalPriceLabel.Text = totalPrice.ToString();
-    }
-
-    protected void classDDL_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
+    
     }
 }

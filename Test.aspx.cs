@@ -10,7 +10,7 @@ public partial class Test : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        OdbcConnection cn = new OdbcConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+        OdbcConnection cn = new OdbcConnection(System.Configuration.ConfigurationManager.ConnectionStrings["odbc_sq"].ConnectionString);
         try
         {
             cn.Open();

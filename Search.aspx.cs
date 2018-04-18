@@ -5,13 +5,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using HouseDreaming;
-using MySql.Data.MySqlClient;
+
 using System.Data;
 using System.Data.Odbc;
+using System.Data.SqlClient;
 
 public partial class Search : Page_Control
 {
-    MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+    SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -25,11 +26,11 @@ public partial class Search : Page_Control
         try
         {
             cn.Open();
-            MySqlCommand cmd = new MySqlCommand("select case @lang when 1 then districtEn when 2 then districtTc when 3 then districtSc end as district, districtID from district", cn);
+            SqlCommand cmd = new SqlCommand("select case @lang when 1 then districtEn when 2 then districtTc when 3 then districtSc end as district, districtID from district", cn);
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.Add("@lang", MySqlDbType.Int32).Value = CommonFunc.GetLanguageID();
+            cmd.Parameters.Add("@lang", SqlDbType.Int).Value = CommonFunc.GetLanguageID();
             DataSet ds = new DataSet();
-            MySqlDataAdapter ad = new MySqlDataAdapter(cmd);
+            SqlDataAdapter ad = new SqlDataAdapter(cmd);
             ad.Fill(ds);
             districtDDL.DataSource = ds;
             districtDDL.DataBind();
@@ -39,7 +40,9 @@ public partial class Search : Page_Control
             districtDDL.Items.Insert(0, new ListItem((string)GetLocalResourceObject("lbAny.Text"), "0"));
         }
         catch (Exception ex)
-        { }
+        {
+            Response.Write(ex.Message);
+        }
         finally
         {
             cn.Close();

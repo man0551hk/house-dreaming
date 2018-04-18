@@ -5,12 +5,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using HouseDreaming;
-using MySql.Data.MySqlClient;
+
 using Microsoft.VisualBasic;
+using System.Data.SqlClient;
+using System.Data;
 
 public partial class agency_signup : Agency_Page_Control
 {
-    MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+    SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -36,12 +38,12 @@ public partial class agency_signup : Agency_Page_Control
         {
             cn.Open();
             bool allow = true;
-            MySqlCommand checkCmd = new MySqlCommand("select agencyID from agency where email = @email or mobile = @mobile or agentLicense = @agentLicense", cn);
+            SqlCommand checkCmd = new SqlCommand("select agencyID from agency where email = @email or mobile = @mobile or agentLicense = @agentLicense", cn);
             checkCmd.CommandType = System.Data.CommandType.Text;
-            checkCmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = email.Text;
-            checkCmd.Parameters.Add("@mobile", MySqlDbType.VarChar).Value = mobile.Text;
-            checkCmd.Parameters.Add("@agentLicense", MySqlDbType.VarChar).Value = agentLicense.Text;
-            MySqlDataReader dr = checkCmd.ExecuteReader();
+            checkCmd.Parameters.Add("@email", SqlDbType.VarChar).Value = email.Text;
+            checkCmd.Parameters.Add("@mobile", SqlDbType.VarChar).Value = mobile.Text;
+            checkCmd.Parameters.Add("@agentLicense", SqlDbType.VarChar).Value = agentLicense.Text;
+            SqlDataReader dr = checkCmd.ExecuteReader();
             if (dr.HasRows)
             {
                 allow = false;
@@ -50,23 +52,23 @@ public partial class agency_signup : Agency_Page_Control
 
             if (allow)
             {
-                MySqlCommand cmd = new MySqlCommand(@"insert into agency (companyNameEn, companyNameTc, companyNameSc, companyLicense, agentNameEn, agentNameTc, agentNameSc, agentLicense, email, mobile, officePhone, fax, gender, createDate)
+                SqlCommand cmd = new SqlCommand(@"insert into agency (companyNameEn, companyNameTc, companyNameSc, companyLicense, agentNameEn, agentNameTc, agentNameSc, agentLicense, email, mobile, officePhone, fax, gender, createDate)
                                                     values 
                                                    (@companyNameEn, @companyNameTc, @companyNameSc, @companyLicense, @agentNameEn, @agentNameTc, @agentNameSc, @agentLicense, @email, @mobile, @officePhone, @fax, @gender, NOW())", cn);
                 cmd.CommandType = System.Data.CommandType.Text;
-                cmd.Parameters.Add("@companyNameEn", MySqlDbType.VarChar).Value = companyNameEn.Text;
-                cmd.Parameters.Add("@companyNameTc", MySqlDbType.VarChar).Value = companyNameTc.Text;
-                cmd.Parameters.Add("@companyNameSc", MySqlDbType.VarChar).Value = Microsoft.VisualBasic.Strings.StrConv(agentNameTc.Text, VbStrConv.SimplifiedChinese, 2052);
-                cmd.Parameters.Add("@companyLicense", MySqlDbType.VarChar).Value = companyLicense.Text;
-                cmd.Parameters.Add("@agentNameEn", MySqlDbType.VarChar).Value = agentNameEn.Text;
-                cmd.Parameters.Add("@agentNameTc", MySqlDbType.VarChar).Value = agentNameTc.Text;
-                cmd.Parameters.Add("@agentNameSc", MySqlDbType.VarChar).Value = Microsoft.VisualBasic.Strings.StrConv(agentNameTc.Text, VbStrConv.SimplifiedChinese, 2052);
-                cmd.Parameters.Add("@agentLicense", MySqlDbType.VarChar).Value = agentLicense.Text;
-                cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = email.Text;
-                cmd.Parameters.Add("@mobile", MySqlDbType.Int32).Value = Convert.ToInt32(mobile.Text);
-                cmd.Parameters.Add("@officePhone", MySqlDbType.Int32).Value = officePhone.Text != "" ? Convert.ToInt32(officePhone.Text) : 0;
-                cmd.Parameters.Add("@fax", MySqlDbType.Int32).Value = fax.Text != "" ? Convert.ToInt32(fax.Text) : 0;
-                cmd.Parameters.Add("@gender", MySqlDbType.VarChar).Value = gender.SelectedValue.ToString();
+                cmd.Parameters.Add("@companyNameEn", SqlDbType.VarChar).Value = companyNameEn.Text;
+                cmd.Parameters.Add("@companyNameTc", SqlDbType.VarChar).Value = companyNameTc.Text;
+                cmd.Parameters.Add("@companyNameSc", SqlDbType.VarChar).Value = Microsoft.VisualBasic.Strings.StrConv(agentNameTc.Text, VbStrConv.SimplifiedChinese, 2052);
+                cmd.Parameters.Add("@companyLicense", SqlDbType.VarChar).Value = companyLicense.Text;
+                cmd.Parameters.Add("@agentNameEn", SqlDbType.VarChar).Value = agentNameEn.Text;
+                cmd.Parameters.Add("@agentNameTc", SqlDbType.VarChar).Value = agentNameTc.Text;
+                cmd.Parameters.Add("@agentNameSc", SqlDbType.VarChar).Value = Microsoft.VisualBasic.Strings.StrConv(agentNameTc.Text, VbStrConv.SimplifiedChinese, 2052);
+                cmd.Parameters.Add("@agentLicense", SqlDbType.VarChar).Value = agentLicense.Text;
+                cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = email.Text;
+                cmd.Parameters.Add("@mobile", SqlDbType.Int).Value = Convert.ToInt32(mobile.Text);
+                cmd.Parameters.Add("@officePhone", SqlDbType.Int).Value = officePhone.Text != "" ? Convert.ToInt32(officePhone.Text) : 0;
+                cmd.Parameters.Add("@fax", SqlDbType.Int).Value = fax.Text != "" ? Convert.ToInt32(fax.Text) : 0;
+                cmd.Parameters.Add("@gender", SqlDbType.VarChar).Value = gender.SelectedValue.ToString();
                 cmd.ExecuteNonQuery();
                 form1.Visible = false;
                 thanks.Visible = true;

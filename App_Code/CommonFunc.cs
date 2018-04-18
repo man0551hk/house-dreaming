@@ -7,7 +7,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
-using MySql.Data.MySqlClient;
+
 
 /// <summary>
 /// Summary description for CommonFunc
@@ -106,14 +106,14 @@ public static class CommonFunc
     public static string GetAreaName(int areaID)
     {
         string area = "";
-        //MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+        //SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
         //try
         //{
         //    cn.Open();
-        //    MySqlCommand cmd = new MySqlCommand("select areaEn, areaTc, areaSc from area where areaID = @areaID", cn);
+        //    SqlCommand cmd = new SqlCommand("select areaEn, areaTc, areaSc from area where areaID = @areaID", cn);
         //    cmd.CommandType = System.Data.CommandType.Text;
-        //    cmd.Parameters.Add("@areaID", MySqlDbType.Int32).Value = areaID;
-        //    MySqlDataReader dr = cmd.ExecuteReader();
+        //    cmd.Parameters.Add("@areaID", SqlDbType.Int).Value = areaID;
+        //    SqlDataReader dr = cmd.ExecuteReader();
         //    if (dr.Read())
         //    {
         //        area = dr["areaEn"].ToString() + " " + dr["areaTc"].ToString() + " " + dr["areaSc"].ToString();
@@ -132,14 +132,14 @@ public static class CommonFunc
     public static string GetDistictName(int districtID)
     {
         string district = "";
-        //MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+        //SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
         //try
         //{
         //    cn.Open();
-        //    MySqlCommand cmd = new MySqlCommand("select districtEn, districtTc, districtSc from district where districtID = @districtID", cn);
+        //    SqlCommand cmd = new SqlCommand("select districtEn, districtTc, districtSc from district where districtID = @districtID", cn);
         //    cmd.CommandType = System.Data.CommandType.Text;
-        //    cmd.Parameters.Add("@districtID", MySqlDbType.Int32).Value = districtID;
-        //    MySqlDataReader dr = cmd.ExecuteReader();
+        //    cmd.Parameters.Add("@districtID", SqlDbType.Int).Value = districtID;
+        //    SqlDataReader dr = cmd.ExecuteReader();
         //    if (dr.Read())
         //    {
         //        district = dr["districtEn"].ToString() + " " + dr["districtTc"].ToString() + " " + dr["districtSc"].ToString();

@@ -5,12 +5,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using HouseDreaming;
-using MySql.Data.MySqlClient;
+
 using System.Data.Odbc;
+using System.Data.SqlClient;
+using System.Data;
 
 public partial class agency_Login : Agency_Page_Control
 {
-    MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+    SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["agencyID"] != null)
@@ -34,11 +36,11 @@ public partial class agency_Login : Agency_Page_Control
             int agencyID = 0;
             string enryptedPassword = Crypto.EncryptMD5(password.Text);
             cn.Open();
-            MySqlCommand cmd = new MySqlCommand("select agencyID from agency where email = @email and password = @password", cn);
+            SqlCommand cmd = new SqlCommand("select agencyID from agency where email = @email and password = @password", cn);
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = email.Text;
-            cmd.Parameters.Add("@password", MySqlDbType.VarChar).Value = enryptedPassword;
-            MySqlDataReader dr = cmd.ExecuteReader();
+            cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = email.Text;
+            cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = enryptedPassword;
+            SqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
                 agencyID = Convert.ToInt32(dr["agencyID"]);

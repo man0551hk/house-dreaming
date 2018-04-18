@@ -7,12 +7,13 @@ using System.Web.UI.WebControls;
 using HouseDreaming;
 using System.Threading;
 using System.Globalization;
-using MySql.Data.MySqlClient;
+
 using System.Data;
+using System.Data.SqlClient;
 
 public partial class agency_MasterPage : System.Web.UI.MasterPage
 {
-    MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+    SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -32,11 +33,11 @@ public partial class agency_MasterPage : System.Web.UI.MasterPage
         try
         {
             cn.Open();
-            MySqlCommand cmd = new MySqlCommand(@"select agencyProfilePhoto, agentNameEn, agentNameTc 
+            SqlCommand cmd = new SqlCommand(@"select agencyProfilePhoto, agentNameEn, agentNameTc 
                                                 from agency where agencyID = @agencyID", cn);
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.Add("@agencyID", MySqlDbType.Int32).Value = Convert.ToInt32(Session["agencyID"]);
-            MySqlDataReader dr = cmd.ExecuteReader();
+            cmd.Parameters.Add("@agencyID", SqlDbType.Int).Value = Convert.ToInt32(Session["agencyID"]);
+            SqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
                 string agencyProfilePhoto = dr["agencyProfilePhoto"] == DBNull.Value ? "images/unknown.png" : dr["agencyProfilePhoto"].ToString();

@@ -1,8 +1,9 @@
-﻿using MySql.Data.MySqlClient;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Odbc;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,7 +11,7 @@ using System.Web.UI.WebControls;
 
 public partial class admin_Agency : System.Web.UI.Page
 {
-    MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+    SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -25,9 +26,9 @@ public partial class admin_Agency : System.Web.UI.Page
         try
         {
             cn.Open();
-            MySqlCommand cmd = new MySqlCommand("select * from agency where verifyDate is null", cn);
+            SqlCommand cmd = new SqlCommand("select * from agency where verifyDate is null", cn);
             cmd.CommandType = System.Data.CommandType.Text;
-            MySqlDataAdapter ad = new MySqlDataAdapter(cmd);
+            SqlDataAdapter ad = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             ad.Fill(ds);
 
@@ -65,10 +66,10 @@ public partial class admin_Agency : System.Web.UI.Page
             string encryptPassword = Crypto.EncryptMD5(password);
             
             cn.Open();
-            MySqlCommand cmd = new MySqlCommand("update agency set password = @password, verifyDate = NOW() where agencyID = @agencyID", cn);
+            SqlCommand cmd = new SqlCommand("update agency set password = @password, verifyDate = NOW() where agencyID = @agencyID", cn);
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("@password", MySqlDbType.VarChar).Value = encryptPassword;
-            cmd.Parameters.Add("@agencyID", MySqlDbType.Int32).Value = agencyID;
+            cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = encryptPassword;
+            cmd.Parameters.Add("@agencyID", SqlDbType.Int).Value = agencyID;
             cmd.ExecuteNonQuery();
 
 

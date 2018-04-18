@@ -5,14 +5,16 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using HouseDreaming;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
+using System.Data;
+
 
 public partial class agency_ChangePassword : Agency_Page_Control
 {
     string key = "";
     string originPassword = "";
     string agencyID = "";
-    MySqlConnection cn = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+    SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -43,10 +45,10 @@ public partial class agency_ChangePassword : Agency_Page_Control
         try
         {
             cn.Open();
-            MySqlCommand cmd = new MySqlCommand("update agency set password = @password where agencyID = @agencyID", cn);
+            SqlCommand cmd = new SqlCommand("update agency set password = @password where agencyID = @agencyID", cn);
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.Add("@password", MySqlDbType.VarChar).Value = encryptedPassword;
-            cmd.Parameters.Add("@agencyID", MySqlDbType.Int32).Value = Convert.ToInt32(agencyID);
+            cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = encryptedPassword;
+            cmd.Parameters.Add("@agencyID", SqlDbType.Int).Value = Convert.ToInt32(agencyID);
             cmd.ExecuteNonQuery();
             Response.Redirect("ChangePassword.aspx");
         }

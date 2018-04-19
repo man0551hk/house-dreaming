@@ -33,7 +33,7 @@ public partial class agency_Default : Agency_Page_Control
         }
         catch (Exception ex)
         {
-           Response.Write("<script>console.log('" + ex.Message + "');</script>");
+           Response.Write(ex.Message);
         }
 
     }

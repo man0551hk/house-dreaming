@@ -92,11 +92,11 @@
 <asp:ScriptManager runat="server" ID="smanager"  EnablePageMethods="true" EnableViewState="true"/>
 <div class="row">
 	<ol class="breadcrumb">
-		<li><a href="Default.aspx">
+		<li><a href="<%=CommonFunc.GetAgencyDomain() %>home/">
 			<em class="fa fa-home"></em>
 		</a></li>
 		<li>
-            <a href="Listing.aspx"><asp:Literal ID="Literal6" runat = "server" meta:resourceKey="listingBreadcrumb"></asp:Literal></a>
+            <a href="<%=CommonFunc.GetAgencyDomain() %>listing/"><asp:Literal ID="Literal6" runat = "server" meta:resourceKey="listingBreadcrumb"></asp:Literal></a>
 		</li>
 		<li class="active"><asp:Literal ID="Literal3" runat = "server" meta:resourceKey="breadcrumb"></asp:Literal></li>
 	</ol>
@@ -109,8 +109,7 @@
 <div class="panel panel-default">
 	<div class="panel-body">
         <div class="col-md-12">
-            <asp:UpdatePanel runat="server" ID ="wallPanel" UpdateMode ="Conditional" ChildrenAs
-                s="true">
+            <asp:UpdatePanel runat="server" ID ="wallPanel" UpdateMode ="Conditional" ChildrenAsTriggers ="true">
                 <ContentTemplate>
                    <%-- <asp:TextBox runat="server" ID="testMsg"></asp:TextBox>--%>
 		            <div class="form-group">

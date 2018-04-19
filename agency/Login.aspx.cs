@@ -17,7 +17,7 @@ public partial class agency_Login : Agency_Page_Control
     {
         if (Session["agencyID"] != null)
         {
-            Response.Redirect("Default.aspx");
+            Response.Redirect("home/");
         }
         if (!IsPostBack)
         {
@@ -36,8 +36,8 @@ public partial class agency_Login : Agency_Page_Control
             int agencyID = 0;
             string enryptedPassword = Crypto.EncryptMD5(password.Text);
             cn.Open();
-            SqlCommand cmd = new SqlCommand("select agencyID from agency where email = @email and password = @password", cn);
-            cmd.CommandType = System.Data.CommandType.Text;
+            SqlCommand cmd = new SqlCommand("AgencyLogin", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = email.Text;
             cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = enryptedPassword;
             SqlDataReader dr = cmd.ExecuteReader();
@@ -62,7 +62,7 @@ public partial class agency_Login : Agency_Page_Control
         { }
         if (loginSuccess)
         {
-            Response.Redirect("Default.aspx");
+            Response.Redirect(CommonFunc.GetAgencyDomain() + "home/");
         }
         else
         {

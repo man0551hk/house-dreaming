@@ -26,8 +26,8 @@ public partial class admin_Agency : System.Web.UI.Page
         try
         {
             cn.Open();
-            SqlCommand cmd = new SqlCommand("select * from agency where verifyDate is null", cn);
-            cmd.CommandType = System.Data.CommandType.Text;
+            SqlCommand cmd = new SqlCommand("GetPendingAgency", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter ad = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             ad.Fill(ds);
@@ -66,8 +66,8 @@ public partial class admin_Agency : System.Web.UI.Page
             string encryptPassword = Crypto.EncryptMD5(password);
             
             cn.Open();
-            SqlCommand cmd = new SqlCommand("update agency set password = @password, verifyDate = NOW() where agencyID = @agencyID", cn);
-            cmd.CommandType = CommandType.Text;
+            SqlCommand cmd = new SqlCommand("ApproveAgency", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = encryptPassword;
             cmd.Parameters.Add("@agencyID", SqlDbType.Int).Value = agencyID;
             cmd.ExecuteNonQuery();

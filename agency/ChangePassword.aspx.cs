@@ -45,8 +45,8 @@ public partial class agency_ChangePassword : Agency_Page_Control
         try
         {
             cn.Open();
-            SqlCommand cmd = new SqlCommand("update agency set password = @password where agencyID = @agencyID", cn);
-            cmd.CommandType = System.Data.CommandType.Text;
+            SqlCommand cmd = new SqlCommand("UpdateAgencyPassword", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = encryptedPassword;
             cmd.Parameters.Add("@agencyID", SqlDbType.Int).Value = Convert.ToInt32(agencyID);
             cmd.ExecuteNonQuery();

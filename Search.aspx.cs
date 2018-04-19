@@ -26,8 +26,8 @@ public partial class Search : Page_Control
         try
         {
             cn.Open();
-            SqlCommand cmd = new SqlCommand("select case @lang when 1 then districtEn when 2 then districtTc when 3 then districtSc end as district, districtID from district", cn);
-            cmd.CommandType = System.Data.CommandType.Text;
+            SqlCommand cmd = new SqlCommand("GetDistrictByLang", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@lang", SqlDbType.Int).Value = CommonFunc.GetLanguageID();
             DataSet ds = new DataSet();
             SqlDataAdapter ad = new SqlDataAdapter(cmd);

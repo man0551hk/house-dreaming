@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <div class="row">
 	<ol class="breadcrumb">
-		<li><a href="Default.aspx">
+		<li><a href="<%=CommonFunc.GetAgencyDomain() %>home/">
 			<em class="fa fa-home"></em>
 		</a></li>
 		<li class="active"><asp:Literal ID="Literal3" runat = "server" meta:resourceKey="breadcrumb"></asp:Literal></li>
@@ -18,16 +18,7 @@
 </div>
 <div class="panel panel-container">
     <div class="row">
-        <div class="col-xs-6 col-md-6 col-lg-6 no-padding">
-			<div class="panel panel-teal panel-widget border-right">
-				<a href ="NewListing.aspx"><asp:Literal ID="Literal1" runat = "server" meta:resourceKey="NewListing"></asp:Literal></a>
-			</div>
-		</div>
-		<div class="col-xs-6 col-md-6 col-lg-6 no-padding">
-			<div class="panel panel-blue panel-widget border-right">
-				<a href ="ViewAllListing.aspx"><asp:Literal ID="Literal2" runat = "server" meta:resourceKey="ViewAllListing"></asp:Literal></a>
-			</div>
-		</div>
+       
     </div>
 </div>
 </asp:Content>

@@ -31,15 +31,8 @@ public partial class agency_PendingListing : Agency_Page_Control
         try
         {
             cn.Open();
-            SqlCommand cmd = new SqlCommand(@"select listingID, titleEn, titleTc, subTitleEn, subTitleTc, room, 
-                                                bathroom, size, netSize, 
-                                                 listingType,
-                                                salePrice, rentPrice,
-                                                case when @lang = 1 then D.districtEn when @lang = 2 then D.districtTc when @lang = 3 then D.districtSc end as district
-                                                from listing L
-                                                inner join district D on L.districtID = D.districtID
-                                                where agencyID = @agencyID", cn);
-            cmd.CommandType = System.Data.CommandType.Text;
+            SqlCommand cmd = new SqlCommand(@"GetPendingListing", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@lang", SqlDbType.Int).Value = Agency_Kernel.GetLanguageID();
             cmd.Parameters.Add("@agencyID", SqlDbType.Int).Value = Convert.ToInt32(Session["agencyID"]);
             DataSet ds = new DataSet();

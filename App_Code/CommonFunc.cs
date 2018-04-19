@@ -7,6 +7,8 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Data.SqlClient;
+using System.Data;
 
 
 /// <summary>
@@ -106,52 +108,52 @@ public static class CommonFunc
     public static string GetAreaName(int areaID)
     {
         string area = "";
-        //SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
-        //try
-        //{
-        //    cn.Open();
-        //    SqlCommand cmd = new SqlCommand("select areaEn, areaTc, areaSc from area where areaID = @areaID", cn);
-        //    cmd.CommandType = System.Data.CommandType.Text;
-        //    cmd.Parameters.Add("@areaID", SqlDbType.Int).Value = areaID;
-        //    SqlDataReader dr = cmd.ExecuteReader();
-        //    if (dr.Read())
-        //    {
-        //        area = dr["areaEn"].ToString() + " " + dr["areaTc"].ToString() + " " + dr["areaSc"].ToString();
-        //    }
-        //    dr.Close();
-        //}
-        //catch (Exception ex)
-        //{ }
-        //finally
-        //{
-        //    cn.Close();
-        //}
+        SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+        try
+        {
+            cn.Open();
+            SqlCommand cmd = new SqlCommand("GetArea", cn);
+            cmd.CommandType =  CommandType.StoredProcedure;
+            cmd.Parameters.Add("@areaID", SqlDbType.Int).Value = areaID;
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                area = dr["areaEn"].ToString() + " " + dr["areaTc"].ToString() + " " + dr["areaSc"].ToString();
+            }
+            dr.Close();
+        }
+        catch (Exception ex)
+        { }
+        finally
+        {
+            cn.Close();
+        }
         return area;
     }
 
     public static string GetDistictName(int districtID)
     {
         string district = "";
-        //SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
-        //try
-        //{
-        //    cn.Open();
-        //    SqlCommand cmd = new SqlCommand("select districtEn, districtTc, districtSc from district where districtID = @districtID", cn);
-        //    cmd.CommandType = System.Data.CommandType.Text;
-        //    cmd.Parameters.Add("@districtID", SqlDbType.Int).Value = districtID;
-        //    SqlDataReader dr = cmd.ExecuteReader();
-        //    if (dr.Read())
-        //    {
-        //        district = dr["districtEn"].ToString() + " " + dr["districtTc"].ToString() + " " + dr["districtSc"].ToString();
-        //    }
-        //    dr.Close();
-        //}
-        //catch (Exception ex)
-        //{ }
-        //finally
-        //{
-        //    cn.Close();
-        //}
+        SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+        try
+        {
+            cn.Open();
+            SqlCommand cmd = new SqlCommand("GetDistrict", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@districtID", SqlDbType.Int).Value = districtID;
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                district = dr["districtEn"].ToString() + " " + dr["districtTc"].ToString() + " " + dr["districtSc"].ToString();
+            }
+            dr.Close();
+        }
+        catch (Exception ex)
+        { }
+        finally
+        {
+            cn.Close();
+        }
         return district;
     }
 
@@ -249,9 +251,13 @@ public static class CommonFunc
         }
     }
 
-
     public static string ImageUrl()
     {
         return ConfigurationManager.AppSettings["image_url"];
+    }
+
+    public static string GetAgencyDomain()
+    {
+        return ConfigurationManager.AppSettings["AgencyDomain"].ToString();
     }
 }

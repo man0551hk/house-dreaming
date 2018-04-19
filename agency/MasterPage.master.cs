@@ -23,7 +23,7 @@ public partial class agency_MasterPage : System.Web.UI.MasterPage
         }
         else
         {
-            Response.Redirect("Login.aspx");
+            Response.Redirect(CommonFunc.GetAgencyDomain() + "Login/");
         }
         
     }
@@ -33,9 +33,8 @@ public partial class agency_MasterPage : System.Web.UI.MasterPage
         try
         {
             cn.Open();
-            SqlCommand cmd = new SqlCommand(@"select agencyProfilePhoto, agentNameEn, agentNameTc 
-                                                from agency where agencyID = @agencyID", cn);
-            cmd.CommandType = System.Data.CommandType.Text;
+            SqlCommand cmd = new SqlCommand(@"GetAgencyProfile", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@agencyID", SqlDbType.Int).Value = Convert.ToInt32(Session["agencyID"]);
             SqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())

@@ -6,7 +6,7 @@
 	<div class="login-panel panel panel-default">
 		<div class="panel-heading">
             <asp:Literal ID="Literal7" runat = "server" meta:resourceKey="heading"></asp:Literal>
-            <b style="float:right;"><a href ="Signup.aspx"><asp:Literal ID="Literal2" runat = "server" meta:resourceKey="signUp"></asp:Literal></a></b>
+            <b style="float:right;"><a href ="<%=CommonFunc.GetAgencyDomain() %>Signup/"><asp:Literal ID="Literal2" runat = "server" meta:resourceKey="signUp"></asp:Literal></a></b>
 		</div>
 		<div class="panel-body">
 			<form id="form1" runat="server" role="form">
@@ -32,7 +32,7 @@
 						</label>
 					</div>
                     <asp:Button runat="server" ID="loginBtn" CssClass ="btn btn-primary"  meta:resourceKey="login" OnClick="loginBtn_Click" />
-                    <a href ="forgetPassword.aspx"><asp:Literal ID="Literal1" runat = "server" meta:resourceKey="forgetPassword"></asp:Literal></a>
+                    <a href ="forgetPassword/"><asp:Literal ID="Literal1" runat = "server" meta:resourceKey="forgetPassword"></asp:Literal></a>
 				</fieldset>
 			</form>
 		</div>

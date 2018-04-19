@@ -95,7 +95,7 @@ namespace HouseDreaming
                 HttpCookie objCookie = new HttpCookie("House_Dreaming_Lang");
                 objCookie.Value = langcode;
                 objCookie.Expires = DateTime.Now.AddDays(30);
-                objCookie.Domain = ConfigurationSettings.AppSettings["HomeDomain"].ToString();
+                objCookie.Domain = ConfigurationManager.AppSettings["HomeDomain"].ToString();
                 HttpContext.Current.Response.Cookies.Add(objCookie);
             }
             else
@@ -103,7 +103,7 @@ namespace HouseDreaming
                 try
                 {
                     cookie1.Value = langcode;
-                    cookie1.Domain = ConfigurationSettings.AppSettings["HomeDomain"].ToString();
+                    cookie1.Domain = ConfigurationManager.AppSettings["HomeDomain"].ToString();
                     HttpContext.Current.Response.Cookies.Add(cookie1);
                 }
                 catch (Exception ex) { }
@@ -240,7 +240,7 @@ namespace HouseDreaming
                 HttpCookie objCookie = new HttpCookie("House_Dreaming_Agency_Lang");
                 objCookie.Value = langcode;
                 objCookie.Expires = DateTime.Now.AddDays(30);
-                objCookie.Domain = ConfigurationSettings.AppSettings["HomeDomain"].ToString();
+                objCookie.Domain = ConfigurationManager.AppSettings["AgencyDomain"].ToString();
                 HttpContext.Current.Response.Cookies.Add(objCookie);
             }
             else
@@ -248,7 +248,7 @@ namespace HouseDreaming
                 try
                 {
                     cookie1.Value = langcode;
-                    cookie1.Domain = ConfigurationSettings.AppSettings["HomeDomain"].ToString();
+                    cookie1.Domain = ConfigurationManager.AppSettings["AgencyDomain"].ToString();
                     HttpContext.Current.Response.Cookies.Add(cookie1);
                 }
                 catch (Exception ex) { }
@@ -258,23 +258,51 @@ namespace HouseDreaming
         public static void SaveAgencyIDCookie(int agencyID)
         {
             HttpCookie cookie1 = HttpContext.Current.Request.Cookies["House_Dreaming_Agency_ID"];
+            try
+            {
+                if (cookie1 == null)
+                {
+                    HttpCookie objCookie = new HttpCookie("House_Dreaming_Agency_ID");
+                    objCookie.Value = agencyID.ToString();
+                    objCookie.Expires = DateTime.Now.AddDays(30);
+                    objCookie.Domain = ConfigurationManager.AppSettings["AgencyDomain"].ToString();
+                    HttpContext.Current.Response.Cookies.Add(objCookie);
+                }
+                else
+                {
+                    cookie1.Value = agencyID.ToString();
+                    cookie1.Domain = ConfigurationManager.AppSettings["AgencyDomain"].ToString();
+                    HttpContext.Current.Response.Cookies.Add(cookie1);
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Response.Write("<script>console.log('" + ex.Message + "');</script>");
+            }
+        }
+
+        public static void Logout()
+        {
+            HttpCookie cookie1 = HttpContext.Current.Request.Cookies["House_Dreaming_Agency_ID"];
             if (cookie1 == null)
             {
                 HttpCookie objCookie = new HttpCookie("House_Dreaming_Agency_ID");
-                objCookie.Value = agencyID.ToString();
-                objCookie.Expires = DateTime.Now.AddDays(30);
-                objCookie.Domain = ConfigurationSettings.AppSettings["HomeDomain"].ToString();
+                objCookie.Value = "";
+                objCookie.Expires = DateTime.Now.AddDays(-30);
+                objCookie.Domain = ConfigurationManager.AppSettings["AgencyDomain"].ToString();
                 HttpContext.Current.Response.Cookies.Add(objCookie);
             }
             else
             {
                 try
                 {
-                    cookie1.Value = agencyID.ToString();
-                    cookie1.Domain = ConfigurationSettings.AppSettings["HomeDomain"].ToString();
+                    cookie1.Value = "";
+                    cookie1.Domain = ConfigurationManager.AppSettings["AgencyDomain"].ToString();
                     HttpContext.Current.Response.Cookies.Add(cookie1);
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) {
+                   
+                }
             }
         }
     }

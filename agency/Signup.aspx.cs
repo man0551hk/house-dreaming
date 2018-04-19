@@ -38,8 +38,8 @@ public partial class agency_signup : Agency_Page_Control
         {
             cn.Open();
             bool allow = true;
-            SqlCommand checkCmd = new SqlCommand("select agencyID from agency where email = @email or mobile = @mobile or agentLicense = @agentLicense", cn);
-            checkCmd.CommandType = System.Data.CommandType.Text;
+            SqlCommand checkCmd = new SqlCommand("CheckAgencyExisted", cn);
+            checkCmd.CommandType = CommandType.StoredProcedure;
             checkCmd.Parameters.Add("@email", SqlDbType.VarChar).Value = email.Text;
             checkCmd.Parameters.Add("@mobile", SqlDbType.VarChar).Value = mobile.Text;
             checkCmd.Parameters.Add("@agentLicense", SqlDbType.VarChar).Value = agentLicense.Text;
@@ -52,17 +52,15 @@ public partial class agency_signup : Agency_Page_Control
 
             if (allow)
             {
-                SqlCommand cmd = new SqlCommand(@"insert into agency (companyNameEn, companyNameTc, companyNameSc, companyLicense, agentNameEn, agentNameTc, agentNameSc, agentLicense, email, mobile, officePhone, fax, gender, createDate)
-                                                    values 
-                                                   (@companyNameEn, @companyNameTc, @companyNameSc, @companyLicense, @agentNameEn, @agentNameTc, @agentNameSc, @agentLicense, @email, @mobile, @officePhone, @fax, @gender, NOW())", cn);
-                cmd.CommandType = System.Data.CommandType.Text;
+                SqlCommand cmd = new SqlCommand(@"InsertAgency", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@companyNameEn", SqlDbType.VarChar).Value = companyNameEn.Text;
-                cmd.Parameters.Add("@companyNameTc", SqlDbType.VarChar).Value = companyNameTc.Text;
-                cmd.Parameters.Add("@companyNameSc", SqlDbType.VarChar).Value = Microsoft.VisualBasic.Strings.StrConv(agentNameTc.Text, VbStrConv.SimplifiedChinese, 2052);
+                cmd.Parameters.Add("@companyNameTc", SqlDbType.NChar).Value = companyNameTc.Text;
+                cmd.Parameters.Add("@companyNameSc", SqlDbType.NChar).Value = Microsoft.VisualBasic.Strings.StrConv(agentNameTc.Text, VbStrConv.SimplifiedChinese, 2052);
                 cmd.Parameters.Add("@companyLicense", SqlDbType.VarChar).Value = companyLicense.Text;
                 cmd.Parameters.Add("@agentNameEn", SqlDbType.VarChar).Value = agentNameEn.Text;
-                cmd.Parameters.Add("@agentNameTc", SqlDbType.VarChar).Value = agentNameTc.Text;
-                cmd.Parameters.Add("@agentNameSc", SqlDbType.VarChar).Value = Microsoft.VisualBasic.Strings.StrConv(agentNameTc.Text, VbStrConv.SimplifiedChinese, 2052);
+                cmd.Parameters.Add("@agentNameTc", SqlDbType.NChar).Value = agentNameTc.Text;
+                cmd.Parameters.Add("@agentNameSc", SqlDbType.NChar).Value = Microsoft.VisualBasic.Strings.StrConv(agentNameTc.Text, VbStrConv.SimplifiedChinese, 2052);
                 cmd.Parameters.Add("@agentLicense", SqlDbType.VarChar).Value = agentLicense.Text;
                 cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = email.Text;
                 cmd.Parameters.Add("@mobile", SqlDbType.Int).Value = Convert.ToInt32(mobile.Text);
@@ -80,8 +78,8 @@ public partial class agency_signup : Agency_Page_Control
             }
         }
         catch (Exception ex)
-        { 
-        
+        {
+            Response.Write(ex.Message);
         }
         finally
         {

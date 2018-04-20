@@ -210,7 +210,7 @@
                     <asp:Button runat="server" ID="saveBtn" meta:resourceKey="saveBtn" OnClick="saveBtn_Click" CssClass="btn btn-block btn-primary"/>
                 </ContentTemplate>
                 <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="areaDDL" />
+                    
                 </Triggers>
             </asp:UpdatePanel>
         </div>

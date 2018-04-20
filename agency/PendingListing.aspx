@@ -50,7 +50,7 @@
 
                                 </th>
                                 <td>
-                                    <a href ="#">
+                                    <a href ="<%=CommonFunc.GetAgencyDomain() %>editlisting/<%# DataBinder.Eval(Container, "DataItem.listingID")%>">
                                         <%# DataBinder.Eval(Container, "DataItem.titleEn")%><br />
                                         <%# DataBinder.Eval(Container, "DataItem.titleTc")%>
                                     </a>

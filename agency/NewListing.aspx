@@ -111,9 +111,10 @@
         <div class="col-md-12">
             <asp:UpdatePanel runat="server" ID ="wallPanel" UpdateMode ="Conditional" ChildrenAsTriggers ="true">
                 <ContentTemplate>
-                   <%-- <asp:TextBox runat="server" ID="testMsg"></asp:TextBox>--%>
+                    <%--<asp:TextBox runat="server" ID="testMsg"></asp:TextBox>--%>
 		            <div class="form-group">
-			            <asp:DropDownList runat="server" ID ="areaDDL" CssClass="form-control" DataTextField="area" DataValueField="areaID" AutoPostBack="true" OnSelectedIndexChanged="areaDDL_SelectedIndexChanged">
+			            <asp:DropDownList runat="server" ID ="areaDDL" CssClass="form-control" DataTextField="area" DataValueField="areaID" 
+                            AutoPostBack="true" OnSelectedIndexChanged="areaDDL_SelectedIndexChanged">
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator runat="server" ID ="v1" ControlToValidate="areaDDL" 
                             ForeColor="Red" Display="Dynamic" meta:resourceKey="selectArea"></asp:RequiredFieldValidator>

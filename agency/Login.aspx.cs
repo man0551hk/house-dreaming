@@ -35,11 +35,13 @@ public partial class agency_Login : Agency_Page_Control
         {
             int agencyID = 0;
             string enryptedPassword = Crypto.EncryptMD5(password.Text);
+            string accesskey = CommonFunc.GeneratePassword(20);
             cn.Open();
             SqlCommand cmd = new SqlCommand("AgencyLogin", cn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = email.Text;
             cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = enryptedPassword;
+            cmd.Parameters.Add("@accesskey", SqlDbType.VarChar).Value = accesskey;
             SqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
@@ -49,7 +51,7 @@ public partial class agency_Login : Agency_Page_Control
                 errorDiv.Visible = false;
                 if (rememberMe.Checked)
                 {
-                    Agency_Kernel.SaveAgencyIDCookie(agencyID);
+                    Agency_Kernel.SaveAgencyIDCookie(agencyID, accesskey);
                 }
             }
             dr.Close();

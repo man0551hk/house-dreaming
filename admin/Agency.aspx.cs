@@ -62,7 +62,7 @@ public partial class admin_Agency : System.Web.UI.Page
         try
         { 
             //generate password
-            string password = CommonFunc.GeneratePassword();
+            string password = CommonFunc.GeneratePassword(12);
             string encryptPassword = Crypto.EncryptMD5(password);
             
             cn.Open();

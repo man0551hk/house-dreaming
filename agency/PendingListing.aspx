@@ -50,8 +50,10 @@
 
                                 </th>
                                 <td>
-                                    <%# DataBinder.Eval(Container, "DataItem.titleEn")%><br />
-                                    <%# DataBinder.Eval(Container, "DataItem.titleTc")%>
+                                    <a href ="#">
+                                        <%# DataBinder.Eval(Container, "DataItem.titleEn")%><br />
+                                        <%# DataBinder.Eval(Container, "DataItem.titleTc")%>
+                                    </a>
                                 </td>
                                 <td>
                                     <%# DataBinder.Eval(Container, "DataItem.district")%>
@@ -98,12 +100,12 @@
                         </tr>
                         <tr>
                             <td align ="right">
-                                
-                               
 
                             </td>
                         </tr>
                     </table>
+
+
                 </ContentTemplate>
                 <Triggers>
 

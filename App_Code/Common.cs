@@ -69,24 +69,6 @@ namespace HouseDreaming
             }
         }
 
-        public static void ChangeLanguage(string langcode)
-        {
-            HttpCookie cookie1 = HttpContext.Current.Request.Cookies["House_Dreaming_Lang"];
-            cookie1 = null;
-            if (cookie1 == null)
-            {
-                HttpCookie objCookie = new HttpCookie("House_Dreaming_Lang");
-                HttpContext.Current.Response.Cookies.Add(objCookie);
-                objCookie.Values.Add("LangCode", langcode.ToUpper());
-                HttpContext.Current.Response.SetCookie(objCookie);
-            }
-            else
-            {
-                cookie1["LangCode"] = langcode.ToUpper().ToString();
-                HttpContext.Current.Response.SetCookie(cookie1);
-            }
-        }
-
         public static void SaveLanguage(string langcode)
         {
             HttpCookie cookie1 = HttpContext.Current.Request.Cookies["House_Dreaming_Lang"];
@@ -95,7 +77,6 @@ namespace HouseDreaming
                 HttpCookie objCookie = new HttpCookie("House_Dreaming_Lang");
                 objCookie.Value = langcode;
                 objCookie.Expires = DateTime.Now.AddDays(30);
-                objCookie.Domain = ConfigurationManager.AppSettings["HomeDomain"].ToString();
                 HttpContext.Current.Response.Cookies.Add(objCookie);
             }
             else
@@ -103,7 +84,6 @@ namespace HouseDreaming
                 try
                 {
                     cookie1.Value = langcode;
-                    cookie1.Domain = ConfigurationManager.AppSettings["HomeDomain"].ToString();
                     HttpContext.Current.Response.Cookies.Add(cookie1);
                 }
                 catch (Exception ex) { }
@@ -214,24 +194,6 @@ namespace HouseDreaming
             }
         }
 
-        public static void ChangeLanguage(string langcode)
-        {
-            HttpCookie cookie1 = HttpContext.Current.Request.Cookies["House_Dreaming_Agency_Lang"];
-            cookie1 = null;
-            if (cookie1 == null)
-            {
-                HttpCookie objCookie = new HttpCookie("House_Dreaming_Agency_Lang");
-                HttpContext.Current.Response.Cookies.Add(objCookie);
-                objCookie.Values.Add("LangCode", langcode.ToUpper());
-                HttpContext.Current.Response.SetCookie(objCookie);
-            }
-            else
-            {
-                cookie1["LangCode"] = langcode.ToUpper().ToString();
-                HttpContext.Current.Response.SetCookie(cookie1);
-            }
-        }
-
         public static void SaveLanguage(string langcode)
         {
             HttpCookie cookie1 = HttpContext.Current.Request.Cookies["House_Dreaming_Agency_Lang"];
@@ -240,7 +202,6 @@ namespace HouseDreaming
                 HttpCookie objCookie = new HttpCookie("House_Dreaming_Agency_Lang");
                 objCookie.Value = langcode;
                 objCookie.Expires = DateTime.Now.AddDays(30);
-                objCookie.Domain = ConfigurationManager.AppSettings["AgencyDomain"].ToString();
                 HttpContext.Current.Response.Cookies.Add(objCookie);
             }
             else
@@ -248,64 +209,67 @@ namespace HouseDreaming
                 try
                 {
                     cookie1.Value = langcode;
-                    cookie1.Domain = ConfigurationManager.AppSettings["AgencyDomain"].ToString();
                     HttpContext.Current.Response.Cookies.Add(cookie1);
                 }
                 catch (Exception ex) { }
             }
         }
 
-        public static void SaveAgencyIDCookie(int agencyID)
+        public static void SaveAgencyIDCookie(int agencyID, string accesskey)
         {
-            HttpCookie cookie1 = HttpContext.Current.Request.Cookies["House_Dreaming_Agency_ID"];
+            HttpCookie cookie1 = HttpContext.Current.Request.Cookies["House_Dreaming_Agency"];
             try
             {
                 if (cookie1 == null)
                 {
-                    HttpCookie objCookie = new HttpCookie("House_Dreaming_Agency_ID");
-                    objCookie.Value = agencyID.ToString();
+                    HttpCookie objCookie = new HttpCookie("House_Dreaming_Agency");
+                    objCookie.Values.Add("agencyID", agencyID.ToString());
+                    objCookie.Values.Add("accesskey", accesskey.ToString());
                     objCookie.Expires = DateTime.Now.AddDays(30);
-                    objCookie.Domain = ConfigurationManager.AppSettings["AgencyDomain"].ToString();
                     HttpContext.Current.Response.Cookies.Add(objCookie);
                 }
                 else
                 {
-                    cookie1.Value = agencyID.ToString();
-                    cookie1.Domain = ConfigurationManager.AppSettings["AgencyDomain"].ToString();
+                    cookie1["agencyID"] = agencyID.ToString();
+                    cookie1["accesskey"] = accesskey.ToString();
                     HttpContext.Current.Response.Cookies.Add(cookie1);
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Response.Write("<script>console.log('" + ex.Message + "');</script>");
+                
             }
         }
 
         public static void Logout()
         {
-            HttpCookie cookie1 = HttpContext.Current.Request.Cookies["House_Dreaming_Agency_ID"];
-            if (cookie1 == null)
+            HttpCookie cookie1 = HttpContext.Current.Request.Cookies["House_Dreaming_Agency"];
+            try
             {
-                HttpCookie objCookie = new HttpCookie("House_Dreaming_Agency_ID");
-                objCookie.Value = "";
-                objCookie.Expires = DateTime.Now.AddDays(-30);
-                objCookie.Domain = ConfigurationManager.AppSettings["AgencyDomain"].ToString();
-                HttpContext.Current.Response.Cookies.Add(objCookie);
-            }
-            else
-            {
-                try
+                if (cookie1 == null)
                 {
-                    cookie1.Value = "";
-                    cookie1.Domain = ConfigurationManager.AppSettings["AgencyDomain"].ToString();
+                    HttpCookie objCookie = new HttpCookie("House_Dreaming_Agency");
+                    objCookie.Values.Add("agencyID", "");
+                    objCookie.Values.Add("accesskey", "");
+                    objCookie.Expires = DateTime.Now.AddDays(-30);
+                    HttpContext.Current.Response.Cookies.Add(objCookie);
+                }
+                else
+                {
+                    cookie1["agencyID"] = "";
+                    cookie1["accesskey"] = "";
+                    cookie1.Expires = DateTime.Now.AddDays(-30);
                     HttpContext.Current.Response.Cookies.Add(cookie1);
                 }
-                catch (Exception ex) {
-                   
-                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }
+
+
 
     public class Agency_Page_Control : Page
     {
@@ -316,15 +280,6 @@ namespace HouseDreaming
             {
                 langcode = HttpContext.Current.Request.QueryString["House_Dreaming_Agency_Lang"].ToString();
                 Agency_Kernel.SaveLanguage(langcode);
-                //HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl.ToString().Replace("?lang=" + langcode, string.Empty));
-            }
-
-            if (!string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["House_Dreaming_Agency_ID"]))
-            {
-                string agencyID = HttpContext.Current.Request.QueryString["House_Dreaming_Agency_ID"].ToString();
-                Agency_Kernel.SaveAgencyIDCookie(Convert.ToInt32(agencyID));
-                Session["agencyID"] = agencyID;
-                //HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl.ToString().Replace("?lang=" + langcode, string.Empty));
             }
         }
 

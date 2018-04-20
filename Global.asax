@@ -24,15 +24,21 @@
     {
         // Code that runs when a new session is started
         #region check if agency logined
-        HttpCookie agencyCookie = HttpContext.Current.Request.Cookies["House_Dreaming_Agency_ID"];
+        HttpCookie agencyCookie = HttpContext.Current.Request.Cookies["House_Dreaming_Agency"];
         if (agencyCookie != null)
         {
-            if (HttpContext.Current.Request.Cookies["House_Dreaming_Agency_ID"] != null)
+            if (HttpContext.Current.Request.Cookies["House_Dreaming_Agency"] != null)
             {
-                if (HttpContext.Current.Request.Cookies["House_Dreaming_Agency_ID"] != null)
+                if (HttpContext.Current.Request.Cookies["House_Dreaming_Agency"]["agencyID"] != null &&
+                   HttpContext.Current.Request.Cookies["House_Dreaming_Agency"]["accesskey"] != null  )
                 {
-                    string agencyID = HttpContext.Current.Request.Cookies["House_Dreaming_Agency_ID"].Value.ToString();
-                    Session["agencyID"] = agencyID;
+                    string agencyID = HttpContext.Current.Request.Cookies["House_Dreaming_Agency"]["agencyID"].ToString();
+                    string accesskey = HttpContext.Current.Request.Cookies["House_Dreaming_Agency"]["accesskey"].ToString();
+                    int loginAgencyID = CommonFunc.AgencyLoginByAccessKey(Convert.ToInt32(agencyID), accesskey);
+                    if (loginAgencyID > 0)
+                    {
+                        Session["agencyID"] = loginAgencyID;
+                    }
                 }
             }
         }

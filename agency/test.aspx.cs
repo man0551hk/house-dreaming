@@ -9,9 +9,24 @@ public partial class agency_test : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        { 
-        
+        HttpCookie agencyCookie = HttpContext.Current.Request.Cookies["House_Dreaming_Agency"];
+        if (agencyCookie != null)
+        {
+            if (HttpContext.Current.Request.Cookies["House_Dreaming_Agency"] != null)
+            {
+                Response.Write(HttpContext.Current.Request.Cookies["House_Dreaming_Agency"]["agencyID"].ToString());
+                //if (HttpContext.Current.Request.Cookies["House_Dreaming_Agency"]["agencyID"] != null &&
+                //   HttpContext.Current.Request.Cookies["House_Dreaming_Agency"]["accesskey"] != null)
+                //{
+                //    string agencyID = HttpContext.Current.Request.Cookies["House_Dreaming_Agency"]["agencyID"].ToString();
+                //    string accesskey = HttpContext.Current.Request.Cookies["House_Dreaming_Agency"]["accesskey"].ToString();
+                //    int loginAgencyID = CommonFunc.AgencyLoginByAccessKey(Convert.ToInt32(agencyID), accesskey);
+                //    if (loginAgencyID > 0)
+                //    {
+                //        Session["agencyID"] = loginAgencyID;
+                //    }
+                //}
+            }
         }
     }
     protected void btn_Click(object sender, EventArgs e)

@@ -50,8 +50,8 @@ public partial class agency_NewListing : Agency_Page_Control
         try
         {
             cn.Open();
-            SqlCommand cmd = new SqlCommand("select case @lang when 1 then areaEn when 2 then areaTc when 3 then areaSc end as area, areaID from area", cn);
-            cmd.CommandType = CommandType.Text;
+            SqlCommand cmd = new SqlCommand("GetAreaByLang", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@lang", SqlDbType.Int).Value = Agency_Kernel.GetLanguageID();
             DataSet ds = new DataSet();
             SqlDataAdapter ad = new SqlDataAdapter(cmd);
@@ -75,9 +75,8 @@ public partial class agency_NewListing : Agency_Page_Control
         try
         {
             cn.Open();
-            SqlCommand cmd = new SqlCommand(@"select case @lang when 1 then districtEn when 2 then districtTc when 3 then districtSc end as district, districtID 
-                                            from district where areaID = @areaID", cn);
-            cmd.CommandType = CommandType.Text;
+            SqlCommand cmd = new SqlCommand(@"GetDistrictByAreaLang", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@areaID", SqlDbType.Int).Value = Convert.ToInt32(ddl.SelectedValue);
             cmd.Parameters.Add("@lang", SqlDbType.Int).Value = Agency_Kernel.GetLanguageID();
             DataSet ds = new DataSet();
@@ -94,7 +93,9 @@ public partial class agency_NewListing : Agency_Page_Control
             districtDDL.Items.Insert(0, li);
         }
         catch (Exception ex)
-        { }
+        {
+            //testMsg.Text = ex.Message;
+        }
         finally
         {
             cn.Close();
@@ -108,26 +109,17 @@ public partial class agency_NewListing : Agency_Page_Control
         try
         {
             cn.Open();
-            SqlCommand cmd = new SqlCommand(@"insert into listing (districtID, areaID, buildingID, titleEn, titleTc, titleSc,
-                                                subTitleEn, subTitleTc, subTitleSc,
-                                                modifiedDate, publishedDate, createdDate, expiryDate, 
-                                                room, bathroom, netSize, size, listingType,
-                                                salePrice, rentPrice, descEn, descTc, descSc, agencyID, agencyCompanyID, youTubeID, keyword)
-                                                values 
-                                                (@districtID, @areaID, @buildingID, @titleEN, @titleTc, @titleSc,
-                                                @subTitleEn, @subTitleTc, @subTitleSc,
-                                                 NOW(), null, NOW(), null, @room, @bathroom, @netSize, @size, @listingType, @salePrice, @rentPrice,
-                                                @descEn, @descTc, @descSc, @agencyID, @agencyCompanyID, @youTubeID, @keyword)", cn);
-            cmd.CommandType = CommandType.Text;
+            SqlCommand cmd = new SqlCommand(@"InsertListing", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@districtID", SqlDbType.Int).Value = Convert.ToInt32(districtDDL.SelectedValue);
             cmd.Parameters.Add("@areaID", SqlDbType.Int).Value = Convert.ToInt32(areaDDL.SelectedValue);
             cmd.Parameters.Add("@buildingID", SqlDbType.Int).Value = 0;
             cmd.Parameters.Add("@titleEn", SqlDbType.VarChar).Value = titleEn.Text;
-            cmd.Parameters.Add("@titleTc", SqlDbType.VarChar).Value = titleTc.Text;
-            cmd.Parameters.Add("@titleSc", SqlDbType.VarChar).Value = Microsoft.VisualBasic.Strings.StrConv(titleTc.Text, VbStrConv.SimplifiedChinese, 2052);
+            cmd.Parameters.Add("@titleTc", SqlDbType.NVarChar).Value = titleTc.Text;
+            cmd.Parameters.Add("@titleSc", SqlDbType.NVarChar).Value = Microsoft.VisualBasic.Strings.StrConv(titleTc.Text, VbStrConv.SimplifiedChinese, 2052);
             cmd.Parameters.Add("@subTitleEn", SqlDbType.VarChar).Value = subTitleEn.Text;
-            cmd.Parameters.Add("@subTitleTc", SqlDbType.VarChar).Value = subTitleTc.Text;
-            cmd.Parameters.Add("@subTitleSc", SqlDbType.VarChar).Value = Microsoft.VisualBasic.Strings.StrConv(subTitleTc.Text, VbStrConv.SimplifiedChinese, 2052);
+            cmd.Parameters.Add("@subTitleTc", SqlDbType.NVarChar).Value = subTitleTc.Text;
+            cmd.Parameters.Add("@subTitleSc", SqlDbType.NVarChar).Value = Microsoft.VisualBasic.Strings.StrConv(subTitleTc.Text, VbStrConv.SimplifiedChinese, 2052);
             cmd.Parameters.Add("@room", SqlDbType.Int).Value = Convert.ToInt32(roomDDL.SelectedValue);
             cmd.Parameters.Add("@bathroom", SqlDbType.Int).Value = Convert.ToInt32(bathroomDDL.SelectedValue);
             cmd.Parameters.Add("@netSize", SqlDbType.Int).Value = Convert.ToInt32(netSize.Text);
@@ -147,29 +139,29 @@ public partial class agency_NewListing : Agency_Page_Control
             cmd.Parameters.Add("@salePrice", SqlDbType.Int).Value = salePrice.Text != "" ? Convert.ToInt32(salePrice.Text) : 0;
             cmd.Parameters.Add("@rentPrice", SqlDbType.Int).Value = rentPrice.Text != "" ? Convert.ToInt32(rentPrice.Text) : 0;
             cmd.Parameters.Add("@descEn", SqlDbType.VarChar).Value = descEn.Text;
-            cmd.Parameters.Add("@descTc", SqlDbType.VarChar).Value = descTc.Text;
-            cmd.Parameters.Add("@descSc", SqlDbType.VarChar).Value = Microsoft.VisualBasic.Strings.StrConv(descTc.Text, VbStrConv.SimplifiedChinese, 2052);
+            cmd.Parameters.Add("@descTc", SqlDbType.NVarChar).Value = descTc.Text;
+            cmd.Parameters.Add("@descSc", SqlDbType.NVarChar).Value = Microsoft.VisualBasic.Strings.StrConv(descTc.Text, VbStrConv.SimplifiedChinese, 2052);
             cmd.Parameters.Add("@agencyID", SqlDbType.Int).Value = Convert.ToInt32(Session["agencyID"]);
             cmd.Parameters.Add("@agencyCompanyID", SqlDbType.Int).Value = 0;
             cmd.Parameters.Add("@youTubeID", SqlDbType.VarChar).Value = youtubeID.Text;
-            cmd.Parameters.Add("@keyword", SqlDbType.VarChar).Value = keyword + titleEn.Text + " " + titleTc.Text + " " + Microsoft.VisualBasic.Strings.StrConv(titleTc.Text, VbStrConv.SimplifiedChinese, 2052);
-            cmd.ExecuteNonQuery();
-            //int listingID = Convert.ToInt32(cmd.LastInsertedId);
+            cmd.Parameters.Add("@keyword", SqlDbType.NVarChar).Value = keyword + titleEn.Text + " " + titleTc.Text + " " + Microsoft.VisualBasic.Strings.StrConv(titleTc.Text, VbStrConv.SimplifiedChinese, 2052);
+            //cmd.ExecuteNonQuery();
+            int listingID = Convert.ToInt32(cmd.ExecuteScalar());
 
-            //if (Session["tempPhotoList"] != null)
-            //{
-            //    List<string> tempPhotoList = (List<string>)Session["tempPhotoList"];
-            //    for (int i = 0; i < tempPhotoList.Count; i++)
-            //    {
-            //        int photoID = GetPhoto(listingID, (i + 1), cn);
-            //        string tempName = tempPhotoList[i].Replace("client_temp/" + Session["agencyID"] + "/", "");
-            //        string ext = tempName.Substring(tempName.LastIndexOf(".") + 1, tempName.Length - (tempName.LastIndexOf(".") + 1));
-            //        string newFileName = "listingPhoto/" + Session["agencyID"] + "/" + photoID + "." + ext;
-            //        CommonFunc.MoveImageS3(tempPhotoList[i], newFileName);
-            //        CommonFunc.DeleteImageS3(tempPhotoList[i]);
-            //        UpdatePhotoPath(photoID, newFileName, cn);
-            //    }
-            //}
+            if (Session["tempPhotoList"] != null)
+            {
+                List<string> tempPhotoList = (List<string>)Session["tempPhotoList"];
+                for (int i = 0; i < tempPhotoList.Count; i++)
+                {
+                    int photoID = GetPhoto(listingID, (i + 1), cn);
+                    string tempName = tempPhotoList[i].Replace("client_temp/" + Session["agencyID"] + "/", "");
+                    string ext = tempName.Substring(tempName.LastIndexOf(".") + 1, tempName.Length - (tempName.LastIndexOf(".") + 1));
+                    string newFileName = "listingPhoto/" + Session["agencyID"] + "/" + photoID + "." + ext;
+                    CommonFunc.MoveImageS3(tempPhotoList[i], newFileName);
+                    CommonFunc.DeleteImageS3(tempPhotoList[i]);
+                    UpdatePhotoPath(photoID, newFileName, cn);
+                }
+            }
 
         }
         catch (Exception ex)
@@ -183,28 +175,25 @@ public partial class agency_NewListing : Agency_Page_Control
 
         if (success)
         {
-            Response.Redirect("PendingListing.aspx");
+            Response.Redirect(CommonFunc.GetAgencyDomain() + "pendinglisting/");
         }
     }
 
     private int GetPhoto(int listingID, int displayOrder, SqlConnection cn)
     {
         int photoID = 0;
-//        SqlCommand cmd = new SqlCommand(@"insert into listingPhoto (listingID, photoPath, displayOrder)
-//                                            values 
-//                                            (@listingID, '', @displayOrder)", cn);
-//        cmd.CommandType = CommandType.Text;
-//        cmd.Parameters.Add("@listingID", SqlDbType.Int).Value = listingID;
-//        cmd.Parameters.Add("@displayOrder", SqlDbType.Int).Value = displayOrder;
-//        cmd.ExecuteNonQuery();
-//        photoID = Convert.ToInt32(cmd.LastInsertedId);
+        SqlCommand cmd = new SqlCommand(@"InsertListingPhoto", cn);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Add("@listingID", SqlDbType.Int).Value = listingID;
+        cmd.Parameters.Add("@displayOrder", SqlDbType.Int).Value = displayOrder;
+        photoID = Convert.ToInt32(cmd.ExecuteNonQuery());
         return photoID;
     }
 
     private void UpdatePhotoPath(int photoID, string path, SqlConnection cn)
     {
-        SqlCommand cmd = new SqlCommand("update listingPhoto set photoPath = @photoPath where photoID= @photoID", cn);
-        cmd.CommandType = CommandType.Text;
+        SqlCommand cmd = new SqlCommand("UpdateListingPhotoPath", cn);
+        cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.Add("@photoPath", SqlDbType.VarChar).Value = path;
         cmd.Parameters.Add("@photoID", SqlDbType.Int).Value = photoID;
         cmd.ExecuteNonQuery();

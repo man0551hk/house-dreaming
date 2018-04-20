@@ -71,13 +71,13 @@ public static class CommonFunc
         }
     }
 
-    public static string GeneratePassword()
+    public static string GeneratePassword(int size)
     {
         string[] aList = new string[26] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
         string[] sList = new string[12] { "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=" };
         Random rnd = new Random();
         string password = "";
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < size; i++)
         {
             int indicator = rnd.Next(1, 4);
             switch (indicator)
@@ -259,5 +259,30 @@ public static class CommonFunc
     public static string GetAgencyDomain()
     {
         return ConfigurationManager.AppSettings["AgencyDomain"].ToString();
+    }
+
+    public static int AgencyLoginByAccessKey(int agencyID, string accesskey)
+    {
+        SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+
+        int loginAgencyID = 0;
+        try
+        {
+            cn.Open();
+            SqlCommand cmd = new SqlCommand("AgencyLoginByAccesskey", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@agencyID", SqlDbType.Int).Value = agencyID;
+            cmd.Parameters.Add("@accesskey", SqlDbType.VarChar).Value = accesskey;
+            loginAgencyID = Convert.ToInt32(cmd.ExecuteScalar());
+        }
+        catch (Exception eX)
+        {
+        
+        }
+        finally
+        {
+            cn.Close();
+        }
+        return loginAgencyID;
     }
 }

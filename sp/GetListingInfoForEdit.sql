@@ -32,7 +32,7 @@ BEGIN
 		L.areaID,
 		case @lang when 1 then d.districtEn when 2 then d.districtTc when 3 then d.districtSc end as district,
 		L.districtID,
-		L.titleEn, L.titleTc, L.subTitleEn, L.subTitleSc,
+		L.titleEn, L.titleTc, L.subTitleEn, L.subTitleTc,
 		L.room, L.bathroom, L.netSize, L.size, L.listingType,
 		L.salePrice, L.rentPrice, L.descEn, L.descTc,
 		L.classID, L.youTubeID
@@ -42,6 +42,7 @@ BEGIN
 	inner join houseRoot.area A with (nolock) on L.areaID = A.areaID
 	where L.listingID = @listingID
 	
-
+	select photoID, photoPath from houseRoot.listingPhoto with (nolock)
+	where listingID = @listingID order by displayOrder
 END
 GO

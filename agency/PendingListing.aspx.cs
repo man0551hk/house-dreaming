@@ -73,30 +73,43 @@ public partial class agency_PendingListing : Agency_Page_Control
 
     protected void durationDDL_SelectedIndexChanged(object sender, EventArgs e)
     {
+        //testMsg.Text = "A";
         CalculatePrice();
         pendingPanel.Update();
     }
 
     protected void classDDL_SelectedIndexChanged(object sender, EventArgs e)
     {
+        //testMsg.Text = "B";
         CalculatePrice();
         pendingPanel.Update();
     }
 
     public void CalculatePrice()
     {
-        foreach (RepeaterItem ri in pendingListRepeater.Items)
+        try
         {
-            DropDownList durationDDL = ri.FindControl("durationDDL") as DropDownList;
-            int days = Convert.ToInt32(durationDDL.SelectedValue);
+            foreach (RepeaterItem ri in pendingListRepeater.Items)
+            {
+                DropDownList durationDDL = ri.FindControl("durationDDL") as DropDownList;
+                int days = Convert.ToInt32(durationDDL.SelectedValue);
 
-            DropDownList classDDL = ri.FindControl("classDDL") as DropDownList;
-            int classType = Convert.ToInt32(classDDL.SelectedValue);
+                DropDownList classDDL = ri.FindControl("classDDL") as DropDownList;
+                int classType = Convert.ToInt32(classDDL.SelectedValue);
 
-            totalPrice += (days * classType);
+                totalPrice += (days * classType);
+            }
+            //testMsg.Text = DateTime.Now.ToString();
+            totalPriceLabel.Text = totalPrice.ToString();
         }
-        //testMsg.Text = DateTime.Now.ToString();
-        totalPriceLabel.Text = totalPrice.ToString();
+        catch (Exception ex)
+        {
+            testMsg.Text = ex.Message;
+        }
     
+    }
+    protected void checkoutBtn_Click(object sender, EventArgs e)
+    {
+
     }
 }

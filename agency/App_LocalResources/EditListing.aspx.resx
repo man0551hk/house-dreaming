@@ -117,58 +117,94 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="15days.Text" xml:space="preserve">
-    <value>15 日</value>
+  <data name="bathroomNum.Text" xml:space="preserve">
+    <value>Bathroom No.</value>
   </data>
-  <data name="advanceClass.Text" xml:space="preserve">
-    <value>高级 每日 $2</value>
+  <data name="bathroomNumError.Text" xml:space="preserve">
+    <value>Please Select Bathroom No.</value>
   </data>
   <data name="breadcrumb.Text" xml:space="preserve">
-    <value>暂存楼盘</value>
+    <value>New Listing</value>
   </data>
-  <data name="calculate.Text" xml:space="preserve">
-    <value>计算中...</value>
+  <data name="buildingNameEn.Text" xml:space="preserve">
+    <value>Building Name (English)</value>
   </data>
-  <data name="checkout.Text" xml:space="preserve">
-    <value>*我们使用PayPayl作为付款工具，完成付款后，你所选择的楼盘将会自动发布到House-Dreaming.com上</value>
+  <data name="buildingNameEnError.Text" xml:space="preserve">
+    <value>Please Input Building Name (English)</value>
   </data>
-  <data name="classType.Text" xml:space="preserve">
-    <value>發布級別</value>
+  <data name="buildingNameTc.Text" xml:space="preserve">
+    <value>Building Name (繁)</value>
   </data>
-  <data name="days30.Text" xml:space="preserve">
-    <value>30 日</value>
+  <data name="buildingNameTcError.Text" xml:space="preserve">
+    <value>Please Input Building Name (繁)</value>
   </data>
-  <data name="days45.Text" xml:space="preserve">
-    <value>45 日</value>
+  <data name="descEn.Text" xml:space="preserve">
+    <value>Description (English)</value>
   </data>
-  <data name="days60.Text" xml:space="preserve">
-    <value>60 日</value>
-  </data>
-  <data name="distict.Text" xml:space="preserve">
-    <value>地区</value>
-  </data>
-  <data name="duation.Text" xml:space="preserve">
-    <value>刊登期限</value>
+  <data name="descTc.Text" xml:space="preserve">
+    <value>Description (繁)</value>
   </data>
   <data name="listingBreadcrumb.Text" xml:space="preserve">
-    <value>楼盘管理</value>
+    <value>Listing Maintenance</value>
   </data>
-  <data name="notPublish.Text" xml:space="preserve">
-    <value>暂不发布</value>
+  <data name="listingTypeError.Text" xml:space="preserve">
+    <value>Please Select either or both Sale/Rent</value>
   </data>
-  <data name="price.Text" xml:space="preserve">
-    <value>售价/租金</value>
+  <data name="netSize.Text" xml:space="preserve">
+    <value>Saleable Size</value>
   </data>
-  <data name="publish.Text" xml:space="preserve">
-    <value>发布</value>
+  <data name="netSizeError.Text" xml:space="preserve">
+    <value>Please Input Saleable Size</value>
   </data>
-  <data name="regularClass.Text" xml:space="preserve">
-    <value>常规 每日 $1</value>
+  <data name="openRoom.Text" xml:space="preserve">
+    <value>Open Room</value>
+  </data>
+  <data name="rent.Text" xml:space="preserve">
+    <value>Rent Listing</value>
+  </data>
+  <data name="rentPrice.Text" xml:space="preserve">
+    <value>Rent Price</value>
+  </data>
+  <data name="rentPriceError.Text" xml:space="preserve">
+    <value>Please Input Rent Price</value>
+  </data>
+  <data name="roomNum.Text" xml:space="preserve">
+    <value>Room No.</value>
+  </data>
+  <data name="roomNumError.Text" xml:space="preserve">
+    <value>Please Select Room No.</value>
+  </data>
+  <data name="sale.Text" xml:space="preserve">
+    <value>Sale Listing</value>
+  </data>
+  <data name="salePrice.Text" xml:space="preserve">
+    <value>Sale Price</value>
+  </data>
+  <data name="salePriceError.Text" xml:space="preserve">
+    <value>Please Input Sale Price</value>
+  </data>
+  <data name="saveBtn.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="selectArea.Text" xml:space="preserve">
+    <value>Please Select Area</value>
+  </data>
+  <data name="selectDistrict.Text" xml:space="preserve">
+    <value>Please Select District</value>
   </data>
   <data name="size.Text" xml:space="preserve">
-    <value>建筑面积/实用面积 (平方呎)</value>
+    <value>Built up Size</value>
   </data>
-  <data name="title.Text" xml:space="preserve">
-    <value>大厦名称</value>
+  <data name="sizeError.Text" xml:space="preserve">
+    <value>Please Input Built up Size</value>
+  </data>
+  <data name="sizeLarge.Text" xml:space="preserve">
+    <value>Net Size Can't large than Size</value>
+  </data>
+  <data name="subTitleEn.Text" xml:space="preserve">
+    <value>Sub Title (English)</value>
+  </data>
+  <data name="subTitleTc.Text" xml:space="preserve">
+    <value>Sub Title (繁)</value>
   </data>
 </root>

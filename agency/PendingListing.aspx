@@ -27,7 +27,7 @@
             <asp:UpdatePanel runat="server" ID="pendingPanel" UpdateMode="Conditional" ChildrenAsTriggers="true">
                
                 <ContentTemplate>
-
+                    <asp:Literal runat ="server" ID="testMsg"></asp:Literal>
                     <asp:Repeater runat="server" ID ="pendingListRepeater">
                         <HeaderTemplate>
                             <table class="table table table-striped">
@@ -100,11 +100,10 @@
                         </tr>
                         <tr>
                             <td align ="right">
-
+                                <asp:Button runat="server" ID="checkoutBtn"  meta:resourceKey="publish" OnClick="checkoutBtn_Click"/>
                             </td>
                         </tr>
                     </table>
-
 
                 </ContentTemplate>
                 <Triggers>

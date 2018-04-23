@@ -111,7 +111,7 @@
         <div class="col-md-12">
             <asp:UpdatePanel runat="server" ID ="wallPanel" UpdateMode ="Conditional" ChildrenAsTriggers ="true">
                 <ContentTemplate>
-                    <%--<asp:TextBox runat="server" ID="testMsg"></asp:TextBox>--%>
+                    <asp:Literal runat="server" ID="testMsg"></asp:Literal>
 		            <div class="form-group">
 			            <asp:DropDownList runat="server" ID ="areaDDL" CssClass="form-control" DataTextField="area" DataValueField="areaID" 
                             AutoPostBack="true" OnSelectedIndexChanged="areaDDL_SelectedIndexChanged">
@@ -185,7 +185,7 @@
 		            <div class="form-group">
 			            <asp:CheckBoxList runat="server" ID ="listingTypeCb" RepeatDirection="Horizontal" CssClass="form-control">
                             <asp:ListItem Value="1" meta:resourceKey ="sale"></asp:ListItem> 
-                            <asp:ListItem Value="1" meta:resourceKey ="rent"></asp:ListItem>
+                            <asp:ListItem Value="2" meta:resourceKey ="rent"></asp:ListItem>
 			            </asp:CheckBoxList>
                         <asp:CustomValidator runat="server" ID="v9" Display="Dynamic" ForeColor="Red" ClientValidationFunction="ValidateListingType"
                             meta:resourceKey="listingTypeError"></asp:CustomValidator>

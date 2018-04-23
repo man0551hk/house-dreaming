@@ -154,19 +154,23 @@ public partial class agency_NewListing : Agency_Page_Control
                 for (int i = 0; i < tempPhotoList.Count; i++)
                 {
                     int photoID = GetPhoto(listingID, (i + 1), cn);
-                    string tempName = tempPhotoList[i].Replace("client_temp/" + Session["agencyID"] + "/", "");
+                    string tempName = tempPhotoList[i].Replace("../images/client-temp/" + Session["agencyID"] + "/", "");
                     string ext = tempName.Substring(tempName.LastIndexOf(".") + 1, tempName.Length - (tempName.LastIndexOf(".") + 1));
-                    string newFileName = "listingPhoto/" + Session["agencyID"] + "/" + photoID + "." + ext;
-                    CommonFunc.MoveImageS3(tempPhotoList[i], newFileName);
-                    CommonFunc.DeleteImageS3(tempPhotoList[i]);
-                    UpdatePhotoPath(photoID, newFileName, cn);
+                    string newFileName = "../images/listing-images/" + Session["agencyID"] + "/" + listingID + "/" + photoID + "." + ext;
+                    //CommonFunc.MoveImageS3(tempPhotoList[i], newFileName);
+                    //CommonFunc.DeleteImageS3(tempPhotoList[i]);
+                    bool successMove = CommonFunc.MoveLocalImage(Server.MapPath(tempPhotoList[i]), Server.MapPath(newFileName), Server.MapPath("../images/listing-images/" + Session["agencyID"] + "/" + listingID));
+                    if (successMove)
+                    {
+                        UpdatePhotoPath(photoID, "/images/listing-images/" + Session["agencyID"] + "/" + listingID + "/" + photoID + "." + ext, cn);
+                    }
                 }
             }
-
         }
         catch (Exception ex)
         {
             success = false;
+            testMsg.Text = ex.Message;
         }
         finally
         {
@@ -175,28 +179,35 @@ public partial class agency_NewListing : Agency_Page_Control
 
         if (success)
         {
-            Response.Redirect(CommonFunc.GetAgencyDomain() + "pendinglisting/");
+           Response.Redirect(CommonFunc.GetAgencyDomain() + "pendinglisting/");
         }
     }
 
     private int GetPhoto(int listingID, int displayOrder, SqlConnection cn)
     {
-        int photoID = 0;
-        SqlCommand cmd = new SqlCommand(@"InsertListingPhoto", cn);
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.Add("@listingID", SqlDbType.Int).Value = listingID;
-        cmd.Parameters.Add("@displayOrder", SqlDbType.Int).Value = displayOrder;
-        photoID = Convert.ToInt32(cmd.ExecuteNonQuery());
+         int photoID = 0;
+         if (listingID > 0)
+         {
+
+             SqlCommand cmd = new SqlCommand(@"InsertListingPhoto", cn);
+             cmd.CommandType = CommandType.StoredProcedure;
+             cmd.Parameters.Add("@listingID", SqlDbType.Int).Value = listingID;
+             cmd.Parameters.Add("@displayOrder", SqlDbType.Int).Value = displayOrder;
+             photoID = Convert.ToInt32(cmd.ExecuteScalar());
+         }
         return photoID;
     }
 
     private void UpdatePhotoPath(int photoID, string path, SqlConnection cn)
     {
-        SqlCommand cmd = new SqlCommand("UpdateListingPhotoPath", cn);
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.Add("@photoPath", SqlDbType.VarChar).Value = path;
-        cmd.Parameters.Add("@photoID", SqlDbType.Int).Value = photoID;
-        cmd.ExecuteNonQuery();
+        if (!string.IsNullOrEmpty(path))
+        {
+            SqlCommand cmd = new SqlCommand("UpdateListingPhotoPath", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@photoPath", SqlDbType.VarChar).Value = path;
+            cmd.Parameters.Add("@photoID", SqlDbType.Int).Value = photoID;
+            cmd.ExecuteNonQuery();
+        }
     }
 
     public void uploadTemp()
@@ -216,30 +227,37 @@ public partial class agency_NewListing : Agency_Page_Control
                     string fileExt = fileName.Substring(fileName.LastIndexOf(".") + 1, fileName.Length - (fileName.LastIndexOf(".") + 1));
                     if (userPostedFile.ContentLength > 0 && userPostedFile.ContentLength < 4096000 && (fileExt.ToLower() == "png" || fileExt.ToLower() == "jpeg" || fileExt.ToLower() == "jpg"))
                     {
-                        byte[] fileData = null;
-                        Stream fileStream = null;
-                        int length = 0;
+                        #region s3upload
+                        //byte[] fileData = null;
+                        //Stream fileStream = null;
+                        //int length = 0;
 
-                        length = userPostedFile.ContentLength;
-                        fileData = new byte[length + 1];
-                        fileStream = userPostedFile.InputStream;
-                        fileStream.Read(fileData, 0, length);
-                        MemoryStream stream = new MemoryStream(fileData);
+                        //length = userPostedFile.ContentLength;
+                        //fileData = new byte[length + 1];
+                        //fileStream = userPostedFile.InputStream;
+                        //fileStream.Read(fileData, 0, length);
+                        //MemoryStream stream = new MemoryStream(fileData);
 
-                        CommonFunc.UploadImageS3("client_temp/" + Session["agencyID"] + "/" + fileName, stream);
+                        //CommonFunc.UploadImageS3("client_temp/" + Session["agencyID"] + "/" + fileName, stream);
+                        bool uploadSuccess = CommonFunc.UploadLocal(Server.MapPath("../images/client-temp/" + Session["agencyID"]), fileName, userPostedFile);
+                        #endregion
 
-                        List<string> tempPhotoList = new List<string>();
-                        if (Session["tempPhotoList"] != null)
+                       
+                        if (uploadSuccess)
                         {
-                            tempPhotoList = (List<string>)Session["tempPhotoList"];
+                            List<string> tempPhotoList = new List<string>();
+                            if (Session["tempPhotoList"] != null)
+                            {
+                                tempPhotoList = (List<string>)Session["tempPhotoList"];
+                            }
+                            tempPhotoList.Add("../images/client-temp/" + Session["agencyID"] + "/" + fileName);
+                            Session["tempPhotoList"] = tempPhotoList;
                         }
-                        tempPhotoList.Add("client_temp/" + Session["agencyID"] + "/" + fileName);
-                        Session["tempPhotoList"] = tempPhotoList;
                     }
                 }
                 catch (Exception ex)
                 {
-
+                    testMsg.Text = ex.Message;
                 }
             }
         }

@@ -17,7 +17,7 @@ public partial class agency_Login : Agency_Page_Control
     {
         if (Session["agencyID"] != null)
         {
-            Response.Redirect("home/");
+            Response.Redirect(CommonFunc.GetAgencyDomain() + "home/");
         }
         if (!IsPostBack)
         {

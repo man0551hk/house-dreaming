@@ -251,9 +251,44 @@ public static class CommonFunc
         }
     }
 
+    public static bool UploadLocal(string path, string fileName, HttpPostedFile userPostedFile)
+    {
+        bool success = true;
+        try
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            userPostedFile.SaveAs(path + "/" + fileName);
+        }
+        catch {
+            success = false;
+        }
+        return success;
+    }
+
+    public static bool MoveLocalImage(string origin, string destination, string newPath)
+    {
+        bool success = true;
+        try
+        {
+            if (!Directory.Exists(newPath))
+            {
+                Directory.CreateDirectory(newPath);
+            }
+            File.Move(origin, destination);
+        }
+        catch
+        {
+            success = false;
+        }
+        return success;
+    }
+
     public static string ImageUrl()
     {
-        return ConfigurationManager.AppSettings["image_url"];
+        return ConfigurationManager.AppSettings["ImageDomain"];
     }
 
     public static string GetAgencyDomain()

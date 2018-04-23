@@ -108,7 +108,7 @@
         <div class="col-md-12">
             <asp:UpdatePanel runat="server" ID ="wallPanel" UpdateMode ="Conditional" ChildrenAsTriggers ="true">
                 <ContentTemplate>
-                    <%--<asp:TextBox runat="server" ID="testMsg"></asp:TextBox>--%>
+                    <asp:Literal runat="server" ID="testMsg"></asp:Literal>
 		            <div class="form-group">
                         <asp:Label runat ="server" ID="area"></asp:Label>
 		            </div>
@@ -133,7 +133,7 @@
 		            </div>
 		            <div class="form-group">
 			            <asp:DropDownList runat="server" ID ="roomDDL" CssClass="form-control">
-                            <asp:ListItem Value="" meta:resourceKey ="roomNum" selected disabled hidden></asp:ListItem>
+                           
                             <asp:ListItem Value="0" meta:resourceKey ="openRoom"></asp:ListItem>
                             <asp:ListItem Value="1" Text ="1"></asp:ListItem>
                             <asp:ListItem Value="2" Text ="2"></asp:ListItem>
@@ -151,7 +151,7 @@
 		            </div>
 		            <div class="form-group">
 			            <asp:DropDownList runat="server" ID ="bathroomDDL" CssClass="form-control">
-                            <asp:ListItem Value="" meta:resourceKey ="bathroomNum" selected disabled hidden></asp:ListItem>
+                           
                             <asp:ListItem Value="1" Text ="1"></asp:ListItem>
                             <asp:ListItem Value="2" Text ="2"></asp:ListItem>
                             <asp:ListItem Value="3" Text ="3"></asp:ListItem>
@@ -175,7 +175,7 @@
 		            <div class="form-group">
 			            <asp:CheckBoxList runat="server" ID ="listingTypeCb" RepeatDirection="Horizontal" CssClass="form-control">
                             <asp:ListItem Value="1" meta:resourceKey ="sale"></asp:ListItem> 
-                            <asp:ListItem Value="1" meta:resourceKey ="rent"></asp:ListItem>
+                            <asp:ListItem Value="2" meta:resourceKey ="rent"></asp:ListItem>
 			            </asp:CheckBoxList>
                         <asp:CustomValidator runat="server" ID="v9" Display="Dynamic" ForeColor="Red" ClientValidationFunction="ValidateListingType"
                             meta:resourceKey="listingTypeError"></asp:CustomValidator>
@@ -203,7 +203,7 @@
                         <asp:FileUpload runat ="server" ID="imagesUploader" CssClass="form-control" Multiple="Multiple" onchange="ValidateFile()" />
                         <asp:Repeater runat="server" ID="tempPhotoRepeater">
                             <ItemTemplate>
-                                <asp:Image ID="Image1" runat="server" height="60" ImageUrl ='<%# CommonFunc.ImageUrl() + Container.DataItem.ToString() %>'/>
+                                <asp:Image ID="Image1" runat="server" height="60" ImageUrl ='<%# CommonFunc.ImageUrl() + DataBinder.Eval(Container, "DataItem.PhotoPath")%>'/>
                             </ItemTemplate>
                         </asp:Repeater>
                     </div>

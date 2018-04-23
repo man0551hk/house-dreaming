@@ -95,7 +95,6 @@
 					<nav class="cl-effect-1" id="cl-effect-1">
 						<ul class="nav navbar-nav">
                             <Menu:Header runat="server" ID="menu" />
-
 						</ul>
 					</nav>
 				</div>

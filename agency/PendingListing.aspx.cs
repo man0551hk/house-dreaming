@@ -110,6 +110,21 @@ public partial class agency_PendingListing : Agency_Page_Control
     }
     protected void checkoutBtn_Click(object sender, EventArgs e)
     {
+        int thisTotalPrice = 0;
+        foreach (RepeaterItem ri in pendingListRepeater.Items)
+        {
+            HiddenField listingIDHF = ri.FindControl("listingID") as HiddenField;
+            int listingID = Convert.ToInt32(listingIDHF.Value);
 
+            DropDownList durationDDL = ri.FindControl("durationDDL") as DropDownList;
+            int days = Convert.ToInt32(durationDDL.SelectedValue);
+
+            DropDownList classDDL = ri.FindControl("classDDL") as DropDownList;
+            int classType = Convert.ToInt32(classDDL.SelectedValue);
+
+
+
+            thisTotalPrice += (days * classType);
+        }
     }
 }

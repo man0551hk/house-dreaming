@@ -45,6 +45,8 @@
                             <tbody>
                         </HeaderTemplate>
                         <ItemTemplate>
+
+                            <asp:HiddenField runat="server" ID="listingID" Value ='<%# DataBinder.Eval(Container, "DataItem.listingID")%>' />
                             <tr>
                                 <th scope="row">
 
@@ -100,14 +102,14 @@
                         </tr>
                         <tr>
                             <td align ="right">
-                                <asp:Button runat="server" ID="checkoutBtn"  meta:resourceKey="publish" OnClick="checkoutBtn_Click"/>
+                                <asp:Button runat="server" ID="checkoutBtn"  meta:resourceKey="publish" OnClick="checkoutBtn_Click" CssClass="btn btn-primary"/>
                             </td>
                         </tr>
                     </table>
 
                 </ContentTemplate>
                 <Triggers>
-
+                    <asp:AsyncPostBackTrigger ControlID ="checkoutBtn_Click" EventName="Click" />
                 </Triggers>
             </asp:UpdatePanel>
 

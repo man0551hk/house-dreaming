@@ -124,7 +124,7 @@
     <value>忘記密碼</value>
   </data>
   <data name="heading.Text" xml:space="preserve">
-    <value>經紀系統</value>
+    <value>主控系統</value>
   </data>
   <data name="login.Text" xml:space="preserve">
     <value>登入</value>

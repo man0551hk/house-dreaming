@@ -120,9 +120,6 @@
   <data name="15days.Text" xml:space="preserve">
     <value>15 日</value>
   </data>
-  <data name="advanceClass.Text" xml:space="preserve">
-    <value>高级 每日 $2</value>
-  </data>
   <data name="breadcrumb.Text" xml:space="preserve">
     <value>暂存楼盘</value>
   </data>
@@ -149,6 +146,9 @@
   </data>
   <data name="duation.Text" xml:space="preserve">
     <value>刊登期限</value>
+  </data>
+  <data name="itemClass.Text" xml:space="preserve">
+    <value>{type} 每日 ${price}</value>
   </data>
   <data name="listingBreadcrumb.Text" xml:space="preserve">
     <value>楼盘管理</value>

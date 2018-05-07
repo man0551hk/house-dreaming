@@ -77,8 +77,7 @@
                                 </td>
                                 <td>
                                     <asp:DropDownList runat="server" ID="classDDL" CssClass="form-control" AutoPostBack="true"  OnSelectedIndexChanged ="classDDL_SelectedIndexChanged">
-                                        <asp:ListItem Value ="1" meta:resourceKey="regularClass"></asp:ListItem>
-                                        <asp:ListItem Value ="2" meta:resourceKey="advanceClass"></asp:ListItem>
+                                 
                                     </asp:DropDownList>
                                 </td>
                             </tr>
@@ -109,7 +108,7 @@
 
                 </ContentTemplate>
                 <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID ="checkoutBtn_Click" EventName="Click" />
+                    <asp:AsyncPostBackTrigger ControlID ="checkoutBtn" EventName="Click" />
                 </Triggers>
             </asp:UpdatePanel>
 

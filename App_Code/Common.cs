@@ -269,6 +269,34 @@ namespace HouseDreaming
         }
     }
 
+    public class Admin_Kernal
+    {
+        public static void SaveAdminIDCookie(int agencyID, string accesskey)
+        {
+            HttpCookie cookie1 = HttpContext.Current.Request.Cookies["House_Dreaming_Admin"];
+            try
+            {
+                if (cookie1 == null)
+                {
+                    HttpCookie objCookie = new HttpCookie("House_Dreaming_Admin");
+                    objCookie.Values.Add("adminID", agencyID.ToString());
+                    objCookie.Values.Add("accessKey", accesskey.ToString());
+                    objCookie.Expires = DateTime.Now.AddDays(30);
+                    HttpContext.Current.Response.Cookies.Add(objCookie);
+                }
+                else
+                {
+                    cookie1["adminID"] = agencyID.ToString();
+                    cookie1["accessKey"] = accesskey.ToString();
+                    HttpContext.Current.Response.Cookies.Add(cookie1);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+    }
 
 
     public class Agency_Page_Control : Page

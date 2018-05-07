@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="advanceClass.Text" xml:space="preserve">
-    <value>高級 每日 $2</value>
-  </data>
   <data name="breadcrumb.Text" xml:space="preserve">
     <value>暫存樓盤</value>
   </data>
@@ -149,6 +146,9 @@
   </data>
   <data name="duation.Text" xml:space="preserve">
     <value>刊登期限</value>
+  </data>
+  <data name="itemClass.Text" xml:space="preserve">
+    <value>{type} 每日 ${price}</value>
   </data>
   <data name="listingBreadcrumb.Text" xml:space="preserve">
     <value>樓盤管理</value>

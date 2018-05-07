@@ -296,6 +296,11 @@ public static class CommonFunc
         return ConfigurationManager.AppSettings["AgencyDomain"].ToString();
     }
 
+    public static string GetMasterDomain()
+    {
+        return ConfigurationManager.AppSettings["MasterDomain"].ToString();
+    }
+
     public static int AgencyLoginByAccessKey(int agencyID, string accesskey)
     {
         SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);

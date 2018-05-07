@@ -53,6 +53,38 @@ public partial class agency_PendingListing : Agency_Page_Control
         {
             DropDownList durationDDL = ri.FindControl("durationDDL") as DropDownList;
             DropDownList classDDL = ri.FindControl("classDDL") as DropDownList;
+
+            try
+            {
+                cn.Open();
+                SqlCommand cmd = new SqlCommand("GetAllListingTypeWithLang", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@lang", SqlDbType.Int).Value = Agency_Kernel.GetLanguageID();
+                DataSet ds = new DataSet();
+                SqlDataAdapter ad = new SqlDataAdapter(cmd);
+                ad.Fill(ds);
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ListItem li = new ListItem();
+                    string itemClass =  (string)GetLocalResourceObject("itemClass.Text");
+                    itemClass = itemClass.Replace("{type}", dr["typeName"].ToString()).Replace("{price}", dr["price"].ToString());
+
+
+                    li.Text = itemClass;
+                    li.Value = dr["price"].ToString() + "@" + dr["typeID"].ToString();
+                    classDDL.Items.Add(li);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                cn.Close();
+            }
+
+
             if (durationDDL != null)
             {
                 AsyncPostBackTrigger trigger1 = new AsyncPostBackTrigger();
@@ -73,7 +105,6 @@ public partial class agency_PendingListing : Agency_Page_Control
 
     protected void durationDDL_SelectedIndexChanged(object sender, EventArgs e)
     {
-        //testMsg.Text = "A";
         CalculatePrice();
         pendingPanel.Update();
     }
@@ -95,9 +126,9 @@ public partial class agency_PendingListing : Agency_Page_Control
                 int days = Convert.ToInt32(durationDDL.SelectedValue);
 
                 DropDownList classDDL = ri.FindControl("classDDL") as DropDownList;
-                int classType = Convert.ToInt32(classDDL.SelectedValue);
-
-                totalPrice += (days * classType);
+                string classType = classDDL.SelectedValue;
+                int price = Convert.ToInt32(classType.Substring(0, classType.IndexOf("@")));
+                totalPrice += (days * price);
             }
             //testMsg.Text = DateTime.Now.ToString();
             totalPriceLabel.Text = totalPrice.ToString();
@@ -111,9 +142,9 @@ public partial class agency_PendingListing : Agency_Page_Control
     protected void checkoutBtn_Click(object sender, EventArgs e)
     {
         int thisTotalPrice = 0;
-        foreach (RepeaterItem ri in pendingListRepeater.Items)
+        try
         {
-            try
+            foreach (RepeaterItem ri in pendingListRepeater.Items)
             {
                 HiddenField listingIDHF = ri.FindControl("listingID") as HiddenField;
                 int listingID = Convert.ToInt32(listingIDHF.Value);
@@ -122,18 +153,27 @@ public partial class agency_PendingListing : Agency_Page_Control
                 int days = Convert.ToInt32(durationDDL.SelectedValue);
 
                 DropDownList classDDL = ri.FindControl("classDDL") as DropDownList;
-                int classType = Convert.ToInt32(classDDL.SelectedValue);
+                string classType = classDDL.SelectedValue;
+                int price = Convert.ToInt32(classType.Substring(0, classType.IndexOf("@")));
+               
+                int listingType =   Convert.ToInt32(classType.Substring(classType.IndexOf("@") + 1, classType.Length - (classType.IndexOf("@") + 1)));
+                thisTotalPrice += (days * price);
 
-                thisTotalPrice += (days * classType);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            finally
-            { 
-            
+                SqlCommand cmd = new SqlCommand("UpdateListingDuration", cn);
+                cmd.Parameters.Add("@listingType", SqlDbType.Int).Value = listingType;
+                cmd.Parameters.Add("@expiryDate",  SqlDbType.DateTime).Value = DateTime.Now.AddDays(days);
+                cmd.Parameters.Add("@listingID", SqlDbType.Int).Value = listingID;
+                cmd.ExecuteNonQuery();
             }
         }
+        catch (Exception ex)
+        {
+
+        }
+        finally
+        {
+
+        }
+      
     }
 }

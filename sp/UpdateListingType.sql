@@ -18,23 +18,26 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-alter PROCEDURE [dbo].[GetPendingListing]
-@agencyID int,
-@lang int
+create PROCEDURE [dbo].[UpdateListingType]
+@nameEn varchar(20),
+@nameTc nvarchar(20),
+@nameSc nvarchar(20),
+@price int,
+@typeID int
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	select listingID, titleEn, titleTc, subTitleEn, subTitleTc, room, 
-	bathroom, size, netSize, 
-	listingType,
-	salePrice, rentPrice,
-	case when @lang = 1 then D.districtEn when @lang = 2 then D.districtTc when @lang = 3 then D.districtSc end as district
-	from houseRoot.listing L with (nolock)
-	inner join houseRoot.district D with (nolock) on L.districtID = D.districtID
-	where agencyID = @agencyID and paymentID is null
+	update houseRoot.listingType 
+	set typeNameEn = @nameEn,
+	typeNameTc = @nameTc,
+	typeNameSc = @nameSc,
+	price = @price
+	where 
+	typeID = @typeID
+	
 
 END
 GO

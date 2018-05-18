@@ -144,6 +144,7 @@ public partial class agency_PendingListing : Agency_Page_Control
         int thisTotalPrice = 0;
         try
         {
+            SqlCommand createPaymentCmd = new SqlCommand("", cn);
             foreach (RepeaterItem ri in pendingListRepeater.Items)
             {
                 HiddenField listingIDHF = ri.FindControl("listingID") as HiddenField;
@@ -165,6 +166,8 @@ public partial class agency_PendingListing : Agency_Page_Control
                 cmd.Parameters.Add("@listingID", SqlDbType.Int).Value = listingID;
                 cmd.ExecuteNonQuery();
             }
+
+            
         }
         catch (Exception ex)
         {

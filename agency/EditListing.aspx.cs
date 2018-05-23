@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using HouseDreaming;
+using System.IO;
 public partial class agency_EditListing : Agency_Page_Control
 {
     SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
@@ -119,6 +120,21 @@ public partial class agency_EditListing : Agency_Page_Control
             {
                 photoRepeater.DataSource = ds.Tables[1];
                 photoRepeater.DataBind();
+
+                foreach (RepeaterItem ri in photoRepeater.Items)
+                {
+                    Button deleteBtn = ri.FindControl("delPhotoButton") as Button;
+
+                    if (deleteBtn != null)
+                    {
+                        AsyncPostBackTrigger trigger1 = new AsyncPostBackTrigger();
+                        trigger1.ControlID = deleteBtn.UniqueID;
+                        trigger1.EventName = "Click";
+                        wallPanel.Triggers.Add(trigger1);
+                    }
+                }
+
+
                 availableImageCount = 7 - ds.Tables[1].Rows.Count;
                 if (availableImageCount < 0)
                 {
@@ -222,6 +238,30 @@ public partial class agency_EditListing : Agency_Page_Control
     //}
     protected void delPhotoButton_Click(object sender, EventArgs e)
     {
-
+        Button btn = sender as Button;
+        RepeaterItem ri = btn.NamingContainer as RepeaterItem;
+        HiddenField photoID = ri.FindControl("photoID") as HiddenField;
+        HiddenField photoPath = ri.FindControl("photoPath") as HiddenField;
+        if (File.Exists(Server.MapPath("/images/" + photoPath.Value)))
+        {
+            try
+            {
+                File.Delete(Server.MapPath("/images/" + photoPath.Value));
+                cn.Open();
+                SqlCommand cmd = new SqlCommand("DeletePhoto", cn);
+                cmd.Parameters.Add("@photoID", SqlDbType.Int).Value = Convert.ToInt32(photoID.Value);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            { 
+                
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+        LoadData(Convert.ToInt32(Request.QueryString["listingID"]));
+        wallPanel.Update();
     }
 }

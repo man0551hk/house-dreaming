@@ -186,14 +186,17 @@
                         <asp:Repeater runat="server" ID="photoRepeater">
                             <ItemTemplate>
                                 <asp:HiddenField runat="server" ID ="photoID" Value = '<%# DataBinder.Eval(Container, "DataItem.photoID")%>' />
+                                <asp:HiddenField runat="server" ID="photoPath" value ='<%# DataBinder.Eval(Container, "DataItem.photoPath")%>' />
                                 <asp:Image ID="Image1" runat="server" height="60" ImageUrl ='<%# CommonFunc.ImageUrl() + DataBinder.Eval(Container, "DataItem.photoPath")%>'/>
                                 <asp:Button runat="server" ID ="delPhotoButton" meta:resourceKey="removePhoto" OnClick ="delPhotoButton_Click" CssClass="btn btn-danger"/>
+                                 <hr />
                             </ItemTemplate>
                         </asp:Repeater>
                         <asp:Repeater runat="server" ID="availablePhotoRepeater">
                             <ItemTemplate>
                                 <asp:HiddenField runat="server" ID ="index" Value = '<%# Eval("index")%>' />
                                 <asp:FileUpload runat="server" ID ="fileUpload" />
+                                <hr />
                             </ItemTemplate>
                         </asp:Repeater>
                     </div>

@@ -162,7 +162,7 @@ public partial class agency_NewListing : Agency_Page_Control
                     bool successMove = CommonFunc.MoveLocalImage(Server.MapPath(tempPhotoList[i]), Server.MapPath(newFileName), Server.MapPath("../images/listing-images/" + Session["agencyID"] + "/" + listingID));
                     if (successMove)
                     {
-                        UpdatePhotoPath(photoID, "/images/listing-images/" + Session["agencyID"] + "/" + listingID + "/" + photoID + "." + ext, cn);
+                        UpdatePhotoPath(photoID, "listing-images/" + Session["agencyID"] + "/" + listingID + "/" + photoID + "." + ext, cn);
                     }
                 }
             }

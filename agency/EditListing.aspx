@@ -3,24 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 <script>
     var totalFile = 0;
-    function ValidateFile() {
-        var fileCount = document.getElementById('<%=imagesUploader.ClientID %>').files.length;
-        if (fileCount > 7) {
-            alert("Please select only 6 images..!!!");
-            return false;
-        }
-        else if (fileCount <= 0) {
-            totalFile += fileCount;
-            alert("Please select at least 1 image..!!!");
-            return false;
-        }
-        if (totalFile <= 7) {
-            document.getElementById('form1').submit();
-            //console.log(document.getElementById('<%=imagesUploader.ClientID %>').files);
-        }
 
-        return true;
-    }
 
     function ValidateListingType(source, args) {
         var chkListModules = document.getElementById('<%= listingTypeCb.ClientID %>');
@@ -200,10 +183,17 @@
 			            <asp:TextBox runat="server" ID="descTc" CssClass="form-control" TextMode="MultiLine" Height="180"></asp:TextBox>
 		            </div>
                     <div class="form-group">
-                        <asp:FileUpload runat ="server" ID="imagesUploader" CssClass="form-control" Multiple="Multiple" onchange="ValidateFile()" />
-                        <asp:Repeater runat="server" ID="tempPhotoRepeater">
+                        <asp:Repeater runat="server" ID="photoRepeater">
                             <ItemTemplate>
-                                <asp:Image ID="Image1" runat="server" height="60" ImageUrl ='<%# CommonFunc.ImageUrl() + DataBinder.Eval(Container, "DataItem.PhotoPath")%>'/>
+                                <asp:HiddenField runat="server" ID ="photoID" Value = '<%# DataBinder.Eval(Container, "DataItem.photoID")%>' />
+                                <asp:Image ID="Image1" runat="server" height="60" ImageUrl ='<%# CommonFunc.ImageUrl() + DataBinder.Eval(Container, "DataItem.photoPath")%>'/>
+                                <asp:Button runat="server" ID ="delPhotoButton" meta:resourceKey="removePhoto" OnClick ="delPhotoButton_Click" CssClass="btn btn-danger"/>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                        <asp:Repeater runat="server" ID="availablePhotoRepeater">
+                            <ItemTemplate>
+                                <asp:HiddenField runat="server" ID ="index" Value = '<%# Eval("index")%>' />
+                                <asp:FileUpload runat="server" ID ="fileUpload" />
                             </ItemTemplate>
                         </asp:Repeater>
                     </div>

@@ -3,5 +3,79 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:ScriptManager runat="server" ID="smanager"  EnablePageMethods="true" EnableViewState="true"/>
+<div class="row">
+	<ol class="breadcrumb">
+		<li><a href="<%=CommonFunc.GetAgencyDomain() %>home/">
+			<em class="fa fa-home"></em>
+		</a></li>
+		<li>
+            <a href="<%=CommonFunc.GetAgencyDomain() %>listing/"><asp:Literal ID="Literal6" runat = "server" meta:resourceKey="listingBreadcrumb"></asp:Literal></a>
+		</li>
+		<li class="active"><asp:Literal ID="Literal3" runat = "server" meta:resourceKey="breadcrumb"></asp:Literal></li>
+	</ol>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header"><asp:Literal ID="Literal1" runat = "server" meta:resourceKey="breadcrumb"></asp:Literal></h1>
+	</div>
+</div>
+<div class="panel panel-default">
+	<div class="panel-body">
+        <div class="col-md-12">
+            <asp:Repeater runat="server" ID ="listRepeater">
+                <HeaderTemplate>
+                    <table class="table table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col"><asp:Literal ID="Literal7" runat = "server" meta:resourceKey="title"></asp:Literal></th>
+                                <th scope="col"><asp:Literal ID="Literal8" runat = "server" meta:resourceKey="distict"></asp:Literal></th>
+                                <th scope="col"><asp:Literal ID="Literal2" runat = "server" meta:resourceKey="size"></asp:Literal></th>
+                                <th scope="col"><asp:Literal ID="Literal4" runat = "server" meta:resourceKey="price"></asp:Literal></th>
+                                <th scope="col"><asp:Literal ID="Literal5" runat = "server" meta:resourceKey="expiry"></asp:Literal></th>
+                                <th scope="col"><asp:Literal ID="Literal9" runat = "server" meta:resourceKey="classType"></asp:Literal></th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                </HeaderTemplate>
+                <ItemTemplate>
+
+                    <asp:HiddenField runat="server" ID="listingID" Value ='<%# DataBinder.Eval(Container, "DataItem.listingID")%>' />
+                    <tr>
+                        <th scope="row">
+
+                        </th>
+                        <td>
+                            <a href ="<%=CommonFunc.GetAgencyDomain() %>editlisting/<%# DataBinder.Eval(Container, "DataItem.listingID")%>/">
+                                <%# DataBinder.Eval(Container, "DataItem.titleEn")%><br />
+                                <%# DataBinder.Eval(Container, "DataItem.titleTc")%>
+                            </a>
+                        </td>
+                        <td>
+                            <%# DataBinder.Eval(Container, "DataItem.district")%>
+                        </td>
+                        <td>
+                            <%# DataBinder.Eval(Container, "DataItem.size")%> / <%# DataBinder.Eval(Container, "DataItem.netSize")%>
+                        </td>
+                        <td>
+                            $<%# DataBinder.Eval(Container, "DataItem.salePrice")%> / $<%# DataBinder.Eval(Container, "DataItem.rentPrice")%>
+                        </td>
+                        <td>
+                            <%# DataBinder.Eval(Container, "DataItem.expiryDate")%>
+                        </td>
+                        <td>
+                            <%# DataBinder.Eval(Container, "DataItem.listingClass")%>
+                        </td>
+                    </tr>
+                </ItemTemplate>
+                <FooterTemplate>
+                        </tbody>
+                    </table>
+                </FooterTemplate>
+            </asp:Repeater>
+        </div>
+    </div>
+</div>
 </asp:Content>
 

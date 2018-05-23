@@ -144,7 +144,6 @@ public partial class agency_PendingListing : Agency_Page_Control
         int thisTotalPrice = 0;
         try
         {
-            SqlCommand createPaymentCmd = new SqlCommand("", cn);
             foreach (RepeaterItem ri in pendingListRepeater.Items)
             {
                 HiddenField listingIDHF = ri.FindControl("listingID") as HiddenField;
@@ -159,23 +158,65 @@ public partial class agency_PendingListing : Agency_Page_Control
                
                 int listingType =   Convert.ToInt32(classType.Substring(classType.IndexOf("@") + 1, classType.Length - (classType.IndexOf("@") + 1)));
                 thisTotalPrice += (days * price);
-
-                SqlCommand cmd = new SqlCommand("UpdateListingDuration", cn);
-                cmd.Parameters.Add("@listingType", SqlDbType.Int).Value = listingType;
-                cmd.Parameters.Add("@expiryDate",  SqlDbType.DateTime).Value = DateTime.Now.AddDays(days);
-                cmd.Parameters.Add("@listingID", SqlDbType.Int).Value = listingID;
-                cmd.ExecuteNonQuery();
             }
 
-            
+            cn.Open();
+            SqlCommand createPaymentCmd = new SqlCommand("CreatePayment", cn);
+            createPaymentCmd.CommandType = CommandType.StoredProcedure;
+            createPaymentCmd.Parameters.Add("@agencyID", SqlDbType.Int).Value = Convert.ToInt32(Session["agencyID"]);
+            createPaymentCmd.Parameters.Add("@totalAmount", SqlDbType.Int).Value = thisTotalPrice;
+            //createPaymentCmd.Parameters.Add("@paymentID", SqlDbType.Int).Direction = ParameterDirection.Output;
+           
+            int paymentID = Convert.ToInt32( createPaymentCmd.ExecuteScalar());
+            testMsg.Text = paymentID.ToString();
+            foreach (RepeaterItem ri in pendingListRepeater.Items)
+            {
+                HiddenField listingIDHF = ri.FindControl("listingID") as HiddenField;
+                int listingID = Convert.ToInt32(listingIDHF.Value);
+
+                DropDownList durationDDL = ri.FindControl("durationDDL") as DropDownList;
+                int days = Convert.ToInt32(durationDDL.SelectedValue);
+
+                DropDownList classDDL = ri.FindControl("classDDL") as DropDownList;
+                string classType = classDDL.SelectedValue;
+                int price = Convert.ToInt32(classType.Substring(0, classType.IndexOf("@")));
+
+                int classID = Convert.ToInt32(classType.Substring(classType.IndexOf("@") + 1, classType.Length - (classType.IndexOf("@") + 1)));
+
+                SqlCommand cmd = new SqlCommand("UpdateListingDuration", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@classID", SqlDbType.Int).Value = classID;
+                cmd.Parameters.Add("@expiryDate", SqlDbType.DateTime).Value = DateTime.Now.AddDays(days);
+                cmd.Parameters.Add("@listingID", SqlDbType.Int).Value = listingID;
+                cmd.ExecuteNonQuery();
+
+                if (thisTotalPrice == 0)
+                {
+                    SqlCommand updatePaymentCmd = new SqlCommand("UpdateListingPayment", cn);
+                    updatePaymentCmd.CommandType = CommandType.StoredProcedure;
+                    updatePaymentCmd.Parameters.Add("@paymentID", SqlDbType.Int).Value = paymentID;
+                    updatePaymentCmd.Parameters.Add("@listingID", SqlDbType.Int).Value = listingID;
+                    updatePaymentCmd.ExecuteNonQuery();
+                }
+            }
+
+            if (thisTotalPrice > 0)
+            {
+                //to paypal
+            }
+            else
+            {
+                //to 
+                Response.Redirect(CommonFunc.GetAgencyDomain() + "viewlisting/");
+            }
         }
         catch (Exception ex)
         {
-
+            testMsg.Text = ex.Source + " " + ex.Message;
         }
         finally
         {
-
+            cn.Close();
         }
       
     }

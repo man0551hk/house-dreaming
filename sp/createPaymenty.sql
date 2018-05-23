@@ -1,31 +1,46 @@
-USE [ssql_housedreaming]
-GO
-
-/****** Object:  Table [dbo].[Listing_Residential]    Script Date: 04/25/2018 09:33:35 ******/
+-- ================================================
+-- Template generated from Template Explorer using:
+-- Create Procedure (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- This block of comments will not be included in
+-- the definition of the procedure.
+-- ================================================
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+alter PROCEDURE [dbo].[CreatePayment]
+@agencyID int,
+@totalAmount int,
+@paymentID int output 
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
 
-SET ANSI_PADDING ON
+	insert into houseRoot.payment
+	(agencyID, createDate, status, totalAmount, payDate)
+	values 
+	(@agencyID, GETDATE(), 0, @totalAmount, null)
+	
+	SELECT @paymentID = IDENT_CURRENT('payment') 
+	
+	if @totalAmount = 0
+	Begin
+		update houseRoot.payment set
+		status = 1, payDate = GETDATE()
+		where paymentID = @paymentID
+	End
+
+END
 GO
-
-CREATE TABLE [dbo].[payment](
-	[paymentID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-	[agencyID] [int] NULL,
-	[createDate] [DateTime] NULL,
-	[status] [int] NULL,
-	[totalAmount] [int] NOT NULL,
-	[payDate] [DateTime] NOT NULL
- CONSTRAINT [PK_payment] PRIMARY KEY CLUSTERED 
-(
-	[paymentID] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON, FILLFACTOR = 80) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-

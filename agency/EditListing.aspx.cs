@@ -10,7 +10,7 @@ using HouseDreaming;
 public partial class agency_EditListing : Agency_Page_Control
 {
     SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
-
+    public int availableImageCount = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
         titleEn.Attributes.Add("placeholder", (string)GetLocalResourceObject("buildingNameEn.Text"));
@@ -24,6 +24,7 @@ public partial class agency_EditListing : Agency_Page_Control
         youtubeID.Attributes.Add("placeholder", "Youtube ID");
         descEn.Attributes.Add("placeholder", (string)GetLocalResourceObject("descEn.Text"));
         descTc.Attributes.Add("placeholder", (string)GetLocalResourceObject("descTc.Text"));
+
 
         if (Request.QueryString["listingID"] != null)
         {
@@ -116,8 +117,25 @@ public partial class agency_EditListing : Agency_Page_Control
 
             if (ds.Tables[1] != null)
             {
-                tempPhotoRepeater.DataSource = ds.Tables[1];
-                tempPhotoRepeater.DataBind();
+                photoRepeater.DataSource = ds.Tables[1];
+                photoRepeater.DataBind();
+                availableImageCount = 7 - ds.Tables[1].Rows.Count;
+                if (availableImageCount < 0)
+                {
+                    availableImageCount = 0;
+                }
+                else
+                {
+                    List<availablePhoto> availablePhotoList = new List<availablePhoto>();
+                    for (int i = 0; i < availableImageCount; i++)
+                    {
+                        availablePhoto ap = new availablePhoto();
+                        ap.index = i + 1;
+                        availablePhotoList.Add(ap);
+                    }
+                    availablePhotoRepeater.DataSource = availablePhotoList;
+                    availablePhotoRepeater.DataBind();
+                }
             }
         }
         catch (Exception ex)
@@ -130,9 +148,80 @@ public partial class agency_EditListing : Agency_Page_Control
         }
     }
 
+    public class availablePhoto
+    {
+        public int index { set; get; }
+    }
+
     protected void saveBtn_Click(object sender, EventArgs e)
     {
 
     }
 
+    //public void uploadTemp()
+    //{
+    //    if (imagesUploader.HasFile)
+    //    {
+    //        //client = new AmazonS3Client(Amazon.RegionEndpoint.APSoutheast1);
+
+    //        HttpFileCollection uploadedFiles = Request.Files;
+
+    //        for (int i = 0; i < uploadedFiles.Count; i++)
+    //        {
+    //            HttpPostedFile userPostedFile = uploadedFiles[i];
+    //            try
+    //            {
+    //                string fileName = userPostedFile.FileName;
+    //                string fileExt = fileName.Substring(fileName.LastIndexOf(".") + 1, fileName.Length - (fileName.LastIndexOf(".") + 1));
+    //                if (userPostedFile.ContentLength > 0 && userPostedFile.ContentLength < 4096000 && (fileExt.ToLower() == "png" || fileExt.ToLower() == "jpeg" || fileExt.ToLower() == "jpg"))
+    //                {
+    //                    #region s3upload
+    //                    //byte[] fileData = null;
+    //                    //Stream fileStream = null;
+    //                    //int length = 0;
+
+    //                    //length = userPostedFile.ContentLength;
+    //                    //fileData = new byte[length + 1];
+    //                    //fileStream = userPostedFile.InputStream;
+    //                    //fileStream.Read(fileData, 0, length);
+    //                    //MemoryStream stream = new MemoryStream(fileData);
+
+    //                    //CommonFunc.UploadImageS3("client_temp/" + Session["agencyID"] + "/" + fileName, stream);
+    //                    bool uploadSuccess = CommonFunc.UploadLocal(Server.MapPath("../images/client-temp/" + Session["agencyID"]), fileName, userPostedFile);
+    //                    #endregion
+
+
+    //                    if (uploadSuccess)
+    //                    {
+    //                        List<string> tempPhotoList = new List<string>();
+    //                        if (Session["tempPhotoList"] != null)
+    //                        {
+    //                            tempPhotoList = (List<string>)Session["tempPhotoList"];
+    //                        }
+    //                        tempPhotoList.Add("../images/client-temp/" + Session["agencyID"] + "/" + fileName);
+    //                        Session["tempPhotoList"] = tempPhotoList;
+    //                    }
+    //                }
+    //            }
+    //            catch (Exception ex)
+    //            {
+    //                testMsg.Text = ex.Message;
+    //            }
+    //        }
+    //    }
+    //}
+
+    //public void ShowCurrentTemp()
+    //{
+    //    if (Session["tempPhotoList"] != null)
+    //    {
+    //        tempPhotoRepeater.DataSource = (List<string>)Session["tempPhotoList"];
+    //        tempPhotoRepeater.DataBind();
+    //    }
+
+    //}
+    protected void delPhotoButton_Click(object sender, EventArgs e)
+    {
+
+    }
 }

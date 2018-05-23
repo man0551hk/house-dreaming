@@ -159,6 +159,9 @@
   <data name="openRoom.Text" xml:space="preserve">
     <value>Open Room</value>
   </data>
+  <data name="removePhoto.Text" xml:space="preserve">
+    <value>Remove</value>
+  </data>
   <data name="rent.Text" xml:space="preserve">
     <value>Rent Listing</value>
   </data>

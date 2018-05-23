@@ -58,7 +58,7 @@ BEGIN
 	values 
 	(@districtID, @areaID, @buildingID, @titleEN, @titleTc, @titleSc,
 	@subTitleEn, @subTitleTc, @subTitleSc,
-	GETDATE(), null, GETDATE(), null, @room, @bathroom, @netSize, @size, @listingType, @salePrice, @rentPrice,
+	GETDATE(), null, dateadd(hour,8,getdate()), null, @room, @bathroom, @netSize, @size, @listingType, @salePrice, @rentPrice,
 	@descEn, @descTc, @descSc, @agencyID, @agencyCompanyID, @youTubeID, @keyword)
 	
 	SELECT IDENT_CURRENT('listing')

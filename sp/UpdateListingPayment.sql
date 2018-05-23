@@ -18,31 +18,18 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-alter PROCEDURE [dbo].[InsertAgency]
-@companyNameEn varchar(45), 
-@companyNameTc nvarchar(45), 
-@companyNameSc nvarchar(45), 
-@companyLicense varchar(15), 
-@agentNameEn varchar(45), 
-@agentNameTc nvarchar(45), 
-@agentNameSc nvarchar(45), 
-@agentLicense varchar(15), 
-@email varchar(60), 
-@mobile int, 
-@officePhone int, 
-@fax int, 
-@gender varchar(1)
+create PROCEDURE [dbo].[UpdateListingPayment]
+@paymentID int,
+@listingID int
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	insert into houseRoot.agency (companyNameEn, companyNameTc, companyNameSc, companyLicense, agentNameEn, agentNameTc, agentNameSc, agentLicense, email, mobile, officePhone, fax, gender, createDate)
-	values 
-	(@companyNameEn, @companyNameTc, @companyNameSc, 
-	@companyLicense, @agentNameEn, @agentNameTc, @agentNameSc, 
-	@agentLicense, @email, @mobile, @officePhone, @fax, @gender,dateadd(hour,8,getdate()))
+	update houseRoot.listing
+	set paymentID = @paymentID
+	where listingID = @listingID
 
 END
 GO

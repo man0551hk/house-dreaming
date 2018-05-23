@@ -18,31 +18,24 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-alter PROCEDURE [dbo].[InsertAgency]
-@companyNameEn varchar(45), 
-@companyNameTc nvarchar(45), 
-@companyNameSc nvarchar(45), 
-@companyLicense varchar(15), 
-@agentNameEn varchar(45), 
-@agentNameTc nvarchar(45), 
-@agentNameSc nvarchar(45), 
-@agentLicense varchar(15), 
-@email varchar(60), 
-@mobile int, 
-@officePhone int, 
-@fax int, 
-@gender varchar(1)
+alter PROCEDURE [dbo].[GetPaidListing]
+@agencyID int,
+@lang int
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	insert into houseRoot.agency (companyNameEn, companyNameTc, companyNameSc, companyLicense, agentNameEn, agentNameTc, agentNameSc, agentLicense, email, mobile, officePhone, fax, gender, createDate)
-	values 
-	(@companyNameEn, @companyNameTc, @companyNameSc, 
-	@companyLicense, @agentNameEn, @agentNameTc, @agentNameSc, 
-	@agentLicense, @email, @mobile, @officePhone, @fax, @gender,dateadd(hour,8,getdate()))
+	select listingID, titleEn, titleTc, subTitleEn, subTitleTc, room, 
+	bathroom, size, netSize, 
+	salePrice, rentPrice, L.expiryDate,
+	case when @lang = 1 then t.typeNameEn when @lang = 2 then t.typeNameTc when @lang = 3 then t.typeNameSc end as listingClass,	
+	case when @lang = 1 then D.districtEn when @lang = 2 then D.districtTc when @lang = 3 then D.districtSc end as district
+	from houseRoot.listing L with (nolock)
+	inner join houseRoot.district D with (nolock) on L.districtID = D.districtID
+	inner join houseRoot.listingType t with (nolock) on L.classID = t.typeID
+	where agencyID = @agencyID and paymentID is not null
 
 END
 GO

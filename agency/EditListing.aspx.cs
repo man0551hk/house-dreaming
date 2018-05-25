@@ -149,7 +149,7 @@ public partial class agency_EditListing : Agency_Page_Control
                 else
                 {
                     List<availablePhoto> availablePhotoList = new List<availablePhoto>();
-                    int displayOrder = availableImageCount;
+                    int displayOrder = ds.Tables[1].Rows.Count + 1;
                     for (int i = 0; i < availableImageCount; i++)
                     {
                         availablePhoto ap = new availablePhoto();
@@ -237,8 +237,8 @@ public partial class agency_EditListing : Agency_Page_Control
             }
         }
 
-        //LoadData(Convert.ToInt32(Request.QueryString["listingID"]));
-        //wallPanel.Update();
+        LoadData(Convert.ToInt32(Request.QueryString["listingID"]));
+        wallPanel.Update();
     }
 
     public void UploadPhoto(FileUpload imagesUploader, int displayOrder, int listingID)

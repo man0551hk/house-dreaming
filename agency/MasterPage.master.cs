@@ -17,14 +17,14 @@ public partial class agency_MasterPage : System.Web.UI.MasterPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["agencyID"] != null)
-        {
-            LoadAgencyProfile();
-        }
-        else
-        {
-            Response.Redirect(CommonFunc.GetAgencyDomain() + "Login/");
-        }
+        //if (Session["agencyID"] != null)
+        //{
+        //    LoadAgencyProfile();
+        //}
+        //else
+        //{
+        //    Response.Redirect(CommonFunc.GetAgencyDomain() + "Login/");
+        //}
         
     }
 

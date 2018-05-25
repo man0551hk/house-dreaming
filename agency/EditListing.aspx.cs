@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using HouseDreaming;
 using System.IO;
+using Microsoft.VisualBasic;
 public partial class agency_EditListing : Agency_Page_Control
 {
     SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
@@ -26,10 +27,17 @@ public partial class agency_EditListing : Agency_Page_Control
         descEn.Attributes.Add("placeholder", (string)GetLocalResourceObject("descEn.Text"));
         descTc.Attributes.Add("placeholder", (string)GetLocalResourceObject("descTc.Text"));
 
-
-        if (Request.QueryString["listingID"] != null)
+        if (!IsPostBack)
         {
-            LoadData(Convert.ToInt32(Request.QueryString["listingID"]));
+            if (Request.QueryString["listingID"] != null)
+            {
+                LoadData(Convert.ToInt32(Request.QueryString["listingID"]));
+            }
+            else
+            {
+                Response.Redirect(CommonFunc.GetAgencyDomain() + "viewlisting/");
+
+            }
         }
     }
 
@@ -37,6 +45,7 @@ public partial class agency_EditListing : Agency_Page_Control
     {
         try
         {
+            listID.Value = listingID.ToString();
             cn.Open();
             SqlCommand cmd = new SqlCommand("GetListingInfoForEdit", cn);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -48,6 +57,8 @@ public partial class agency_EditListing : Agency_Page_Control
             if (ds.Tables[0] != null && ds.Tables[0].Rows.Count == 1)
             {
                 DataRow dr = ds.Tables[0].Rows[0];
+                areaID.Value = dr["areaID"].ToString();
+                districtID.Value = dr["districtID"].ToString();
                 area.Text = dr["area"].ToString();
                 district.Text = dr["district"].ToString();
                 if (dr["titleEn"].ToString() != "")
@@ -121,19 +132,14 @@ public partial class agency_EditListing : Agency_Page_Control
                 photoRepeater.DataSource = ds.Tables[1];
                 photoRepeater.DataBind();
 
-                foreach (RepeaterItem ri in photoRepeater.Items)
+                for (int i = 0; i < photoRepeater.Items.Count; i++)
                 {
-                    Button deleteBtn = ri.FindControl("delPhotoButton") as Button;
-
-                    if (deleteBtn != null)
-                    {
-                        AsyncPostBackTrigger trigger1 = new AsyncPostBackTrigger();
-                        trigger1.ControlID = deleteBtn.UniqueID;
-                        trigger1.EventName = "Click";
-                        wallPanel.Triggers.Add(trigger1);
-                    }
+                    Button approveBtn = photoRepeater.Items[i].FindControl("delPhotoButton") as Button;
+                    AsyncPostBackTrigger trigger = new AsyncPostBackTrigger();
+                    trigger.ControlID = approveBtn.UniqueID;
+                    trigger.EventName = "Click";
+                    wallPanel.Triggers.Add(trigger);
                 }
-
 
                 availableImageCount = 7 - ds.Tables[1].Rows.Count;
                 if (availableImageCount < 0)
@@ -143,11 +149,13 @@ public partial class agency_EditListing : Agency_Page_Control
                 else
                 {
                     List<availablePhoto> availablePhotoList = new List<availablePhoto>();
+                    int displayOrder = availableImageCount;
                     for (int i = 0; i < availableImageCount; i++)
                     {
                         availablePhoto ap = new availablePhoto();
-                        ap.index = i + 1;
+                        ap.index = displayOrder;
                         availablePhotoList.Add(ap);
+                        displayOrder++;
                     }
                     availablePhotoRepeater.DataSource = availablePhotoList;
                     availablePhotoRepeater.DataBind();
@@ -171,7 +179,124 @@ public partial class agency_EditListing : Agency_Page_Control
 
     protected void saveBtn_Click(object sender, EventArgs e)
     {
+       
+        try
+        {
+            string keyword = CommonFunc.GetAreaName(Convert.ToInt32(areaID.Value)) + " " + CommonFunc.GetDistictName(Convert.ToInt32(districtID.Value));
+            cn.Open();
+            SqlCommand cmd = new SqlCommand("UpdateListing", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@listingID", SqlDbType.Int).Value = listID.Value;
+            cmd.Parameters.Add("@titleEn", SqlDbType.VarChar).Value = titleEn.Text;
+            cmd.Parameters.Add("@titleTc", SqlDbType.NVarChar).Value = titleTc.Text;
+            cmd.Parameters.Add("@titleSc", SqlDbType.NVarChar).Value = Microsoft.VisualBasic.Strings.StrConv(titleTc.Text, VbStrConv.SimplifiedChinese, 2052);
+            cmd.Parameters.Add("@subTitleEn", SqlDbType.VarChar).Value = subTitleEn.Text;
+            cmd.Parameters.Add("@subTitleTc", SqlDbType.NVarChar).Value = subTitleTc.Text;
+            cmd.Parameters.Add("@subTitleSc", SqlDbType.NVarChar).Value = Microsoft.VisualBasic.Strings.StrConv(subTitleTc.Text, VbStrConv.SimplifiedChinese, 2052);
+            cmd.Parameters.Add("@room", SqlDbType.Int).Value = Convert.ToInt32(roomDDL.SelectedValue);
+            cmd.Parameters.Add("@bathroom", SqlDbType.Int).Value = Convert.ToInt32(bathroomDDL.SelectedValue);
+            cmd.Parameters.Add("@netSize", SqlDbType.Int).Value = Convert.ToInt32(netSize.Text);
+            cmd.Parameters.Add("@size", SqlDbType.Int).Value = Convert.ToInt32(size.Text);
+            if (listingTypeCb.Items[0].Selected && listingTypeCb.Items[1].Selected)
+            {
+                cmd.Parameters.Add("@listingType", SqlDbType.Int).Value = 1;
+            }
+            else if (listingTypeCb.Items[0].Selected && !listingTypeCb.Items[1].Selected)
+            {
+                cmd.Parameters.Add("@listingType", SqlDbType.Int).Value = 1;
+            }
+            else if (!listingTypeCb.Items[0].Selected && listingTypeCb.Items[1].Selected)
+            {
+                cmd.Parameters.Add("@listingType", SqlDbType.Int).Value = 2;
+            }
+            cmd.Parameters.Add("@salePrice", SqlDbType.Int).Value = salePrice.Text != "" ? Convert.ToInt32(salePrice.Text) : 0;
+            cmd.Parameters.Add("@rentPrice", SqlDbType.Int).Value = rentPrice.Text != "" ? Convert.ToInt32(rentPrice.Text) : 0;
+            cmd.Parameters.Add("@descEn", SqlDbType.VarChar).Value = descEn.Text;
+            cmd.Parameters.Add("@descTc", SqlDbType.NVarChar).Value = descTc.Text;
+            cmd.Parameters.Add("@descSc", SqlDbType.NVarChar).Value = Microsoft.VisualBasic.Strings.StrConv(descTc.Text, VbStrConv.SimplifiedChinese, 2052);
+            cmd.Parameters.Add("@youTubeID", SqlDbType.VarChar).Value = youtubeID.Text;
+            cmd.Parameters.Add("@keyword", SqlDbType.NVarChar).Value = keyword + titleEn.Text + " " + titleTc.Text + " " + Microsoft.VisualBasic.Strings.StrConv(titleTc.Text, VbStrConv.SimplifiedChinese, 2052);
+            cmd.ExecuteNonQuery();
+        }
+        catch (Exception ex)
+        {
+            testMsg.Text = ex.Message;
+        }
+        finally
+        {
+            cn.Close();
+        }
 
+        foreach (RepeaterItem ri in availablePhotoRepeater.Items)
+        {
+            FileUpload fu = ri.FindControl("fileUpload") as FileUpload;
+            HiddenField index = ri.FindControl("index") as HiddenField;
+            if (fu.HasFile)
+            {
+                UploadPhoto(fu, Convert.ToInt32(index.Value), Convert.ToInt32(listID.Value));
+            }
+        }
+
+        //LoadData(Convert.ToInt32(Request.QueryString["listingID"]));
+        //wallPanel.Update();
+    }
+
+    public void UploadPhoto(FileUpload imagesUploader, int displayOrder, int listingID)
+    {
+        if (imagesUploader.HasFile)
+        {
+            HttpPostedFile userPostedFile = imagesUploader.PostedFile;
+            try
+            {
+                string fileName = userPostedFile.FileName;
+                string fileExt = fileName.Substring(fileName.LastIndexOf(".") + 1, fileName.Length - (fileName.LastIndexOf(".") + 1));
+                if (userPostedFile.ContentLength > 0 && userPostedFile.ContentLength < 4096000 && (fileExt.ToLower() == "png" || fileExt.ToLower() == "jpeg" || fileExt.ToLower() == "jpg"))
+                {
+                    bool uploadSuccess = CommonFunc.UploadLocal(Server.MapPath("../images/client-temp/" + Session["agencyID"]), fileName, userPostedFile);
+                    if (uploadSuccess)
+                    {
+                        int photoID = GetPhoto(listingID, displayOrder, cn);
+                        string newFileName = "../images/listing-images/" + Session["agencyID"] + "/" + listingID + "/" + photoID + "." + fileExt;
+                        bool successMove = CommonFunc.MoveLocalImage(Server.MapPath("../images/client-temp/" + Session["agencyID"]) + "/" + fileName, Server.MapPath(newFileName), Server.MapPath("../images/listing-images/" + Session["agencyID"] + "/" + listingID));
+                        if (successMove)
+                        {
+                            UpdatePhotoPath(photoID, "listing-images/" + Session["agencyID"] + "/" + listingID + "/" + photoID + "." + fileExt, cn);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                testMsg.Text = ex.Message;
+            }
+        }
+    }
+
+    private void UpdatePhotoPath(int photoID, string path, SqlConnection cn)
+    {
+        if (!string.IsNullOrEmpty(path))
+        {
+            SqlCommand cmd = new SqlCommand("UpdateListingPhotoPath", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@photoPath", SqlDbType.VarChar).Value = path;
+            cmd.Parameters.Add("@photoID", SqlDbType.Int).Value = photoID;
+            cmd.ExecuteNonQuery();
+        }
+    }
+
+
+    private int GetPhoto(int listingID, int displayOrder, SqlConnection cn)
+    {
+        int photoID = 0;
+        if (listingID > 0)
+        {
+            SqlCommand cmd = new SqlCommand(@"InsertListingPhoto", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@listingID", SqlDbType.Int).Value = listingID;
+            cmd.Parameters.Add("@displayOrder", SqlDbType.Int).Value = displayOrder;
+            photoID = Convert.ToInt32(cmd.ExecuteScalar());
+        }
+        return photoID;
     }
 
     //public void uploadTemp()
@@ -244,23 +369,26 @@ public partial class agency_EditListing : Agency_Page_Control
         HiddenField photoPath = ri.FindControl("photoPath") as HiddenField;
         if (File.Exists(Server.MapPath("/images/" + photoPath.Value)))
         {
-            try
-            {
-                File.Delete(Server.MapPath("/images/" + photoPath.Value));
-                cn.Open();
-                SqlCommand cmd = new SqlCommand("DeletePhoto", cn);
-                cmd.Parameters.Add("@photoID", SqlDbType.Int).Value = Convert.ToInt32(photoID.Value);
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            { 
-                
-            }
-            finally
-            {
-                cn.Close();
-            }
+            File.Delete(Server.MapPath("/images/" + photoPath.Value));
         }
+        try
+        {
+                
+            cn.Open();
+            SqlCommand cmd = new SqlCommand("DeletePhoto", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@photoID", SqlDbType.Int).Value = Convert.ToInt32(photoID.Value);
+            cmd.ExecuteNonQuery();
+        }
+        catch (Exception ex)
+        {
+            testMsg.Text = ex.Source;
+        }
+        finally
+        {
+            cn.Close();
+        }
+      
         LoadData(Convert.ToInt32(Request.QueryString["listingID"]));
         wallPanel.Update();
     }

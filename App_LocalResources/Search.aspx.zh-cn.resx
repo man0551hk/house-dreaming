@@ -153,6 +153,12 @@
   <data name="lbSearchBtn.Text" xml:space="preserve">
     <value>搜寻</value>
   </data>
+  <data name="lbSize.Text" xml:space="preserve">
+    <value>建筑面积</value>
+  </data>
+  <data name="lbUnit.Text" xml:space="preserve">
+    <value>平方呎</value>
+  </data>
   <data name="rent1.Text" xml:space="preserve">
     <value>0 - 1万</value>
   </data>

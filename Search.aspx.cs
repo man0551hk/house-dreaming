@@ -9,15 +9,20 @@ using HouseDreaming;
 using System.Data;
 using System.Data.Odbc;
 using System.Data.SqlClient;
+using System.Text;
 
 public partial class Search : Page_Control
 {
     SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["sq_housedreaming"].ConnectionString);
+    public int page = 1;
     protected void Page_Load(object sender, EventArgs e)
     {
+        topPrevLink.Attributes.Add("aria-label", "Previous");
+        topPrevLink.Text = "<span aria-hidden=\"true\">&laquo;</span><span class=\"sr-only\">Previous</span>";
         if (!IsPostBack)
         {
             LoadDistrict();
+            SearchListing("", "", "", "", "", "", "", 1);
         }
     }
 
@@ -51,8 +56,11 @@ public partial class Search : Page_Control
 
     protected void searchBtn_Click(object sender, EventArgs e)
     {
-        testMsg.Text = DateTime.Now.ToString();
+        Search();
+    }
 
+    public void Search()
+    {
         string keyword = keywordText.Text;
         string districtID = districtDDL.SelectedValue == "0" ? "" : districtDDL.SelectedValue;
         string room = roomDDL.SelectedValue == "0" ? "" : roomDDL.SelectedValue;
@@ -70,7 +78,7 @@ public partial class Search : Page_Control
             case "5": netsize = "between 800 and 1000";
                 break;
             case "6": netsize = ">= 1000";
-                break;  
+                break;
         }
         string listingType = listingTypeDDL.SelectedValue == "3" ? "" : listingTypeDDL.SelectedValue;
         string saleprice = "";
@@ -104,22 +112,152 @@ public partial class Search : Page_Control
         SearchListing(keyword, districtID, room, netsize, listingType, saleprice, rentprice, 1);
     }
 
+    public string prevLink = "";
+    public string nextLink = "";
+    public string originLink = "";
     private void SearchListing(string keyword, string districtID, string room, string netsize, string listingType, string saleprice, string rentprice, int page)
     {
-        testMsg.Text = keyword + " " + districtID + " " + room + " " + netsize + " " + listingType + " " + saleprice + " " + rentprice;
+        //testMsg.Text = keyword + " " + districtID + " " + room + " " + netsize + " " + listingType + " " + saleprice + " " + rentprice;
+        testMsg.Text = page.ToString();
         try
         {
             cn.Open();
-            string sql = @"select case @lang when 1 then titleEn when 2 then titleTc when 3 then titleSc end as title, 
-                     case @lang when 1 then districtEn when 2 then districtTc when 3 then districtSc end as district, 
-                     case @lang when 1 then areaEn when 2 then areaTc when 3 then areaSc end as area, 
-                            ";
+            SqlCommand cmd = new SqlCommand("SearchListing", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@lang", SqlDbType.Int).Value = CommonFunc.GetLanguageID();
+            cmd.Parameters.Add("@page", SqlDbType.Int).Value = page;
+            cmd.Parameters.Add("@pageSize", SqlDbType.Int).Value = 20; // default size
+            DataSet ds = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter(cmd);
+            ad.Fill(ds);
+            listingRepeater.DataSource = ds;
+            listingRepeater.DataBind();
+
+            if (ds.Tables[1] != null)
+            {
+                int totalListing = Convert.ToInt32(ds.Tables[1].Rows[0]["total"]);
+                int totalPage = totalListing / 20;
+                if (totalListing % 20 != 0)
+                {
+                    totalPage += 1;
+                }
+
+                for (int i = 1; i <= totalPage; i++)
+                { 
+                    
+                }
+                
+                if (page > 1)
+                { 
+
+                }
+            }
         }
         catch (Exception ex)
-        { }
+        {
+            testMsg.Text = ex.Source;
+        }
         finally
         {
             cn.Close();
         }
+    }
+
+    public string ConstructLayout(int classID, int listingID, string district, string title, string size, string netSize, string salePrice, string rentPrice, string companyName, string photoPath )
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("<div class = 'row'>");
+            sb.AppendLine("<div class = 'col-md-12'>");
+            if (classID == 3)
+            { 
+                sb.AppendLine("<div class = 'box' style ='width:100%'>");
+                sb.AppendLine("<div style = 'width:100%; padding:5px 5px 5px 5px;'>");
+                sb.AppendLine("<b>" +companyName + "</b>");
+                sb.AppendLine("</div>");
+                sb.AppendLine("<div style ='width:100%;'>");
+                if (!string.IsNullOrEmpty(photoPath))
+                {
+                    sb.AppendLine("<img src= '" + CommonFunc.ImageUrl() + photoPath + "' style ='width:100%'>");
+                }
+                else
+                {
+                    sb.AppendLine("<img src= '" + CommonFunc.ImageUrl() + "NoImage.jpg" + "' style ='width:100%'>");
+                }
+                sb.AppendLine("</div>");
+                sb.AppendLine("<div style =\"width:100%; padding:5px 5px 5px 5px;\">");
+                sb.AppendLine(title);
+                sb.AppendLine("<br />");
+                sb.AppendLine("<div style = \"font-size:80%\">");
+                if(!string.IsNullOrEmpty(salePrice))
+                {
+                    sb.AppendLine((string)GetLocalResourceObject("lbSalePrice.Text") + " $" + salePrice + " <br />");
+                }
+                if (!string.IsNullOrEmpty(salePrice))
+                {
+                    sb.AppendLine((string)GetLocalResourceObject("lbRentPrice.Text") + " $" + rentPrice + " <br />");
+                }   
+                if(!string.IsNullOrEmpty(size))
+                {
+                    sb.AppendLine((string)GetLocalResourceObject("lbSize.Text") + " " + size + " " + (string)GetLocalResourceObject("lbUnit.Text") + "<br />");
+                }
+                if (!string.IsNullOrEmpty(netSize))
+                {
+                    sb.AppendLine((string)GetLocalResourceObject("lbNetsize.Text") + " " + netSize + " " + (string)GetLocalResourceObject("lbUnit.Text") + "<br />");
+                }
+                sb.AppendLine("</div>");
+                sb.AppendLine("</div>");
+                sb.AppendLine("</div>");
+            }
+            else
+            {
+                sb.AppendLine("<div class =\"row onlyShadow\">");
+                sb.AppendLine("<div class=\"col-md-5 noPadding\">");
+
+                if (!string.IsNullOrEmpty(photoPath))
+                {
+                    sb.AppendLine("<img src= '" + CommonFunc.ImageUrl() + photoPath + "' style ='width:100%'>");
+                }
+                else
+                {
+                    sb.AppendLine("<img src= '" + CommonFunc.ImageUrl() + "NoImage.jpg" + "' style ='width:100%'>");
+                }
+                sb.AppendLine("</div>");
+                sb.AppendLine("<div class=\"col-md-7\" style = 'padding-top:5px;'>");
+                sb.AppendLine("<b>" +companyName + "</b>");
+                sb.AppendLine("<br />");
+                sb.AppendLine(title);
+                sb.AppendLine("<br />");
+                sb.AppendLine("<div style = \"font-size:80%\">");
+                if(!string.IsNullOrEmpty(salePrice))
+                {
+                    sb.AppendLine((string)GetLocalResourceObject("lbSalePrice.Text") + " $" + salePrice + " <br />");
+                }
+                if (!string.IsNullOrEmpty(salePrice))
+                {
+                    sb.AppendLine((string)GetLocalResourceObject("lbRentPrice.Text") + " $" + rentPrice + " <br />");
+                }   
+                if(!string.IsNullOrEmpty(size))
+                {
+                    sb.AppendLine((string)GetLocalResourceObject("lbSize.Text") + " " + size + " " + (string)GetLocalResourceObject("lbUnit.Text") + "<br />");
+                }
+                if (!string.IsNullOrEmpty(netSize))
+                {
+                    sb.AppendLine((string)GetLocalResourceObject("lbNetsize.Text") + " " + netSize + " " + (string)GetLocalResourceObject("lbUnit.Text") + "<br />");
+                }
+                sb.AppendLine("</div>");
+                sb.AppendLine("</div>");
+                sb.AppendLine("</div>");
+            }
+            sb.AppendLine("<br/>");
+            sb.AppendLine("</div>");
+        sb.AppendLine("</div>");
+        return sb.ToString();
+    }
+
+    protected void topPrevLink_Click(object sender, EventArgs e)
+    {
+        //testMsg.Text = "aaa";
+        page = page - 1;
+        Search();
     }
 }

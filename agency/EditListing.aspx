@@ -213,6 +213,7 @@
                         <asp:Repeater runat="server" ID="availablePhotoRepeater">
                             <ItemTemplate>
                                 <asp:HiddenField runat="server" ID ="index" Value = '<%# Eval("index")%>' />
+                                
                                 <asp:FileUpload runat="server" ID ="fileUpload" />
                                 <hr />
                             </ItemTemplate>
@@ -221,7 +222,6 @@
                     <asp:Button runat="server" ID="saveBtn" meta:resourceKey="saveBtn" OnClick="saveBtn_Click" CssClass="btn btn-block btn-primary"/>
                 </ContentTemplate>
                 <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="saveBtn" EventName="click" />
                 </Triggers>
             </asp:UpdatePanel>
         </div>

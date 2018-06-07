@@ -153,6 +153,12 @@
   <data name="lbSearchBtn.Text" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="lbSize.Text" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="lbUnit.Text" xml:space="preserve">
+    <value>sq. ft.</value>
+  </data>
   <data name="rent1.Text" xml:space="preserve">
     <value>0 - 10000</value>
   </data>

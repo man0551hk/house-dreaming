@@ -11,7 +11,7 @@ public partial class admin_MasterPage : System.Web.UI.MasterPage
     {
         if (Session["adminID"] == null)
         {
-            Response.Redirect(CommonFunc.GetMasterDomain() + "Login/");
+            //Response.Redirect(CommonFunc.GetMasterDomain() + "Login/");
         }
     }
 }

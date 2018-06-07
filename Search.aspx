@@ -23,6 +23,15 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" EnableViewState="true"/>
     <div class="container">
+
+        <asp:UpdatePanel runat="server" ID="searchResultPanel" UpdateMode="Conditional" ChildrenAsTriggers="true">
+            <ContentTemplate>
+                <asp:UpdateProgress runat="server" ID ="searchResultUpdateProgress">
+                    <ProgressTemplate>
+                    Loading...
+                    </ProgressTemplate>
+                </asp:UpdateProgress>
+
         <div class="row" style="padding-top:5px;">
             <div class ="col-md-3" style="padding-bottom:5px;">
                 <b><asp:Literal ID="Literal7" runat = "server" meta:resourceKey="lbKeyword"></asp:Literal></b>
@@ -101,17 +110,19 @@
         </div>
         <div class ="row">
             <div class ="col-md-9">
+
                 <nav aria-label="Page navigation example">
                   <ul class="pagination">
                     <li class="page-item">
-                      <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                      </a>
+                        <asp:LinkButton runat="server" ID ="topPrevLink" CssClass="page-link" OnClick="topPrevLink_Click"></asp:LinkButton>
                     </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <asp:Repeater runat="server" ID ="topPageRepeater">
+                        <ItemTemplate>
+                            <li class="page-item">
+                                <asp:LinkButton runat="server" ID="page" CssClass="page-link" Text=""></asp:LinkButton>
+                            </li>
+                        </ItemTemplate>
+                    </asp:Repeater>
                     <li class="page-item">
                       <a class="page-link" href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
@@ -123,110 +134,40 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class ="box" style ="width:100%">
-                            <div style ="width:100%; padding:5px 5px 5px 5px;">
-                                <b>Company Name / Logo</b>
-                            </div>
-                           <div style ="width:100%;">
-                                <img src= "/images/5.jpg" style ="width:100%">
-                            </div>
-                            <div style ="width:100%; padding:5px 5px 5px 5px;"">
-                                Listing Title
-                                <br />
-                                Price
-                                <br />
-                                Information
-                            </div>
-                        </div>
-                        <br />
-                        <div class ="row onlyShadow">
-                            <div class="col-md-5 noPadding">
-                                 <img src= "/images/8.jpg" style ="width:100%">
-                            </div>
-                            <div class="col-md-7">
-                                <b>Company Name / Logo</b>
-                                <br />
-                                Listing Title
-                                <br />
-                                Price
-                                <br />
-                                Information
-                            </div>
-              
-                        </div>
-                        <asp:UpdatePanel runat="server" ID="searchResultPanel" UpdateMode="Conditional">
-                            <ContentTemplate>
-                                <asp:UpdateProgress runat="server" ID ="searchResultUpdateProgress">
-                                    <ProgressTemplate>
-                                        Loading...
-                                    </ProgressTemplate>
-                                </asp:UpdateProgress>
+
                                 <asp:TextBox runat="server" ID="testMsg" Visible="false"></asp:TextBox>
                                 <asp:Repeater runat ="server" ID ="listingRepeater">
                                     <ItemTemplate>
-                                       <div style ="width:100%">
-                                           <div style ="width:100%; height:50px;">
-                                               Logo + Title
-                                           </div>
-                                       </div>
+                                        <%# ConstructLayout(
+                                        Convert.ToInt32(DataBinder.Eval(Container, "DataItem.classID")),
+                                        Convert.ToInt32(DataBinder.Eval(Container, "DataItem.listingID")),
+                                        DataBinder.Eval(Container, "DataItem.district").ToString(),
+                                        DataBinder.Eval(Container, "DataItem.title").ToString(),
+                                        DataBinder.Eval(Container, "DataItem.size").ToString(),
+                                        DataBinder.Eval(Container, "DataItem.netSize").ToString(),
+                                        DataBinder.Eval(Container, "DataItem.salePrice").ToString(),
+                                        DataBinder.Eval(Container, "DataItem.rentPrice").ToString(),
+                                        DataBinder.Eval(Container, "DataItem.companyName").ToString(),
+                                        DataBinder.Eval(Container, "DataItem.photoPath").ToString())%>
+
+                           
                                     </ItemTemplate>
                                 </asp:Repeater>                            
-                            </ContentTemplate>
-                            <Triggers>
-                                <asp:AsyncPostBackTrigger ControlID ="searchBtn" />
-                            </Triggers>
-                        </asp:UpdatePanel>
 
-    <%--<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img class="d-block w-100" src ="/images/2.jpg" alt="First slide">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src ="/images/3.jpg" alt="Second slide">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src ="/images/4.jpg" alt="Third slide">
-        </div>
-      </div>
-      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-    </div>--%>
                     </div>
                 </div>
-
-
-
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination">
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                      </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                      <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
             </div>
+
             <div class ="col-md-3">
 
             </div>
         </div>
+            </ContentTemplate>
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID ="searchBtn" EventName ="Click" />
+                <asp:AsyncPostBackTrigger ControlID ="topPrevLink" EventName ="Click"/>
+            </Triggers>
+        </asp:UpdatePanel>
     </div>
     <script>
             $('.carousel').carousel()

@@ -104,6 +104,7 @@
 			<li class="active"><a href="index.html"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
             <li><a href="<%=CommonFunc.GetMasterDomain() %>admin/Agency.aspx"><em class="fa fa-calendar">&nbsp;</em> New Agency</a></li>
             <li><a href="<%=CommonFunc.GetMasterDomain() %>admin/ListingType.aspx"><em class="fa fa-calendar">&nbsp;</em> Listing Type</a></li>
+            <li><a href="<%=CommonFunc.GetMasterDomain() %>admin/Building.aspx"><em class="fa fa-calendar">&nbsp;</em> Building</a></li>
 			<%--<li><a href="widgets.html"><em class="fa fa-calendar">&nbsp;</em> Widgets</a></li>
 			<li><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Charts</a></li>
 			<li><a href="elements.html"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>

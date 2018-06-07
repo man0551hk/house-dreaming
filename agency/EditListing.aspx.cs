@@ -36,7 +36,21 @@ public partial class agency_EditListing : Agency_Page_Control
             else
             {
                 Response.Redirect(CommonFunc.GetAgencyDomain() + "viewlisting/");
+            }
+        }
 
+        if (IsPostBack)
+        {
+
+            foreach (RepeaterItem ri in availablePhotoRepeater.Items)
+            {
+                FileUpload fu = ri.FindControl("fileUpload") as FileUpload;
+                HiddenField index = ri.FindControl("index") as HiddenField;
+                testMsg.Text = fu.HasFile.ToString() + "aaa";
+                //if (fu.HasFile)
+                //{
+                //    UploadPhoto(fu, Convert.ToInt32(index.Value), Convert.ToInt32(listID.Value));
+                //}
             }
         }
     }
@@ -159,6 +173,12 @@ public partial class agency_EditListing : Agency_Page_Control
                     }
                     availablePhotoRepeater.DataSource = availablePhotoList;
                     availablePhotoRepeater.DataBind();
+
+                    foreach(RepeaterItem avaRepeaterItem in availablePhotoRepeater.Items)
+                    {
+                        FileUpload fu = avaRepeaterItem.FindControl("fileUpload") as FileUpload;
+                       // ScriptManager.GetCurrent(this).RegisterPostBackControl(fu);
+                    }
                 }
             }
         }
@@ -179,7 +199,6 @@ public partial class agency_EditListing : Agency_Page_Control
 
     protected void saveBtn_Click(object sender, EventArgs e)
     {
-       
         try
         {
             string keyword = CommonFunc.GetAreaName(Convert.ToInt32(areaID.Value)) + " " + CommonFunc.GetDistictName(Convert.ToInt32(districtID.Value));
@@ -229,16 +248,17 @@ public partial class agency_EditListing : Agency_Page_Control
 
         foreach (RepeaterItem ri in availablePhotoRepeater.Items)
         {
-            FileUpload fu = ri.FindControl("fileUpload") as FileUpload;
-            HiddenField index = ri.FindControl("index") as HiddenField;
-            if (fu.HasFile)
-            {
-                UploadPhoto(fu, Convert.ToInt32(index.Value), Convert.ToInt32(listID.Value));
-            }
+            //FileUpload fu = ri.FindControl("fileUpload") as FileUpload;
+            //HiddenField index = ri.FindControl("index") as HiddenField;
+            //testMsg.Text = fu.HasFile.ToString();
+            //if (fu.HasFile)
+            //{
+            //    UploadPhoto(fu, Convert.ToInt32(index.Value), Convert.ToInt32(listID.Value));
+            //}
         }
 
-        LoadData(Convert.ToInt32(Request.QueryString["listingID"]));
-        wallPanel.Update();
+        //LoadData(Convert.ToInt32(listID.Value));
+        //wallPanel.Update();
     }
 
     public void UploadPhoto(FileUpload imagesUploader, int displayOrder, int listingID)

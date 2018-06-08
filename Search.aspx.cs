@@ -142,9 +142,10 @@ public partial class Search : Page_Control
                     totalPage += 1;
                 }
 
+                List<int> pageList = new List<int>();
                 for (int i = 1; i <= totalPage; i++)
-                { 
-                    
+                {
+                    pageList.Add(i);
                 }
                 
                 if (page > 1)
